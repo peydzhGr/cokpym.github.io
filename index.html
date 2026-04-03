@@ -377,10 +377,249 @@
                 padding: 2rem 1.5rem;
             }
         }
+
+        /* Marquee */
+.marquee-container {
+    background: linear-gradient(90deg, var(--neon-pink), var(--purple), var(--cyan));
+    padding: 0.5rem 0;
+    overflow: hidden;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+}
+
+.marquee {
+    display: flex;
+    animation: marquee 10s linear infinite;
+    white-space: nowrap;
+}
+
+.marquee span {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 0 10px #fff;
+    padding: 0 2rem;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Terminal Section */
+.about-terminal {
+    padding: 5rem 2rem;
+    background: var(--dark);
+    display: flex;
+    justify-content: center;
+}
+
+.terminal-window {
+    width: 100%;
+    max-width: 700px;
+    background: #0a0a0a;
+    border: 2px solid var(--cyan);
+    border-radius: 10px;
+    box-shadow: 
+        0 0 30px rgba(0, 255, 255, 0.3),
+        inset 0 0 30px rgba(0, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.terminal-header {    background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid var(--cyan);
+}
+
+.terminal-buttons {
+    display: flex;
+    gap: 8px;
+    margin-right: 1rem;
+}
+
+.terminal-btn {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+}
+
+.terminal-btn.red { background: #ff5f56; }
+.terminal-btn.yellow { background: #ffbd2e; }
+.terminal-btn.green { background: #27ca40; }
+
+.terminal-title {
+    font-family: 'Courier Prime', monospace;
+    color: var(--silver);
+    font-size: 0.9rem;
+}
+
+.terminal-body {
+    padding: 2rem;
+    font-family: 'Courier Prime', monospace;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.terminal-line {
+    margin: 0.5rem 0;
+    color: var(--cyan);
+}
+
+.prompt {
+    color: var(--neon-pink);
+    margin-right: 0.5rem;
+}
+
+.command {
+    color: #fff;
+}
+.terminal-output {
+    color: #ddd;
+    padding-left: 1rem;
+    border-left: 2px solid var(--purple);
+    margin: 0.5rem 0;
+}
+
+.counter {
+    color: var(--neon-pink);
+    font-weight: 700;
+    animation: counter-glitch 0.1s infinite;
+}
+
+@keyframes counter-glitch {
+    0%, 90%, 100% { opacity: 1; }
+    95% { opacity: 0.5; }
+}
+
+.glitch-word {
+    color: var(--neon-pink);
+    position: relative;
+    display: inline-block;
+}
+
+.cursor {
+    animation: blink 1s infinite;
+    color: var(--cyan);
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* Y2K Buttons */
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+}
+
+.y2k-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));    border: 2px solid var(--cyan);
+    border-radius: 10px;
+    text-decoration: none;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    overflow: hidden;
+    transition: all 0.3s;
+    box-shadow: 
+        0 0 20px rgba(0, 255, 255, 0.3),
+        inset 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.y2k-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+}
+
+.y2k-btn:hover::before {
+    left: 100%;
+}
+
+.y2k-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 
+        0 0 40px rgba(0, 255, 255, 0.6),
+        0 0 80px rgba(157, 0, 255, 0.4);
+}
+
+.y2k-btn.email { border-color: var(--neon-pink); }
+.y2k-btn.email:hover { 
+    box-shadow: 
+        0 0 40px rgba(255, 20, 147, 0.6),
+        0 0 80px rgba(157, 0, 255, 0.4);
+}
+
+.y2k-btn.telegram { border-color: #0088cc; }
+.y2k-btn.telegram:hover { 
+    box-shadow: 
+        0 0 40px rgba(0, 136, 204, 0.6),
+        0 0 80px rgba(0, 255, 255, 0.4);
+}
+.y2k-btn.poetry { border-color: var(--purple); }
+.y2k-btn.poetry:hover { 
+    box-shadow: 
+        0 0 40px rgba(157, 0, 255, 0.6),
+        0 0 80px rgba(255, 20, 147, 0.4);
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+}
+
+.btn-text {
+    position: relative;
+    z-index: 1;
+}
+
+.btn-glitch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--cyan);
+    opacity: 0;
+    z-index: 0;
+    transition: opacity 0.3s;
+}
+
+.y2k-btn:hover .btn-glitch {
+    opacity: 0.2;
+}
     </style>
 </head>
 <body>
 
+    <!-- Marquee Line -->
+    <div class="marquee-container">
+        <div class="marquee">
+            <span>✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦</span>
+        </div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="particle" style="top: 10%; left: 10%; font-size: 20px;">✦</div>
+    ...
     <!-- Floating Particles -->
     <div class="particle" style="top: 10%; left: 10%; font-size: 20px;">✦</div>
     <div class="particle" style="top: 20%; right: 15%; font-size: 15px;">⋆</div>
@@ -431,7 +670,49 @@
             </div>
         </div>
     </section>
-
+<!-- About Section - Terminal Style -->
+<section class="about-terminal">
+    <div class="terminal-window">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <span class="terminal-btn red"></span>
+                <span class="terminal-btn yellow"></span>
+                <span class="terminal-btn green"></span>
+            </div>
+            <span class="terminal-title">cokpym@petersburg:~</span>
+        </div>
+        <div class="terminal-body">
+            <p class="terminal-line">
+                <span class="prompt">root@cokpym:~$</span>
+                <span class="command">cat poems_count.txt</span>
+            </p>
+            <p class="terminal-output">
+                Выпущено стихов: <span class="counter" id="poems-counter">27</span>
+            </p>
+            <br>
+            <p class="terminal-line">
+                <span class="prompt">root@cokpym:~$</span>
+                <span class="command">whereami</span>
+            </p>
+            <p class="terminal-output">
+                📍 Живу в Санкт-Петербурге
+            </p>
+            <br>
+            <p class="terminal-line">
+                <span class="prompt">root@cokpym:~$</span>
+                <span class="command">love.exe</span>
+            </p>
+            <p class="terminal-output">
+                ❤️ Люблю <span class="glitch-word" id="love-word">жизнь</span>
+            </p>
+            <br>
+            <p class="terminal-line">
+                <span class="prompt">root@cokpym:~$</span>
+                <span class="cursor">_</span>
+            </p>
+        </div>
+    </div>
+                                                       </section>
     <!-- Poetry Section -->
     <section class="poetry">
         <div class="poem-container">
@@ -519,6 +800,30 @@
                 }, 300);
             });
         });
+
+        // Counter animation
+const counter = document.getElementById('poems-counter');
+const words = ['жизнь', 'луну', 'тебя', 'питер'];
+const glitchWord = document.getElementById('love-word');
+
+// Random counter
+setInterval(() => {
+    const randomNum = Math.floor(Math.random() * 90) + 10;
+    counter.textContent = randomNum;
+    setTimeout(() => {
+        counter.textContent = '27';
+    }, 100);
+}, 2000);
+
+// Glitch word
+setInterval(() => {
+    const randomWord = words[Math.floor(Math.random() * words.length)];
+    glitchWord.textContent = randomWord;
+    glitchWord.style.animation = 'glitch 0.3s';
+    setTimeout(() => {
+        glitchWord.style.animation = '';
+    }, 300);
+}, 1500);
     </script>
 </body>
   </html>
