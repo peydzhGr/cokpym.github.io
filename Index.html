@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✦ COKPYM ✦ digital soul</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Orbitron:wght@400;700;900&family=Rubik+Glitch&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-pink: #FF1493;
+            --cyan: #00FFFF;
+            --purple: #9D00FF;
+            --silver: #C0C0C0;
+            --dark: #0a0a0a;
+        }
+
+        body {
+            background: var(--dark);
+            color: #fff;
+            font-family: 'Courier Prime', monospace;
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+
+        /* CRT Effect */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.25) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: scanline 8s linear infinite;
+        }
+
+        @keyframes scanline {            0% { transform: translateY(0); }
+            100% { transform: translateY(10px); }
+        }
+
+        /* Floating particles */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            animation: float 10s infinite;
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-100vh) rotate(360deg); }
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a001a 0%, #001a1a 100%);
+        }
+
+        .hero-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            filter: contrast(1.2) saturate(1.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .glitch-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 8vw, 5rem);
+            font-weight: 900;
+            text-transform: uppercase;            position: relative;
+            color: var(--cyan);
+            text-shadow: 
+                0 0 10px var(--cyan),
+                0 0 20px var(--cyan),
+                0 0 40px var(--purple);
+            animation: glitch 3s infinite;
+            letter-spacing: 0.1em;
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch-text::before {
+            animation: glitch-1 2s infinite;
+            color: var(--neon-pink);
+            z-index: -1;
+        }
+
+        .glitch-text::after {
+            animation: glitch-2 2s infinite;
+            color: var(--purple);
+            z-index: -2;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0); }
+            92% { transform: translate(-5px, 5px); }
+            94% { transform: translate(5px, -5px); }
+            96% { transform: translate(-5px, -5px); }
+            98% { transform: translate(5px, 5px); }
+        }
+
+        @keyframes glitch-1 {
+            0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+            20% { clip-path: inset(20% 0 30% 0); transform: translate(-5px, 5px); }
+            40% { clip-path: inset(50% 0 20% 0); transform: translate(5px, -5px); }
+            60% { clip-path: inset(10% 0 60% 0); transform: translate(-5px, 0); }
+            80% { clip-path: inset(80% 0 5% 0); transform: translate(5px, 0); }
+        }
+
+        @keyframes glitch-2 {
+            0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }            20% { clip-path: inset(60% 0 10% 0); transform: translate(5px, -5px); }
+            40% { clip-path: inset(30% 0 40% 0); transform: translate(-5px, 5px); }
+            60% { clip-path: inset(10% 0 80% 0); transform: translate(5px, 0); }
+            80% { clip-path: inset(40% 0 30% 0); transform: translate(-5px, 0); }
+        }
+
+        .tagline {
+            font-family: 'Rubik Glitch', cursive;
+            font-size: 1.5rem;
+            color: var(--neon-pink);
+            margin-top: 1rem;
+            opacity: 0.8;
+            animation: flicker 2s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 5rem 2rem;
+            position: relative;
+            background: linear-gradient(180deg, var(--dark) 0%, #1a001a 100%);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .photo-card {
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--cyan);
+            box-shadow: 
+                0 0 20px rgba(0, 255, 255, 0.3),
+                inset 0 0 20px rgba(0, 255, 255, 0.1);
+            transition: all 0.3s;
+            aspect-ratio: 3/4;
+            background: #000;
+        }
+
+        .photo-card:nth-child(even) {            border-color: var(--neon-pink);
+            box-shadow: 
+                0 0 20px rgba(255, 20, 147, 0.3),
+                inset 0 0 20px rgba(255, 20, 147, 0.1);
+            transform: translateY(50px);
+        }
+
+        .photo-card:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 
+                0 0 40px rgba(0, 255, 255, 0.6),
+                0 0 80px rgba(157, 0, 255, 0.4);
+            z-index: 100;
+        }
+
+        .photo-card:nth-child(even):hover {
+            box-shadow: 
+                0 0 40px rgba(255, 20, 147, 0.6),
+                0 0 80px rgba(157, 0, 255, 0.4);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(30%) contrast(1.2);
+            transition: all 0.3s;
+        }
+
+        .photo-card:hover img {
+            filter: grayscale(0%) contrast(1.4) saturate(1.5);
+        }
+
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 2rem 1rem 1rem;
+            font-size: 0.9rem;
+            color: var(--cyan);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .photo-card:hover .photo-overlay {
+            opacity: 1;
+        }
+        /* Poetry Section */
+        .poetry {
+            padding: 5rem 2rem;
+            position: relative;
+            background: var(--dark);
+        }
+
+        .poem-container {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid var(--purple);
+            box-shadow: 
+                0 0 30px rgba(157, 0, 255, 0.2),
+                inset 0 0 30px rgba(157, 0, 255, 0.05);
+            position: relative;
+            backdrop-filter: blur(10px);
+            transform: rotate(-1deg);
+            transition: transform 0.3s;
+        }
+
+        .poem-container:nth-child(even) {
+            transform: rotate(1deg);
+            border-color: var(--neon-pink);
+            box-shadow: 
+                0 0 30px rgba(255, 20, 147, 0.2),
+                inset 0 0 30px rgba(255, 20, 147, 0.05);
+        }
+
+        .poem-container:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        .poem-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--cyan);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        .poem-text {
+            font-size: 1.1rem;
+            line-height: 2;
+            text-align: center;
+            color: #ddd;
+        }
+        .poem-text span {
+            display: block;
+            margin: 0.5rem 0;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Decorative elements */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--cyan);
+            animation: sparkle 3s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            text-align: center;
+            background: linear-gradient(180deg, #1a001a 0%, var(--dark) 100%);
+            border-top: 2px solid var(--cyan);
+            font-size: 0.9rem;
+            color: var(--silver);
+        }
+
+        .social-links {
+            margin: 2rem 0;
+        }
+
+        .social-links a {
+            color: var(--neon-pink);            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .social-links a:hover {
+            color: var(--cyan);
+            transform: translateY(-5px) rotate(360deg);
+            text-shadow: 0 0 20px var(--cyan);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--neon-pink), var(--purple));
+            border-radius: 6px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            .poem-container {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Particles -->
+    <div class="particle" style="top: 10%; left: 10%; font-size: 20px;">✦</div>
+    <div class="particle" style="top: 20%; right: 15%; font-size: 15px;">⋆</div>
+    <div class="particle" style="top: 60%; left: 5%; font-size: 25px;">★</div>
+    <div class="particle" style="top: 80%; right: 10%; font-size: 18px;">✧</div>
+    <div class="particle" style="top: 40%; left: 90%; font-size: 22px;">•</div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div style="position: absolute; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255,20,147,0.2), rgba(0,255,255,0.2));"></div>        <div class="hero-content">
+            <h1 class="glitch-text" data-text="COKPYM">COKPYM</h1>
+            <p class="tagline">✦ digital soul // red october ✦</p>
+            <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.7; letter-spacing: 0.3em;">
+                САНКТ-ПЕТЕРБУРГ
+            </p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery">
+        <div class="gallery-grid">
+            <div class="photo-card">
+                <img src="photo1.jpg" alt="Petersburg waterfront">
+                <div class="photo-overlay">
+                    <span>✦ peterburg ✦</span>
+                    <span>волнуется и ждёт</span>
+                </div>
+            </div>
+            
+            <div class="photo-card">
+                <img src="photo2.jpg" alt="Winter mood">
+                <div class="photo-overlay">
+                    <span>⋆ winter palace ⋆</span>
+                    <span>пестрит телами</span>
+                </div>
+            </div>
+            
+            <div class="photo-card">
+                <img src="photo3.jpg" alt="Frozen landscape">
+                <div class="photo-overlay">
+                    <span>★ мосты ★</span>
+                    <span>свёл к утру</span>
+                </div>
+            </div>
+            
+            <div class="photo-card">
+                <img src="photo4.jpg" alt="Petersburg architecture">
+                <div class="photo-overlay">
+                    <span>✧ северная столица ✧</span>
+                    <span>красное небо</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Poetry Section -->
+    <section class="poetry">
+        <div class="poem-container">
+            <h2 class="poem-title">✦ Красное небо ✦</h2>            <div class="poem-text">
+                <span>Красное небо сгущается над нами.</span>
+                <span>Петербург волнуется и вскоре ждёт известие.</span>
+                <span>Зимний дворец пестрит телами</span>
+                <span>«Род Петра закончит красная бестия».</span>
+            </div>
+        </div>
+
+        <div class="poem-container">
+            <h2 class="poem-title">⋆ Анастасия ⋆</h2>
+            <div class="poem-text">
+                <span>Всё прошлое – перегорело в миг,</span>
+                <span>Прошу простить меня, мессия</span>
+                <span>За всю любовь, что подчеркнул из книг,</span>
+                <span>Я вынужден отправить вас, Анастасия.</span>
+            </div>
+        </div>
+
+        <div class="poem-container">
+            <h2 class="poem-title">★ Сон разума ★</h2>
+            <div class="poem-text">
+                <span>Бездушный – из уст изящных фраза прозвучит.</span>
+                <span>Но сон разума – рождает лишь чудовищ.</span>
+                <span>Корабль вечно не гудит,</span>
+                <span>Прощениями престол не восстановишь.</span>
+            </div>
+        </div>
+
+        <div class="poem-container">
+            <h2 class="poem-title">✧ Красный октябрь ✧</h2>
+            <div class="poem-text">
+                <span>И Петербург к утру свои уж свёл мосты,</span>
+                <span>«Синица в небе стала журавлём»,</span>
+                <span>Обещания – лишь часть той пустоты,</span>
+                <span>Что явной стала красным октябрём.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="mailto:Peydzh.work@yandex.ru">EMAIL</a>
+            <a href="https://t.me/cokpym" target="_blank">TELEGRAM</a>
+            <a href="https://stihi.ru/peydzh" target="_blank">СТИХИ.РУ</a>
+        </div>
+        <p>✦ © 2026 // digital dreams forever ✦</p>
+        <p style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.6;">
+            санкт-петербург • красное небо
+        </p>    </footer>
+
+    <script>
+        // Random sparkles on click
+        document.addEventListener('click', (e) => {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = e.pageX + 'px';
+            sparkle.style.top = e.pageY + 'px';
+            sparkle.style.background = ['#FF1493', '#00FFFF', '#9D00FF'][Math.floor(Math.random() * 3)];
+            sparkle.style.boxShadow = `0 0 10px ${sparkle.style.background}`;
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 3000);
+        });
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const particles = document.querySelectorAll('.particle');
+            particles.forEach((p, i) => {
+                const speed = 0.5 + (i * 0.1);
+                p.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled}deg)`;
+            });
+        });
+
+        // Glitch effect on hover for photos
+        const cards = document.querySelectorAll('.photo-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.animation = 'glitch 0.3s';
+                setTimeout(() => {
+                    card.style.animation = '';
+                }, 300);
+            });
+        });
+    </script>
+</body>
+  </html>
