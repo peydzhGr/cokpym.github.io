@@ -1,829 +1,228 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✦ COKPYM ✦ digital soul</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Orbitron:wght@400;700;900&family=Rubik+Glitch&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --neon-pink: #FF1493;
-            --cyan: #00FFFF;
-            --purple: #9D00FF;
-            --silver: #C0C0C0;
-            --dark: #0a0a0a;
-        }
-
-        body {
-            background: var(--dark);
-            color: #fff;
-            font-family: 'Courier Prime', monospace;
-            overflow-x: hidden;
-            cursor: crosshair;
-        }
-
-        /* CRT Effect */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                rgba(18, 16, 16, 0) 50%, 
-                rgba(0, 0, 0, 0.25) 50%
-            );
-            background-size: 100% 4px;
-            pointer-events: none;
-            z-index: 9999;
-            animation: scanline 8s linear infinite;
-        }
-
-        @keyframes scanline {            0% { transform: translateY(0); }
-            100% { transform: translateY(10px); }
-        }
-
-        /* Floating particles */
-        .particle {
-            position: fixed;
-            pointer-events: none;
-            animation: float 10s infinite;
-            opacity: 0.6;
-            z-index: 1;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-100vh) rotate(360deg); }
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background: linear-gradient(135deg, #1a001a 0%, #001a1a 100%);
-        }
-
-        .hero-bg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.4;
-            filter: contrast(1.2) saturate(1.5);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .glitch-text {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2rem, 8vw, 5rem);
-            font-weight: 900;
-            text-transform: uppercase;            position: relative;
-            color: var(--cyan);
-            text-shadow: 
-                0 0 10px var(--cyan),
-                0 0 20px var(--cyan),
-                0 0 40px var(--purple);
-            animation: glitch 3s infinite;
-            letter-spacing: 0.1em;
-        }
-
-        .glitch-text::before,
-        .glitch-text::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .glitch-text::before {
-            animation: glitch-1 2s infinite;
-            color: var(--neon-pink);
-            z-index: -1;
-        }
-
-        .glitch-text::after {
-            animation: glitch-2 2s infinite;
-            color: var(--purple);
-            z-index: -2;
-        }
-
-        @keyframes glitch {
-            0%, 90%, 100% { transform: translate(0); }
-            92% { transform: translate(-5px, 5px); }
-            94% { transform: translate(5px, -5px); }
-            96% { transform: translate(-5px, -5px); }
-            98% { transform: translate(5px, 5px); }
-        }
-
-        @keyframes glitch-1 {
-            0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
-            20% { clip-path: inset(20% 0 30% 0); transform: translate(-5px, 5px); }
-            40% { clip-path: inset(50% 0 20% 0); transform: translate(5px, -5px); }
-            60% { clip-path: inset(10% 0 60% 0); transform: translate(-5px, 0); }
-            80% { clip-path: inset(80% 0 5% 0); transform: translate(5px, 0); }
-        }
-
-        @keyframes glitch-2 {
-            0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }            20% { clip-path: inset(60% 0 10% 0); transform: translate(5px, -5px); }
-            40% { clip-path: inset(30% 0 40% 0); transform: translate(-5px, 5px); }
-            60% { clip-path: inset(10% 0 80% 0); transform: translate(5px, 0); }
-            80% { clip-path: inset(40% 0 30% 0); transform: translate(-5px, 0); }
-        }
-
-        .tagline {
-            font-family: 'Rubik Glitch', cursive;
-            font-size: 1.5rem;
-            color: var(--neon-pink);
-            margin-top: 1rem;
-            opacity: 0.8;
-            animation: flicker 2s infinite;
-        }
-
-        @keyframes flicker {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 0.3; }
-        }
-
-        /* Gallery Section */
-        .gallery {
-            padding: 5rem 2rem;
-            position: relative;
-            background: linear-gradient(180deg, var(--dark) 0%, #1a001a 100%);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-        }
-
-        .photo-card {
-            position: relative;
-            overflow: hidden;
-            border: 3px solid var(--cyan);
-            box-shadow: 
-                0 0 20px rgba(0, 255, 255, 0.3),
-                inset 0 0 20px rgba(0, 255, 255, 0.1);
-            transition: all 0.3s;
-            aspect-ratio: 3/4;
-            background: #000;
-        }
-
-        .photo-card:nth-child(even) {            border-color: var(--neon-pink);
-            box-shadow: 
-                0 0 20px rgba(255, 20, 147, 0.3),
-                inset 0 0 20px rgba(255, 20, 147, 0.1);
-            transform: translateY(50px);
-        }
-
-        .photo-card:hover {
-            transform: scale(1.05) rotate(2deg);
-            box-shadow: 
-                0 0 40px rgba(0, 255, 255, 0.6),
-                0 0 80px rgba(157, 0, 255, 0.4);
-            z-index: 100;
-        }
-
-        .photo-card:nth-child(even):hover {
-            box-shadow: 
-                0 0 40px rgba(255, 20, 147, 0.6),
-                0 0 80px rgba(157, 0, 255, 0.4);
-        }
-
-        .photo-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(30%) contrast(1.2);
-            transition: all 0.3s;
-        }
-
-        .photo-card:hover img {
-            filter: grayscale(0%) contrast(1.4) saturate(1.5);
-        }
-
-        .photo-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            padding: 2rem 1rem 1rem;
-            font-size: 0.9rem;
-            color: var(--cyan);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .photo-card:hover .photo-overlay {
-            opacity: 1;
-        }
-        /* Poetry Section */
-        .poetry {
-            padding: 5rem 2rem;
-            position: relative;
-            background: var(--dark);
-        }
-
-        .poem-container {
-            max-width: 800px;
-            margin: 3rem auto;
-            padding: 3rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px solid var(--purple);
-            box-shadow: 
-                0 0 30px rgba(157, 0, 255, 0.2),
-                inset 0 0 30px rgba(157, 0, 255, 0.05);
-            position: relative;
-            backdrop-filter: blur(10px);
-            transform: rotate(-1deg);
-            transition: transform 0.3s;
-        }
-
-        .poem-container:nth-child(even) {
-            transform: rotate(1deg);
-            border-color: var(--neon-pink);
-            box-shadow: 
-                0 0 30px rgba(255, 20, 147, 0.2),
-                inset 0 0 30px rgba(255, 20, 147, 0.05);
-        }
-
-        .poem-container:hover {
-            transform: rotate(0deg) scale(1.02);
-        }
-
-        .poem-title {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--cyan);
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-        }
-
-        .poem-text {
-            font-size: 1.1rem;
-            line-height: 2;
-            text-align: center;
-            color: #ddd;
-        }
-        .poem-text span {
-            display: block;
-            margin: 0.5rem 0;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Decorative elements */
-        .sparkle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--cyan);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--cyan);
-            animation: sparkle 3s infinite;
-        }
-
-        @keyframes sparkle {
-            0%, 100% { opacity: 0; transform: scale(0); }
-            50% { opacity: 1; transform: scale(1); }
-        }
-
-        /* Footer */
-        footer {
-            padding: 3rem 2rem;
-            text-align: center;
-            background: linear-gradient(180deg, #1a001a 0%, var(--dark) 100%);
-            border-top: 2px solid var(--cyan);
-            font-size: 0.9rem;
-            color: var(--silver);
-        }
-
-        .social-links {
-            margin: 2rem 0;
-        }
-
-        .social-links a {
-            color: var(--neon-pink);            text-decoration: none;
-            margin: 0 1rem;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-            display: inline-block;
-        }
-
-        .social-links a:hover {
-            color: var(--cyan);
-            transform: translateY(-5px) rotate(360deg);
-            text-shadow: 0 0 20px var(--cyan);
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--dark);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--neon-pink), var(--purple));
-            border-radius: 6px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-            .poem-container {
-                padding: 2rem 1.5rem;
-            }
-        }
-
-        /* Marquee */
-.marquee-container {
-    background: linear-gradient(90deg, var(--neon-pink), var(--purple), var(--cyan));
-    padding: 0.5rem 0;
-    overflow: hidden;
-    border-top: 2px solid #fff;
-    border-bottom: 2px solid #fff;
-}
-
-.marquee {
-    display: flex;
-    animation: marquee 10s linear infinite;
-    white-space: nowrap;
-}
-
-.marquee span {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: #fff;
-    text-shadow: 0 0 10px #fff;
-    padding: 0 2rem;
-}
-
-@keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-/* Terminal Section */
-.about-terminal {
-    padding: 5rem 2rem;
-    background: var(--dark);
-    display: flex;
-    justify-content: center;
-}
-
-.terminal-window {
-    width: 100%;
-    max-width: 700px;
-    background: #0a0a0a;
-    border: 2px solid var(--cyan);
-    border-radius: 10px;
-    box-shadow: 
-        0 0 30px rgba(0, 255, 255, 0.3),
-        inset 0 0 30px rgba(0, 255, 255, 0.1);
-    overflow: hidden;
-}
-
-.terminal-header {    background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
-    padding: 0.8rem 1rem;
-    display: flex;
-    align-items: center;
-    border-bottom: 2px solid var(--cyan);
-}
-
-.terminal-buttons {
-    display: flex;
-    gap: 8px;
-    margin-right: 1rem;
-}
-
-.terminal-btn {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-}
-
-.terminal-btn.red { background: #ff5f56; }
-.terminal-btn.yellow { background: #ffbd2e; }
-.terminal-btn.green { background: #27ca40; }
-
-.terminal-title {
-    font-family: 'Courier Prime', monospace;
-    color: var(--silver);
-    font-size: 0.9rem;
-}
-
-.terminal-body {
-    padding: 2rem;
-    font-family: 'Courier Prime', monospace;
-    font-size: 1rem;
-    line-height: 1.8;
-}
-
-.terminal-line {
-    margin: 0.5rem 0;
-    color: var(--cyan);
-}
-
-.prompt {
-    color: var(--neon-pink);
-    margin-right: 0.5rem;
-}
-
-.command {
-    color: #fff;
-}
-.terminal-output {
-    color: #ddd;
-    padding-left: 1rem;
-    border-left: 2px solid var(--purple);
-    margin: 0.5rem 0;
-}
-
-.counter {
-    color: var(--neon-pink);
-    font-weight: 700;
-    animation: counter-glitch 0.1s infinite;
-}
-
-@keyframes counter-glitch {
-    0%, 90%, 100% { opacity: 1; }
-    95% { opacity: 0.5; }
-}
-
-.glitch-word {
-    color: var(--neon-pink);
-    position: relative;
-    display: inline-block;
-}
-
-.cursor {
-    animation: blink 1s infinite;
-    color: var(--cyan);
-}
-
-@keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
-}
-
-/* Y2K Buttons */
-.social-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    margin: 2rem 0;
-}
-
-.y2k-btn {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 2rem;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));    border: 2px solid var(--cyan);
-    border-radius: 10px;
-    text-decoration: none;
-    color: #fff;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    overflow: hidden;
-    transition: all 0.3s;
-    box-shadow: 
-        0 0 20px rgba(0, 255, 255, 0.3),
-        inset 0 0 20px rgba(0, 255, 255, 0.1);
-}
-
-.y2k-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    transition: left 0.5s;
-}
-
-.y2k-btn:hover::before {
-    left: 100%;
-}
-
-.y2k-btn:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 
-        0 0 40px rgba(0, 255, 255, 0.6),
-        0 0 80px rgba(157, 0, 255, 0.4);
-}
-
-.y2k-btn.email { border-color: var(--neon-pink); }
-.y2k-btn.email:hover { 
-    box-shadow: 
-        0 0 40px rgba(255, 20, 147, 0.6),
-        0 0 80px rgba(157, 0, 255, 0.4);
-}
-
-.y2k-btn.telegram { border-color: #0088cc; }
-.y2k-btn.telegram:hover { 
-    box-shadow: 
-        0 0 40px rgba(0, 136, 204, 0.6),
-        0 0 80px rgba(0, 255, 255, 0.4);
-}
-.y2k-btn.poetry { border-color: var(--purple); }
-.y2k-btn.poetry:hover { 
-    box-shadow: 
-        0 0 40px rgba(157, 0, 255, 0.6),
-        0 0 80px rgba(255, 20, 147, 0.4);
-}
-
-.btn-icon {
-    font-size: 1.2rem;
-}
-
-.btn-text {
-    position: relative;
-    z-index: 1;
-}
-
-.btn-glitch {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--cyan);
-    opacity: 0;
-    z-index: 0;
-    transition: opacity 0.3s;
-}
-
-.y2k-btn:hover .btn-glitch {
-    opacity: 0.2;
-}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COKPYM // blog</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Orbitron:wght@400;700;900&family=Rubik+Glitch&display=swap');
+:root{--neon-pink:#FF1493;--cyan:#00FFFF;--purple:#9D00FF;--silver:#C0C0C0;--dark:#0a0a0a;--terminal-bg:#0d0d0d;--yt:#FF0033;--tg:#229ED9;--st:#FF1493;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--dark);color:#fff;font-family:'Courier Prime',monospace;overflow-x:hidden;cursor:crosshair;}
+body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,.25) 50%);background-size:100% 4px;pointer-events:none;z-index:9999;}
+.marquee-container{position:fixed;top:0;width:100%;background:linear-gradient(90deg,var(--neon-pink),var(--purple),var(--cyan));padding:.5rem 0;overflow:hidden;border-bottom:2px solid #fff;z-index:1001;}
+.marquee{display:flex;animation:marquee 15s linear infinite;white-space:nowrap;}
+.marquee span{font-family:'Orbitron',sans-serif;font-size:.9rem;font-weight:700;color:#fff;text-shadow:0 0 10px #fff;padding:0 2rem;}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+nav{position:fixed;top:36px;width:100%;padding:1rem 2rem;background:rgba(10,10,10,.95);border-bottom:1px solid var(--cyan);z-index:1000;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(5px);}
+nav .logo{font-family:'Orbitron',sans-serif;color:var(--cyan);font-weight:700;letter-spacing:.2em;text-decoration:none;}
+nav ul{list-style:none;display:flex;gap:2rem;}
+nav a{color:var(--silver);text-decoration:none;font-size:.9rem;text-transform:uppercase;transition:color .3s;}
+nav a:hover{color:var(--neon-pink);}
+.hero{height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a001a 0%,#001a1a 100%);margin-top:36px;}
+.hero-content{text-align:center;z-index:10;}
+.glitch-text{font-family:'Orbitron',sans-serif;font-size:clamp(3rem,10vw,6rem);font-weight:900;color:var(--cyan);text-shadow:0 0 10px var(--cyan),0 0 40px var(--purple);animation:glitch 3s infinite;letter-spacing:.1em;}
+.tagline{font-family:'Rubik Glitch',cursive;font-size:1.5rem;color:var(--neon-pink);margin-top:1rem;animation:flicker 2s infinite;}
+.location{margin-top:2rem;font-size:.9rem;opacity:.7;letter-spacing:.3em;text-transform:uppercase;}
+@keyframes glitch{0%,90%,100%{transform:translate(0)}92%{transform:translate(-5px,5px)}94%{transform:translate(5px,-5px)}}
+@keyframes flicker{0%,100%{opacity:.8}50%{opacity:.3}}
+.xp-window{background:#ECE9D8;border:2px solid #0054E3;border-radius:8px 8px 0 0;box-shadow:0 0 30px rgba(0,84,227,.3),5px 5px 15px rgba(0,0,0,.5);overflow:hidden;margin-bottom:4rem;color:#000;}
+.xp-title-bar{background:linear-gradient(180deg,#0058E6 0%,#3A8BFF 10%,#0054E3 90%,#003399 100%);padding:.6rem 1rem;display:flex;align-items:center;justify-content:space-between;border-radius:6px 6px 0 0;}
+.xp-title{font-family:Tahoma,sans-serif;color:#fff;font-size:.9rem;font-weight:bold;text-shadow:1px 1px 2px rgba(0,0,0,.5);display:flex;align-items:center;gap:.5rem;}
+.xp-controls{display:flex;gap:4px;}
+.xp-btn{width:22px;height:22px;border:1px solid #fff;border-radius:3px;background:linear-gradient(180deg,#fff 0%,#ECE9D8 100%);display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#000;}
+.xp-btn.close{background:linear-gradient(180deg,#E81123 0%,#C41E3A 100%);color:#fff;}
+.xp-body{padding:2rem;background:#ECE9D8;}
+.xp-content{font-family:Tahoma,sans-serif;font-size:1rem;line-height:1.8;color:#000;}
+.xp-content h2{font-size:1.5rem;margin-bottom:1rem;color:#0054E3;}
+.xp-content p{margin-bottom:1rem;}
+.xp-content ul{margin-left:2rem;margin-bottom:1rem;}
+.xp-content li{margin-bottom:.5rem;}
+.terminal-window{background:var(--terminal-bg);border:2px solid var(--cyan);border-radius:8px;box-shadow:0 0 30px rgba(0,255,255,.2),inset 0 0 30px rgba(0,255,255,.05);overflow:hidden;margin-bottom:4rem;}
+.terminal-header{background:linear-gradient(180deg,#2a2a2a,#1a1a1a);padding:.8rem 1rem;display:flex;align-items:center;border-bottom:2px solid var(--cyan);}
+.terminal-buttons{display:flex;gap:8px;margin-right:1rem;}
+.terminal-btn{width:14px;height:14px;border-radius:50%;}
+.terminal-btn.red{background:#ff5f56}.terminal-btn.yellow{background:#ffbd2e}.terminal-btn.green{background:#27ca40}
+.terminal-title{font-family:'Courier Prime',monospace;color:var(--silver);font-size:.9rem;}
+.terminal-body{padding:2rem;}
+.terminal-line{margin:.8rem 0;color:var(--cyan);font-size:1rem;line-height:1.6;}
+.prompt{color:var(--neon-pink);margin-right:.5rem;}
+.command{color:#fff;}
+.terminal-output{color:#ddd;padding-left:1rem;border-left:2px solid var(--purple);margin:.5rem 0 1rem;line-height:1.6;}
+section{padding:4rem 2rem;max-width:1200px;margin:0 auto;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;}
+.about-img{width:100%;aspect-ratio:3/4;object-fit:cover;border:2px solid var(--cyan);box-shadow:0 0 20px rgba(0,255,255,.3);filter:grayscale(30%) contrast(1.2);}
+.counter{color:var(--neon-pink);font-weight:700;}
+.glitch-word{color:var(--neon-pink);}
+.y2k-btn{display:inline-block;padding:.8rem 1.5rem;background:transparent;border:2px solid var(--neon-pink);color:var(--neon-pink);text-decoration:none;font-family:'Orbitron',sans-serif;font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;transition:all .3s;box-shadow:0 0 10px rgba(255,20,147,.3);margin-top:1rem;}
+.y2k-btn:hover{background:var(--neon-pink);color:var(--dark);box-shadow:0 0 30px rgba(255,20,147,.8);}
+.nav-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1.5rem;}
+.nav-card{display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:1.8rem 1rem;text-decoration:none;color:#fff;background:rgba(255,255,255,.03);border:2px solid var(--cyan);border-radius:6px;transition:all .3s;position:relative;overflow:hidden;}
+.nav-card .nav-icon{font-size:2rem;line-height:1;text-shadow:0 0 12px currentColor;}
+.nav-card .nav-label{font-family:'Orbitron',sans-serif;font-size:.95rem;letter-spacing:.15em;text-transform:uppercase;}
+.nav-card .nav-url{font-family:'Courier Prime',monospace;font-size:.75rem;color:var(--silver);opacity:.7;}
+.nav-card:hover{transform:translateY(-5px) scale(1.03);background:rgba(255,255,255,.07);}
+.nav-card.yt{border-color:var(--yt)}.nav-card.yt .nav-icon{color:var(--yt)}.nav-card.yt:hover{box-shadow:0 0 30px rgba(255,0,51,.6);}
+.nav-card.tg{border-color:var(--tg)}.nav-card.tg .nav-icon{color:var(--tg)}.nav-card.tg:hover{box-shadow:0 0 30px rgba(34,158,217,.6);}
+.nav-card.st{border-color:var(--st)}.nav-card.st .nav-icon{color:var(--st)}.nav-card.st:hover{box-shadow:0 0 30px rgba(255,20,147,.6);}
+.hobbies-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin-bottom:2rem;}
+.hobby-card{background:rgba(0,255,255,.03);border:1px solid var(--cyan);padding:1.5rem;transition:all .3s;}
+.hobby-card:hover{transform:translateY(-3px);box-shadow:0 0 15px rgba(0,255,255,.3);}
+.hobby-card h3{font-family:'Orbitron',sans-serif;color:var(--cyan);margin-bottom:.8rem;font-size:1rem;}
+.hobby-card p{color:var(--silver);font-size:.85rem;line-height:1.5;}
+.photo-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:1200px;margin:0 auto 4rem;padding:0 2rem;}
+.gallery-img{width:100%;aspect-ratio:1;object-fit:cover;border:2px solid var(--cyan);box-shadow:0 0 15px rgba(0,255,255,.3);filter:grayscale(30%) contrast(1.2);transition:all .3s;}
+.gallery-img:hover{filter:grayscale(0%) contrast(1.4) saturate(1.5);transform:scale(1.05);box-shadow:0 0 30px rgba(0,255,255,.6);}
+.sparkle{position:absolute;width:4px;height:4px;border-radius:50%;pointer-events:none;z-index:50;animation:sparkle 1s forwards;}
+@keyframes sparkle{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(3)}}
+footer{padding:3rem 2rem;text-align:center;background:linear-gradient(180deg,#1a001a 0%,var(--dark) 100%);border-top:2px solid var(--cyan);font-size:.9rem;color:var(--silver);}
+footer a{color:var(--neon-pink);text-decoration:none;margin:0 1rem;transition:color .3s;}
+footer a:hover{color:var(--cyan);}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr;}.nav-grid{grid-template-columns:1fr;}.photo-gallery{grid-template-columns:1fr;}nav ul{gap:1rem}nav a{font-size:.7rem}.terminal-body{padding:1.5rem}}
+</style>
 </head>
 <body>
 
-    <!-- Marquee Line -->
-    <div class="marquee-container">
-        <div class="marquee">
-            <span>✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦</span>
-        </div>
-    </div>
+<div class="marquee-container"><div class="marquee">
+<span>✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦</span>
+<span>✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦</span>
+</div></div>
 
-    <!-- Floating Particles -->
-    <div class="particle" style="top: 10%; left: 10%; font-size: 20px;">✦</div>
-    ...
-    <!-- Floating Particles -->
-    <div class="particle" style="top: 10%; left: 10%; font-size: 20px;">✦</div>
-    <div class="particle" style="top: 20%; right: 15%; font-size: 15px;">⋆</div>
-    <div class="particle" style="top: 60%; left: 5%; font-size: 25px;">★</div>
-    <div class="particle" style="top: 80%; right: 10%; font-size: 18px;">✧</div>
-    <div class="particle" style="top: 40%; left: 90%; font-size: 22px;">•</div>
+<nav><a href="index.html" class="logo">COKPYM</a><ul>
+<li><a href="#thoughts">Мысли</a></li>
+<li><a href="#about">Обо мне</a></li>
+<li><a href="poems.html">Стихи</a></li>
+<li><a href="#hobbies">Увлечения</a></li>
+</ul></nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div style="position: absolute; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255,20,147,0.2), rgba(0,255,255,0.2));"></div>        <div class="hero-content">
-            <h1 class="glitch-text" data-text="COKPYM">COKPYM</h1>
-            <p class="tagline">✦ digital soul // digital love ✦</p>
-            <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.7; letter-spacing: 0.3em;">
-                САНКТ-ПЕТЕРБУРГ
-            </p>
-        </div>
-    </section>
+<section class="hero"><div class="hero-content">
+<h1 class="glitch-text">COKPYM</h1>
+<p class="tagline">digital soul</p>
+<p class="location">Saint-Petersburg</p>
+</div></section>
 
-<!-- Gallery Section -->
-    <section class="gallery">
-        <div class="gallery-grid">
-            <div class="photo-card">
-                <img src="IMG20260315183959.jpg" alt="Petersburg waterfront">
-                <div class="photo-overlay">
-                    <span>✦ Горька 2 лучший фильм ✦</span>
-                </div>
-            </div>
-            
-            <div class="photo-card">
-                <img src="IMG_20250520_174627.jpg" alt="Winter mood">
-                <div class="photo-overlay">
-                    <span>⋆ Пишу сайты ⋆</span>
-                </div>
-            </div>
-            
-            <div class="photo-card">
-                <img src="IMG_20251019_112604.jpg" alt="Frozen landscape">
-                <div class="photo-overlay">
-                    <span>★ Работаю бесплатно ★</span>
-                </div>
-            </div>
-            
-            <div class="photo-card">
-                <img src="IMG_20260211_140200.jpg" alt="Petersburg architecture">
-                <div class="photo-overlay">
-                    <span>✧ Челябинск </span>
-                </div>
-            </div>
-        </div>
-    </section>
-<!-- About Section - Terminal Style -->
-<section class="about-terminal">
-    <div class="terminal-window">
-        <div class="terminal-header">
-            <div class="terminal-buttons">
-                <span class="terminal-btn red"></span>
-                <span class="terminal-btn yellow"></span>
-                <span class="terminal-btn green"></span>
-            </div>
-            <span class="terminal-title">cokpym@petersburg:~</span>
-        </div>
-        <div class="terminal-body">
-            <p class="terminal-line">
-                <span class="prompt">root@cokpym:~$</span>
-                <span class="command">cat poems_count.txt</span>
-            </p>
-            <p class="terminal-output">
-                Выпущено стихов: <span class="counter" id="poems-counter">27</span>
-            </p>
-            <br>
-            <p class="terminal-line">
-                <span class="prompt">root@cokpym:~$</span>
-                <span class="command">whereami</span>
-            </p>
-            <p class="terminal-output">
-                📍 Живу в Санкт-Петербурге
-            </p>
-            <br>
-            <p class="terminal-line">
-                <span class="prompt">root@cokpym:~$</span>
-                <span class="command">love.exe</span>
-            </p>
-            <p class="terminal-output">
-                ❤️ Люблю <span class="glitch-word" id="love-word">жизнь</span>
-            </p>
-            <br>
-            <p class="terminal-line">
-                <span class="prompt">root@cokpym:~$</span>
-                <span class="cursor">_</span>
-            </p>
-        </div>
-    </div>
-                                                       </section>
-    <!-- Poetry Section -->
-    <section class="poetry">
-        <div class="poem-container">
-            <h2 class="poem-title">✦ Красное небо ✦</h2>            <div class="poem-text">
-                <span>Красное небо сгущается над нами.</span>
-                <span>Петербург волнуется и вскоре ждёт известие.</span>
-                <span>Зимний дворец пестрит телами</span>
-                <span>«Род Петра закончит красная бестия».</span>
-            </div>
-        </div>
+<section id="thoughts"><div class="xp-window">
+<div class="xp-title-bar"><div class="xp-title">Мои мысли и идеи - Блокнот</div>
+<div class="xp-controls"><div class="xp-btn">_</div><div class="xp-btn">□</div><div class="xp-btn close">✕</div></div></div>
+<div class="xp-body"><div class="xp-content">
+<h2>📝 Мои мысли и идеи</h2>
+<p>Здесь я собираю всё, что приходит в голову. Фрагменты размышлений, наблюдения за миром, случайные инсайты.</p>
+<p>Этот раздел — черновик моего сознания. Всё, что ещё не оформилось в стихи или проекты, но уже требует выхода.</p>
+<ul>
+<li>О цифровой культуре и её влиянии на человека</li>
+<li>О городе как пространстве для творчества</li>
+<li>О поиске смысла в хаосе информации</li>
+</ul>
+<p><em>Обновляется по мере появления новых мыслей...</em></p>
+</div></div>
+</div></section>
 
-        <div class="poem-container">
-            <h2 class="poem-title">⋆ Анастасия ⋆</h2>
-            <div class="poem-text">
-                <span>Всё прошлое – перегорело в миг,</span>
-                <span>Прошу простить меня, мессия</span>
-                <span>За всю любовь, что подчеркнул из книг,</span>
-                <span>Я вынужден отправить вас, Анастасия.</span>
-            </div>
-        </div>
+<div class="photo-gallery">
+<img src="IMG20260315183959.jpg" alt="" class="gallery-img">
+<img src="IMG_20250520_174627.jpg" alt="" class="gallery-img">
+<img src="IMG_20251019_112604.jpg" alt="" class="gallery-img">
+</div>
 
-        <div class="poem-container">
-            <h2 class="poem-title">★ Сон разума ★</h2>
-            <div class="poem-text">
-                <span>Бездушный – из уст изящных фраза прозвучит.</span>
-                <span>Но сон разума – рождает лишь чудовищ.</span>
-                <span>Корабль вечно не гудит,</span>
-                <span>Прощениями престол не восстановишь.</span>
-            </div>
-        </div>
+<section id="about"><div class="terminal-window">
+<div class="terminal-header">
+<div class="terminal-buttons"><span class="terminal-btn red"></span><span class="terminal-btn yellow"></span><span class="terminal-btn green"></span></div>
+<span class="terminal-title">@cokpym:~/about</span>
+</div>
+<div class="terminal-body">
+<div class="about-grid">
+<img src="IMG20260315183959.jpg" alt="Cokpym" class="about-img">
+<div>
+<p class="terminal-line"><span class="prompt">root@cokpym:~$</span><span class="command">cat bio.txt</span></p>
+<p class="terminal-output">Поэт, разработчик, наблюдатель. Создаю цифровые и текстовые артефакты. Мои работы — это отражение городской меланхолии и технологического шума.</p>
+<p class="terminal-line"><span class="prompt">root@cokpym:~$</span><span class="command">cat mission.txt</span></p>
+<p class="terminal-output">Здесь ты найдешь мои стихи, проекты и мысли о том, как устроен этот мир.</p>
+<p class="terminal-line"><span class="prompt">root@cokpym:~$</span><span class="command">cat stats.txt</span></p>
+<p class="terminal-output">Выпущено стихов: <span class="counter" id="poems-counter">27</span></p>
+<p class="terminal-output">❤ Люблю <span class="glitch-word" id="love-word">тебя</span></p>
+<a href="bio.html" class="y2k-btn">Полная биография →</a>
+</div>
+</div>
+<p class="terminal-line" style="margin-top:2.5rem;"><span class="prompt">root@cokpym:~$</span><span class="command">open --platforms</span></p>
+<div class="nav-grid">
+<!-- ЗАМЕНИ @cokpym НИЖЕ на реальный handle своего YouTube-канала, если он другой -->
+<a href="https://www.youtube.com/@cokpym" target="_blank" rel="noopener" class="nav-card yt">
+<span class="nav-icon">►</span><span class="nav-label">YOUTUBE</span><span class="nav-url">youtube.com</span>
+</a>
+<a href="https://t.me/cokpym" target="_blank" rel="noopener" class="nav-card tg">
+<span class="nav-icon">✈</span><span class="nav-label">TELEGRAM</span><span class="nav-url">t.me/cokpym</span>
+</a>
+<a href="https://stihi.ru/peydzh" target="_blank" rel="noopener" class="nav-card st">
+<span class="nav-icon">❝</span><span class="nav-label">СТИХИ.РУ</span><span class="nav-url">stihi.ru/peydzh</span>
+</a>
+</div>
+</div>
+</div></section>
 
-        <div class="poem-container">
-            <h2 class="poem-title">✧ Красный октябрь ✧</h2>
-            <div class="poem-text">
-                <span>И Петербург к утру свои уж свёл мосты,</span>
-                <span>«Синица в небе стала журавлём»,</span>
-                <span>Обещания – лишь часть той пустоты,</span>
-                <span>Что явной стала красным октябрём.</span>
-            </div>
-        </div>
-    </section>
+<div class="photo-gallery">
+<img src="IMG_20250520_174627.jpg" alt="" class="gallery-img">
+<img src="IMG_20251019_112604.jpg" alt="" class="gallery-img">
+<img src="IMG_20260211_140200.jpg" alt="" class="gallery-img">
+</div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="social-links">
-            <a href="mailto:Peydzh.work@yandex.ru">EMAIL</a>
-            <a href="https://t.me/cokpym" target="_blank">TELEGRAM</a>
-            <a href="https://stihi.ru/peydzh" target="_blank">СТИХИ.РУ</a>
-        </div>
-        <p>✦ © 2026 // digital dreams forever ✦</p>
-        <p style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.6;">
-            санкт-петербург • cokpym
-        </p>    </footer>
+<section id="poems"><div class="terminal-window">
+<div class="terminal-header">
+<div class="terminal-buttons"><span class="terminal-btn red"></span><span class="terminal-btn yellow"></span><span class="terminal-btn green"></span></div>
+<span class="terminal-title">@cokpym:~/poems</span>
+</div>
+<div class="terminal-body">
+<p class="terminal-line"><span class="prompt">root@cokpym:~$</span><span class="command">ls -la poems/</span></p>
+<p class="terminal-output">Коллекция из 27 опубликованных работ. Темы: урбанистика, революция, личные кризисы, эстетика распада. Готовятся 3 цикла — первый уже здесь.</p>
+<p class="terminal-line"><span class="prompt">root@cokpym:~$</span><span class="command">open poems.html</span></p>
+<a href="poems.html" class="y2k-btn">Перейти к стихам →</a>
+</div>
+</div></section>
 
-    <script>
-        // Random sparkles on click
-        document.addEventListener('click', (e) => {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
-            sparkle.style.left = e.pageX + 'px';
-            sparkle.style.top = e.pageY + 'px';
-            sparkle.style.background = ['#FF1493', '#00FFFF', '#9D00FF'][Math.floor(Math.random() * 3)];
-            sparkle.style.boxShadow = `0 0 10px ${sparkle.style.background}`;
-            document.body.appendChild(sparkle);
-            setTimeout(() => sparkle.remove(), 3000);
-        });
+<div class="photo-gallery">
+<img src="IMG_20251019_112604.jpg" alt="" class="gallery-img">
+<img src="IMG_20260211_140200.jpg" alt="" class="gallery-img">
+<img src="IMG20260315183959.jpg" alt="" class="gallery-img">
+</div>
 
-        // Parallax effect on scroll
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const particles = document.querySelectorAll('.particle');
-            particles.forEach((p, i) => {
-                const speed = 0.5 + (i * 0.1);
-                p.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled}deg)`;
-            });
-        });
+<section id="hobbies"><div class="terminal-window">
+<div class="terminal-header">
+<div class="terminal-buttons"><span class="terminal-btn red"></span><span class="terminal-btn yellow"></span><span class="terminal-btn green"></span></div>
+<span class="terminal-title">@cokpym:~/hobbies</span>
+</div>
+<div class="terminal-body">
+<p class="terminal-line"><span class="prompt">root@cokpym:~$</span><span class="command">cat hobbies.json</span></p>
+<div class="hobbies-grid">
+<div class="hobby-card"><h3>Блогинг</h3><p>Ведение этого сайта. Делюсь мыслями, идеями и творчеством с миром.</p></div>
+<div class="hobby-card"><h3>Английский</h3><p>Изучение языка. Чтение оригинальной литературы и просмотр контента.</p></div>
+<div class="hobby-card"><h3>Приколы и анекдоты</h3><p>Коллекционирование и создание юмора. Смех — лучшее лекарство от серости.</p></div>
+<div class="hobby-card"><h3>Кино</h3><p>Анализ визуального языка. Поиск вдохновения в работах классиков.</p></div>
+</div>
+<p class="terminal-line"><span class="prompt">root@cokpym:~$</span><span class="command">open hobbies.html --all</span></p>
+<a href="hobbies.html" class="y2k-btn">Все увлечения →</a>
+</div>
+</div></section>
 
-        // Glitch effect on hover for photos
-        const cards = document.querySelectorAll('.photo-card');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.animation = 'glitch 0.3s';
-                setTimeout(() => {
-                    card.style.animation = '';
-                }, 300);
-            });
-        });
+<footer>
+<div>
+<a href="mailto:Peydzh.work@yandex.ru">EMAIL</a>
+<a href="https://t.me/cokpym" target="_blank" rel="noopener">TELEGRAM</a>
+<a href="https://stihi.ru/peydzh" target="_blank" rel="noopener">СТИХИ.РУ</a>
+</div>
+<p style="margin-top:1.5rem;">✦ © 2026 // Даулбаев Дамир ✦</p>
+<p style="margin-top:.5rem;font-size:.8rem;opacity:.6;">санкт-петербург • Cokpym</p>
+</footer>
 
-        // Counter animation
-const counter = document.getElementById('poems-counter');
-const words = ['жизнь', 'луну', 'тебя', 'питер'];
-const glitchWord = document.getElementById('love-word');
-
-// Random counter
-setInterval(() => {
-    const randomNum = Math.floor(Math.random() * 90) + 10;
-    counter.textContent = randomNum;
-    setTimeout(() => {
-        counter.textContent = '27';
-    }, 100);
-}, 2000);
-
-// Glitch word
-setInterval(() => {
-    const randomWord = words[Math.floor(Math.random() * words.length)];
-    glitchWord.textContent = randomWord;
-    glitchWord.style.animation = 'glitch 0.3s';
-    setTimeout(() => {
-        glitchWord.style.animation = '';
-    }, 300);
-}, 1500);
-    </script>
+<script>
+document.addEventListener('click',function(e){
+var s=document.createElement('div');s.className='sparkle';
+s.style.left=e.pageX+'px';s.style.top=e.pageY+'px';
+var c=['#FF1493','#00FFFF','#9D00FF'][Math.floor(Math.random()*3)];
+s.style.background=c;s.style.boxShadow='0 0 10px '+c;
+document.body.appendChild(s);setTimeout(function(){s.remove();},1000);
+});
+var ce=document.getElementById('poems-counter');
+if(ce){setInterval(function(){ce.textContent=Math.floor(Math.random()*90)+10;setTimeout(function(){ce.textContent='27';},120);},2000);}
+var le=document.getElementById('love-word');
+if(le){var w=['тебя','луну','питер','жизнь'];setInterval(function(){le.textContent=w[Math.floor(Math.random()*w.length)];},1500);}
+</script>
 </body>
-  </html>
+</html>
