@@ -10,34 +10,35 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--dark);color:#fff;font-family:'Courier Prime',monospace;overflow-x:hidden;cursor:crosshair;}
 body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,.25) 50%);background-size:100% 4px;pointer-events:none;z-index:9999;}
+
+/* Marquee */
 .marquee-container{position:fixed;top:0;width:100%;background:linear-gradient(90deg,var(--neon-pink),var(--purple),var(--cyan));padding:.5rem 0;overflow:hidden;border-bottom:2px solid #fff;z-index:1001;}
-.marquee{display:flex;animation:marquee 15s linear infinite;white-space:nowrap;}
-.marquee span{font-family:'Orbitron',sans-serif;font-size:.9rem;font-weight:700;color:#fff;text-shadow:0 0 10px #fff;padding:0 2rem;}
+.marquee{display:flex;width:max-content;animation:marquee 20s linear infinite;}
+.marquee span{font-family:'Orbitron',sans-serif;font-size:.9rem;font-weight:700;color:#fff;text-shadow:0 0 10px #fff;padding:0 2rem;white-space:nowrap;flex-shrink:0;}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* Nav */
 nav{position:fixed;top:36px;width:100%;padding:1rem 2rem;background:rgba(10,10,10,.95);border-bottom:1px solid var(--cyan);z-index:1000;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(5px);}
 nav .logo{font-family:'Orbitron',sans-serif;color:var(--cyan);font-weight:700;letter-spacing:.2em;text-decoration:none;}
 nav ul{list-style:none;display:flex;gap:2rem;}
 nav a{color:var(--silver);text-decoration:none;font-size:.9rem;text-transform:uppercase;transition:color .3s;}
 nav a:hover{color:var(--neon-pink);}
+
+/* Hero + glitch */
 .hero{height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a001a 0%,#001a1a 100%);margin-top:36px;}
 .hero-content{text-align:center;z-index:10;}
-.glitch-text{font-family:'Orbitron',sans-serif;font-size:clamp(3rem,10vw,6rem);font-weight:900;color:var(--cyan);text-shadow:0 0 10px var(--cyan),0 0 40px var(--purple);animation:glitch 3s infinite;letter-spacing:.1em;}
+.glitch-text{position:relative;font-family:'Orbitron',sans-serif;font-size:clamp(3rem,10vw,6rem);font-weight:900;color:var(--cyan);text-shadow:0 0 10px var(--cyan),0 0 40px var(--purple);animation:glitch 3s infinite;letter-spacing:.1em;}
+.glitch-text::before,.glitch-text::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;}
+.glitch-text::before{animation:glitch-1 2s infinite;color:var(--neon-pink);z-index:-1;}
+.glitch-text::after{animation:glitch-2 2s infinite;color:var(--purple);z-index:-2;}
 .tagline{font-family:'Rubik Glitch',cursive;font-size:1.5rem;color:var(--neon-pink);margin-top:1rem;animation:flicker 2s infinite;}
 .location{margin-top:2rem;font-size:.9rem;opacity:.7;letter-spacing:.3em;text-transform:uppercase;}
-@keyframes glitch{0%,90%,100%{transform:translate(0)}92%{transform:translate(-5px,5px)}94%{transform:translate(5px,-5px)}}
+@keyframes glitch{0%,90%,100%{transform:translate(0)}92%{transform:translate(-5px,5px)}94%{transform:translate(5px,-5px)}96%{transform:translate(-5px,-5px)}98%{transform:translate(5px,5px)}}
+@keyframes glitch-1{0%,100%{clip-path:inset(0 0 0 0);transform:translate(0)}20%{clip-path:inset(20% 0 30% 0);transform:translate(-5px,5px)}40%{clip-path:inset(50% 0 20% 0);transform:translate(5px,-5px)}60%{clip-path:inset(10% 0 60% 0);transform:translate(-5px,0)}80%{clip-path:inset(80% 0 5% 0);transform:translate(5px,0)}}
+@keyframes glitch-2{0%,100%{clip-path:inset(0 0 0 0);transform:translate(0)}20%{clip-path:inset(60% 0 10% 0);transform:translate(5px,-5px)}40%{clip-path:inset(30% 0 40% 0);transform:translate(-5px,5px)}60%{clip-path:inset(10% 0 80% 0);transform:translate(5px,0)}80%{clip-path:inset(40% 0 30% 0);transform:translate(-5px,0)}}
 @keyframes flicker{0%,100%{opacity:.8}50%{opacity:.3}}
-.xp-window{background:#ECE9D8;border:2px solid #0054E3;border-radius:8px 8px 0 0;box-shadow:0 0 30px rgba(0,84,227,.3),5px 5px 15px rgba(0,0,0,.5);overflow:hidden;margin-bottom:4rem;color:#000;}
-.xp-title-bar{background:linear-gradient(180deg,#0058E6 0%,#3A8BFF 10%,#0054E3 90%,#003399 100%);padding:.6rem 1rem;display:flex;align-items:center;justify-content:space-between;border-radius:6px 6px 0 0;}
-.xp-title{font-family:Tahoma,sans-serif;color:#fff;font-size:.9rem;font-weight:bold;text-shadow:1px 1px 2px rgba(0,0,0,.5);display:flex;align-items:center;gap:.5rem;}
-.xp-controls{display:flex;gap:4px;}
-.xp-btn{width:22px;height:22px;border:1px solid #fff;border-radius:3px;background:linear-gradient(180deg,#fff 0%,#ECE9D8 100%);display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#000;}
-.xp-btn.close{background:linear-gradient(180deg,#E81123 0%,#C41E3A 100%);color:#fff;}
-.xp-body{padding:2rem;background:#ECE9D8;}
-.xp-content{font-family:Tahoma,sans-serif;font-size:1rem;line-height:1.8;color:#000;}
-.xp-content h2{font-size:1.5rem;margin-bottom:1rem;color:#0054E3;}
-.xp-content p{margin-bottom:1rem;}
-.xp-content ul{margin-left:2rem;margin-bottom:1rem;}
-.xp-content li{margin-bottom:.5rem;}
+
+/* Terminal */
 .terminal-window{background:var(--terminal-bg);border:2px solid var(--cyan);border-radius:8px;box-shadow:0 0 30px rgba(0,255,255,.2),inset 0 0 30px rgba(0,255,255,.05);overflow:hidden;margin-bottom:4rem;}
 .terminal-header{background:linear-gradient(180deg,#2a2a2a,#1a1a1a);padding:.8rem 1rem;display:flex;align-items:center;border-bottom:2px solid var(--cyan);}
 .terminal-buttons{display:flex;gap:8px;margin-right:1rem;}
@@ -48,14 +49,23 @@ nav a:hover{color:var(--neon-pink);}
 .terminal-line{margin:.8rem 0;color:var(--cyan);font-size:1rem;line-height:1.6;}
 .prompt{color:var(--neon-pink);margin-right:.5rem;}
 .command{color:#fff;}
-.terminal-output{color:#ddd;padding-left:1rem;border-left:2px solid var(--purple);margin:.5rem 0 1rem;line-height:1.6;}
+.terminal-output{color:#ddd;padding-left:1rem;border-left:2px solid var(--purple);margin:.5rem 0 1rem;line-height:1.7;}
+.terminal-output.thought{font-style:normal;}
+.terminal-output.dim{opacity:.6;font-style:italic;border-left-color:var(--cyan);}
+
 section{padding:4rem 2rem;max-width:1200px;margin:0 auto;}
+
+/* About */
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;}
 .about-img{width:100%;aspect-ratio:3/4;object-fit:cover;border:2px solid var(--cyan);box-shadow:0 0 20px rgba(0,255,255,.3);filter:grayscale(30%) contrast(1.2);}
 .counter{color:var(--neon-pink);font-weight:700;}
 .glitch-word{color:var(--neon-pink);}
+
+/* Buttons */
 .y2k-btn{display:inline-block;padding:.8rem 1.5rem;background:transparent;border:2px solid var(--neon-pink);color:var(--neon-pink);text-decoration:none;font-family:'Orbitron',sans-serif;font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;transition:all .3s;box-shadow:0 0 10px rgba(255,20,147,.3);margin-top:1rem;}
 .y2k-btn:hover{background:var(--neon-pink);color:var(--dark);box-shadow:0 0 30px rgba(255,20,147,.8);}
+
+/* Nav tiles */
 .nav-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1.5rem;}
 .nav-card{display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:1.8rem 1rem;text-decoration:none;color:#fff;background:rgba(255,255,255,.03);border:2px solid var(--cyan);border-radius:6px;transition:all .3s;position:relative;overflow:hidden;}
 .nav-card .nav-icon{font-size:2rem;line-height:1;text-shadow:0 0 12px currentColor;}
@@ -65,27 +75,35 @@ section{padding:4rem 2rem;max-width:1200px;margin:0 auto;}
 .nav-card.yt{border-color:var(--yt)}.nav-card.yt .nav-icon{color:var(--yt)}.nav-card.yt:hover{box-shadow:0 0 30px rgba(255,0,51,.6);}
 .nav-card.tg{border-color:var(--tg)}.nav-card.tg .nav-icon{color:var(--tg)}.nav-card.tg:hover{box-shadow:0 0 30px rgba(34,158,217,.6);}
 .nav-card.st{border-color:var(--st)}.nav-card.st .nav-icon{color:var(--st)}.nav-card.st:hover{box-shadow:0 0 30px rgba(255,20,147,.6);}
+
+/* Hobbies */
 .hobbies-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin-bottom:2rem;}
 .hobby-card{background:rgba(0,255,255,.03);border:1px solid var(--cyan);padding:1.5rem;transition:all .3s;}
 .hobby-card:hover{transform:translateY(-3px);box-shadow:0 0 15px rgba(0,255,255,.3);}
 .hobby-card h3{font-family:'Orbitron',sans-serif;color:var(--cyan);margin-bottom:.8rem;font-size:1rem;}
 .hobby-card p{color:var(--silver);font-size:.85rem;line-height:1.5;}
+
+/* Gallery rows */
 .photo-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:1200px;margin:0 auto 4rem;padding:0 2rem;}
 .gallery-img{width:100%;aspect-ratio:1;object-fit:cover;border:2px solid var(--cyan);box-shadow:0 0 15px rgba(0,255,255,.3);filter:grayscale(30%) contrast(1.2);transition:all .3s;}
 .gallery-img:hover{filter:grayscale(0%) contrast(1.4) saturate(1.5);transform:scale(1.05);box-shadow:0 0 30px rgba(0,255,255,.6);}
+
+/* Sparkle */
 .sparkle{position:absolute;width:4px;height:4px;border-radius:50%;pointer-events:none;z-index:50;animation:sparkle 1s forwards;}
 @keyframes sparkle{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(3)}}
+
 footer{padding:3rem 2rem;text-align:center;background:linear-gradient(180deg,#1a001a 0%,var(--dark) 100%);border-top:2px solid var(--cyan);font-size:.9rem;color:var(--silver);}
 footer a{color:var(--neon-pink);text-decoration:none;margin:0 1rem;transition:color .3s;}
 footer a:hover{color:var(--cyan);}
+
 @media(max-width:768px){.about-grid{grid-template-columns:1fr;}.nav-grid{grid-template-columns:1fr;}.photo-gallery{grid-template-columns:1fr;}nav ul{gap:1rem}nav a{font-size:.7rem}.terminal-body{padding:1.5rem}}
 </style>
 </head>
 <body>
 
 <div class="marquee-container"><div class="marquee">
-<span>✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦</span>
-<span>✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦</span>
+<span>✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦</span>
+<span>✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦</span>
 </div></div>
 
 <nav><a href="index.html" class="logo">COKPYM</a><ul>
@@ -96,25 +114,26 @@ footer a:hover{color:var(--cyan);}
 </ul></nav>
 
 <section class="hero"><div class="hero-content">
-<h1 class="glitch-text">COKPYM</h1>
+<h1 class="glitch-text" data-text="COKPYM">COKPYM</h1>
 <p class="tagline">digital soul</p>
 <p class="location">Saint-Petersburg</p>
 </div></section>
 
-<section id="thoughts"><div class="xp-window">
-<div class="xp-title-bar"><div class="xp-title">Мои мысли и идеи - Блокнот</div>
-<div class="xp-controls"><div class="xp-btn">_</div><div class="xp-btn">□</div><div class="xp-btn close">✕</div></div></div>
-<div class="xp-body"><div class="xp-content">
-<h2>📝 Мои мысли и идеи</h2>
-<p>Здесь я собираю всё, что приходит в голову. Фрагменты размышлений, наблюдения за миром, случайные инсайты.</p>
-<p>Этот раздел — черновик моего сознания. Всё, что ещё не оформилось в стихи или проекты, но уже требует выхода.</p>
-<ul>
-<li>О цифровой культуре и её влиянии на человека</li>
-<li>О городе как пространстве для творчества</li>
-<li>О поиске смысла в хаосе информации</li>
-</ul>
-<p><em>Обновляется по мере появления новых мыслей...</em></p>
-</div></div>
+<!-- Мысли (терминал, вместо XP) -->
+<section id="thoughts"><div class="terminal-window">
+<div class="terminal-header">
+<div class="terminal-buttons"><span class="terminal-btn red"></span><span class="terminal-btn yellow"></span><span class="terminal-btn green"></span></div>
+<span class="terminal-title">@cokpym:~/thoughts</span>
+</div>
+<div class="terminal-body">
+<p class="terminal-line"><span class="prompt">root@cokpym:~$</span><span class="command">cat thoughts.txt</span></p>
+<p class="terminal-output thought">Здесь я собираю всё, что приходит в голову. Фрагменты размышлений, наблюдения за миром, случайные инсайты.</p>
+<p class="terminal-output thought">Этот раздел — черновик моего сознания. Всё, что ещё не оформилось в стихи или проекты, но уже требует выхода.</p>
+<p class="terminal-output thought">› О цифровой культуре и её влиянии на человека</p>
+<p class="terminal-output thought">› О городе как пространстве для творчества</p>
+<p class="terminal-output thought">› О поиске смысла в хаосе информации</p>
+<p class="terminal-output dim">// обновляется по мере появления новых мыслей...</p>
+</div>
 </div></section>
 
 <div class="photo-gallery">
