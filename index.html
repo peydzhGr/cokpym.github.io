@@ -27,17 +27,17 @@ nav a:hover{color:var(--neon-pink);}
 /* Hero + glitch */
 .hero{height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a001a 0%,#001a1a 100%);margin-top:36px;}
 .hero-content{text-align:center;z-index:10;}
-.glitch-text{position:relative;font-family:'Orbitron',sans-serif;font-size:clamp(3rem,10vw,6rem);font-weight:900;color:var(--cyan);text-shadow:0 0 10px var(--cyan),0 0 40px var(--purple);animation:glitch 3s infinite;letter-spacing:.1em;}
-.glitch-text::before,.glitch-text::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;}
-.glitch-text::before{animation:glitch-1 2s infinite;color:var(--neon-pink);z-index:-1;}
-.glitch-text::after{animation:glitch-2 2s infinite;color:var(--purple);z-index:-2;}
+.glitch-text{position:relative;display:inline-block;font-family:'Orbitron',sans-serif;font-size:clamp(3rem,10vw,6rem);font-weight:900;letter-spacing:.1em;}
+.gl{position:relative;display:inline-block;color:var(--cyan);text-shadow:0 0 8px var(--cyan),0 0 22px var(--purple);animation:gl-main 1.6s infinite steps(1);animation-delay:calc(var(--i,0)*-.13s);}
+.gl::before,.gl::after{content:attr(data-c);position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;}
+.gl::before{color:var(--neon-pink);z-index:-1;animation:gl-a 1.9s infinite steps(1);animation-delay:calc(var(--i,0)*-.17s);}
+.gl::after{color:#00ff9c;z-index:-2;animation:gl-b 2.3s infinite steps(1);animation-delay:calc(var(--i,0)*-.11s);}
+@keyframes gl-main{0%,70%,100%{transform:translate(0) skewX(0);clip-path:inset(0 0 0 0);opacity:1;}72%{transform:translate(-3px,2px) skewX(-8deg);clip-path:inset(0 0 55% 0);}74%{transform:translate(4px,-2px) skewX(6deg);clip-path:inset(45% 0 0 0);}76%{transform:translate(-2px,0) skewX(0);clip-path:inset(20% 0 30% 0);opacity:.8;}78%{transform:translate(3px,1px) skewX(-4deg);clip-path:inset(0 0 0 0);}80%{transform:translate(0) skewX(0);clip-path:inset(60% 0 10% 0);}82%{transform:translate(-4px,-1px) skewX(3deg);clip-path:inset(0 0 0 0);opacity:1;}}
+@keyframes gl-a{0%,100%{transform:translate(0);clip-path:inset(0 0 0 0);}15%{transform:translate(-6px,2px);clip-path:inset(10% 0 70% 0);}30%{transform:translate(5px,-3px);clip-path:inset(50% 0 20% 0);}45%{transform:translate(-4px,0);clip-path:inset(0 0 60% 0);}60%{transform:translate(6px,1px);clip-path:inset(30% 0 40% 0);}75%{transform:translate(-3px,-2px);clip-path:inset(70% 0 5% 0);}}
+@keyframes gl-b{0%,100%{transform:translate(0);clip-path:inset(0 0 0 0);}20%{transform:translate(6px,-2px);clip-path:inset(40% 0 30% 0);}40%{transform:translate(-5px,3px);clip-path:inset(0 0 75% 0);}60%{transform:translate(4px,0);clip-path:inset(60% 0 10% 0);}80%{transform:translate(-6px,1px);clip-path:inset(20% 0 50% 0);}}
 .tagline{font-family:'Rubik Glitch',cursive;font-size:1.5rem;color:var(--neon-pink);margin-top:1rem;animation:flicker 2s infinite;}
 .location{margin-top:2rem;font-size:.9rem;opacity:.7;letter-spacing:.3em;text-transform:uppercase;}
-@keyframes glitch{0%,90%,100%{transform:translate(0)}92%{transform:translate(-5px,5px)}94%{transform:translate(5px,-5px)}96%{transform:translate(-5px,-5px)}98%{transform:translate(5px,5px)}}
-@keyframes glitch-1{0%,100%{clip-path:inset(0 0 0 0);transform:translate(0)}20%{clip-path:inset(20% 0 30% 0);transform:translate(-5px,5px)}40%{clip-path:inset(50% 0 20% 0);transform:translate(5px,-5px)}60%{clip-path:inset(10% 0 60% 0);transform:translate(-5px,0)}80%{clip-path:inset(80% 0 5% 0);transform:translate(5px,0)}}
-@keyframes glitch-2{0%,100%{clip-path:inset(0 0 0 0);transform:translate(0)}20%{clip-path:inset(60% 0 10% 0);transform:translate(5px,-5px)}40%{clip-path:inset(30% 0 40% 0);transform:translate(-5px,5px)}60%{clip-path:inset(10% 0 80% 0);transform:translate(5px,0)}80%{clip-path:inset(40% 0 30% 0);transform:translate(-5px,0)}}
 @keyframes flicker{0%,100%{opacity:.8}50%{opacity:.3}}
-
 /* Terminal */
 .terminal-window{background:var(--terminal-bg);border:2px solid var(--cyan);border-radius:8px;box-shadow:0 0 30px rgba(0,255,255,.2),inset 0 0 30px rgba(0,255,255,.05);overflow:hidden;margin-bottom:4rem;}
 .terminal-header{background:linear-gradient(180deg,#2a2a2a,#1a1a1a);padding:.8rem 1rem;display:flex;align-items:center;border-bottom:2px solid var(--cyan);}
@@ -241,6 +241,21 @@ var ce=document.getElementById('poems-counter');
 if(ce){setInterval(function(){ce.textContent=Math.floor(Math.random()*90)+10;setTimeout(function(){ce.textContent='27';},120);},2000);}
 var le=document.getElementById('love-word');
 if(le){var w=['тебя','луну','питер','жизнь'];setInterval(function(){le.textContent=w[Math.floor(Math.random()*w.length)];},1500);}
+(function(){
+  var el=document.querySelector('.glitch-text');
+  if(!el||el.getAttribute('data-split'))return;
+  var t=el.textContent,i,s;
+  el.textContent='';
+  el.setAttribute('data-split','1');
+  for(i=0;i<t.length;i++){
+    s=document.createElement('span');
+    s.className='gl';
+    s.setAttribute('data-c',t.charAt(i));
+    s.style.setProperty('--i',i);
+    s.textContent=t.charAt(i);
+    el.appendChild(s);
+  }
+})();
 </script>
 </body>
 </html>
