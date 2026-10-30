@@ -96,9 +96,18 @@ footer{padding:3rem 2rem;text-align:center;background:linear-gradient(180deg,#1a
 footer a{color:var(--neon-pink);text-decoration:none;margin:0 1rem;transition:color .3s;}
 footer a:hover{color:var(--cyan);}
 
+/* Hologram dissolve */
+.hologram{position:fixed;left:clamp(6px,1.5vw,30px);top:50%;transform:translateY(-50%);width:clamp(110px,15vw,230px);aspect-ratio:3/4;pointer-events:none;z-index:2;--f:0;}
+.hologram .hl{position:absolute;inset:0;background:url('me.png') center/contain no-repeat;will-change:transform,opacity,filter;transform:translate3d(calc(var(--dx,0)*var(--f)),calc(var(--dy,0)*var(--f)),0);opacity:calc(1 - var(--f)*0.92);filter:blur(calc(var(--f)*5px));}
+.hologram .hg{position:absolute;inset:0;background:url('me.png') center/contain no-repeat;mix-blend-mode:screen;will-change:transform,opacity;transform:translate3d(calc(var(--gx,0)*var(--f)),0,0);opacity:calc(var(--f)*0.75);filter:saturate(3) brightness(1.15);}
+.hologram .hg.r{--gx:34px;filter:hue-rotate(-45deg) saturate(4) brightness(1.2);}
+.hologram .hg.c{--gx:-30px;filter:hue-rotate(130deg) saturate(4) brightness(1.1);}
+
 </style>
 </head>
 <body>
+
+<div class="hologram" id="hologram" aria-hidden="true"></div>
 
 <div class="marquee-container"><div class="marquee">
 <span>✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦</span>
@@ -256,6 +265,46 @@ if(le){var w=['тебя','луну','питер','жизнь'];setInterval(funct
     el.appendChild(s);
   }
 })();
+
+(function(){
+  var box=document.getElementById('hologram');
+  if(!box)return;
+  var N=7,i,s,dx,dy;
+  for(i=0;i<N;i++){
+    s=document.createElement('div');
+    s.className='hl';
+    var top=(i*100/N), bot=(100-(i+1)*100/N);
+    s.style.clipPath='inset('+top+'% 0 '+bot+'% 0)';
+    dx=((i%2)?1:-1)*(18+i*7);
+    dy=(((i*3)%2)?1:-1)*(8+i*4);
+    s.style.setProperty('--dx',dx+'px');
+    s.style.setProperty('--dy',dy+'px');
+    box.appendChild(s);
+  }
+  var gr=document.createElement('div');gr.className='hg r';box.appendChild(gr);
+  var gc=document.createElement('div');gc.className='hg c';box.appendChild(gc);
+
+  var ticking=false;
+  function calc(){
+    ticking=false;
+    var de=document.documentElement;
+    var max=de.scrollHeight-window.innerHeight;
+    var frac=max>0?(window.pageYOffset||de.scrollTop)/max:0;
+    if(frac<0)frac=0; if(frac>1)frac=1;
+    // целый на краях, полный распад в середине: f = sin(pi*frac)
+    var f=Math.sin(Math.PI*frac);
+    box.style.setProperty('--f',f.toFixed(3));
+  }
+  window.addEventListener('scroll',function(){
+    if(!ticking){ticking=true;requestAnimationFrame(calc);}
+  },{passive:true});
+  window.addEventListener('resize',function(){
+    if(!ticking){ticking=true;requestAnimationFrame(calc);}
+  },{passive:true});
+  calc();
+})();
+
+
 </script>
 </body>
 </html>
