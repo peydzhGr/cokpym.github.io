@@ -48,31 +48,32 @@
       <p class="terminal-output author-name">
         Даулбаев Дамир
       </p>
+      <p class="author-quote">Моя свобода любит цепи</p>
       <p class="terminal-output">
         Всего: <span id="poems-total">0</span> • Доступно: <span id="poems-available">0</span> • Готовится: <span id="poems-soon">0</span>
       </p>
     </div>
   </div>
 
-  <div class="cycles-info">
-    <p class="terminal-line">
-      <span class="prompt">root@cokpym:~$</span>
-      <span class="command">cat release_schedule.txt</span>
-    </p>
-
-    <div class="cycle-item active">
-      <h3>🔥 ЦИКЛ 1 — СЕЙЧАС</h3>
-      <p>Первый цикл стихов публикуется уже сейчас. Ознакомьтесь с работами ниже.</p>
+  <div class="terminal-window system-block">
+    <div class="terminal-header">
+      <div class="terminal-buttons">
+        <span class="terminal-btn red"></span>
+        <span class="terminal-btn yellow"></span>
+        <span class="terminal-btn green"></span>
+      </div>
+      <span class="terminal-title">@cokpym:~/investigation</span>
     </div>
+    <div class="terminal-body">
+      <div class="system-load">
 
-    <div class="cycle-item">
-      <h3>📅 ЦИКЛ 2 — СЕРЕДИНА ИЮЛЯ</h3>
-      <p>Вторая часть коллекции будет выпущена в середине июля. Следите за обновлениями.</p>
-    </div>
+        <div class="loading-row">
+  <span class="loading-label" data-text="Следствие проводит лингвистический анализ материалов сайта">Следствие проводит лингвистический анализ материалов сайта</span>
+  <span class="load-dots" data-text="...">...</span>
+</div>
 
-    <div class="cycle-item">
-      <h3>⚡ ЦИКЛ 3 — 24 АВГУСТА</h3>
-      <p class="warning-text">Финальный цикл выйдет 24 августа — НЕ ПРОПУСТИТЕ!</p>
+        <div class="loading-track"><div class="loading-bar"></div></div>
+      </div>
     </div>
   </div>
 
@@ -94,7 +95,11 @@
         А пока ознакомьтесь со стихами:
       </p>
 
-      <div id="poem-list" class="poem-list"></div>
+     <div id="poem-list-main" class="poem-list"></div>
+
+<h3 class="cycle-heading">Путь клятвы</h3>
+<p class="cycle-note">Отдельный цикл с историей. Не пересекается с основной коллекцией.</p>
+<div id="poem-list-oath" class="poem-list"></div>
 
       <p class="terminal-line" style="margin-top:2rem;">
         <span class="prompt">root@cokpym:~$</span>
@@ -120,44 +125,63 @@
 <script>
 (function(){
   var poems = window.POEMS || [];
-  var list = document.getElementById('poem-list');
+  var mainList = document.getElementById('poem-list-main');
+  var oathList = document.getElementById('poem-list-oath');
   var totalEl = document.getElementById('poems-total');
   var availEl = document.getElementById('poems-available');
   var soonEl = document.getElementById('poems-soon');
 
-  var available = poems.filter(function(p){ return p.status !== 'soon'; }).length;
-  var soon = poems.filter(function(p){ return p.status === 'soon'; }).length;
+  var mainPoems = poems.filter(function(p){
+    return p.cycle !== 'Путь клятвы';
+  });
+
+  var oathPoems = poems.filter(function(p){
+    return p.cycle === 'Путь клятвы';
+  });
+
+  var available = poems.filter(function(p){
+    return p.status !== 'soon';
+  }).length;
+
+  var soon = poems.filter(function(p){
+    return p.status === 'soon';
+  }).length;
 
   totalEl.textContent = poems.length;
   availEl.textContent = available;
   soonEl.textContent = soon;
 
-  poems.forEach(function(p){
-    var isSoon = p.status === 'soon';
-    var el = document.createElement(isSoon ? 'div' : 'a');
-    el.className = 'poem-item' + (isSoon ? ' soon' : '');
+  function renderPoems(list, container){
+    list.forEach(function(p){
+      var isSoon = p.status === 'soon';
+      var el = document.createElement(isSoon ? 'div' : 'a');
+      el.className = 'poem-item' + (isSoon ? ' soon' : '');
 
-    if(!isSoon){
-      el.href = 'poem.html?id=' + p.id;
-    }
+      if(!isSoon){
+        el.href = 'poem.html?id=' + p.id;
+      }
 
-    var idSpan = document.createElement('span');
-    idSpan.className = 'poem-id';
-    idSpan.textContent = '[' + String(p.id).padStart(2,'0') + ']';
+      var idSpan = document.createElement('span');
+      idSpan.className = 'poem-id';
+      idSpan.textContent = '[' + String(p.id).padStart(2,'0') + ']';
 
-    var titleSpan = document.createElement('span');
-    titleSpan.className = 'poem-title';
-    titleSpan.textContent = p.title;
+      var titleSpan = document.createElement('span');
+      titleSpan.className = 'poem-title';
+      titleSpan.textContent = p.title;
 
-    var metaSpan = document.createElement('span');
-    metaSpan.className = 'poem-meta';
-    metaSpan.textContent = (p.category || '') + (p.date ? ' • ' + p.date : '');
+      var metaSpan = document.createElement('span');
+      metaSpan.className = 'poem-meta';
+      metaSpan.textContent = (p.cycle ? p.cycle + ' • ' : '') + (p.category || '') + (p.date ? ' • ' + p.date : '');
 
-    el.appendChild(idSpan);
-    el.appendChild(titleSpan);
-    el.appendChild(metaSpan);
-    list.appendChild(el);
-  });
+      el.appendChild(idSpan);
+      el.appendChild(titleSpan);
+      el.appendChild(metaSpan);
+      container.appendChild(el);
+    });
+  }
+
+  renderPoems(mainPoems, mainList);
+  renderPoems(oathPoems, oathList);
 })();
 </script>
 

@@ -95,7 +95,7 @@
 
   document.title = poem.title + ' // COKPYM';
   titleEl.textContent = poem.title;
-  metaEl.textContent = (poem.category || '') + (poem.date ? ' • ' + poem.date : '');
+  metaEl.textContent = (poem.cycle ? poem.cycle + ' • ' : '') + (poem.category || '') + (poem.date ? ' • ' + poem.date : '');
   fileEl.textContent = '@cokpym:~/poems/' + String(poem.id).padStart(2,'0') + '.txt';
 
   if(poem.status === 'soon'){
