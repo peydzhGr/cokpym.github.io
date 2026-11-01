@@ -1,0 +1,379 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Orbitron:wght@400;700;900&family=Rubik+Glitch&display=swap');
+
+:root{
+  --neon-pink:#FF1493;
+  --cyan:#00FFFF;
+  --purple:#9D00FF;
+  --silver:#C0C0C0;
+  --dark:#0a0a0a;
+  --terminal-bg:#0d0d0d;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  background:var(--dark);
+  color:#fff;
+  font-family:'Courier Prime',monospace;
+  overflow-x:hidden;
+  cursor:crosshair;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,.25) 50%);
+  background-size:100% 4px;
+  pointer-events:none;
+  z-index:9999;
+}
+
+/* Marquee */
+.marquee-container{
+  position:fixed;
+  top:0;
+  width:100%;
+  background:linear-gradient(90deg,var(--neon-pink),var(--purple),var(--cyan));
+  padding:.5rem 0;
+  overflow:hidden;
+  border-bottom:2px solid #fff;
+  z-index:1001;
+}
+.marquee{
+  display:flex;
+  width:max-content;
+  animation:marquee 20s linear infinite;
+}
+.marquee span{
+  font-family:'Orbitron',sans-serif;
+  font-size:.9rem;
+  font-weight:700;
+  color:#fff;
+  text-shadow:0 0 10px #fff;
+  padding:0 2rem;
+  white-space:nowrap;
+  flex-shrink:0;
+}
+@keyframes marquee{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+
+/* Nav */
+nav{
+  position:fixed;
+  top:36px;
+  width:100%;
+  padding:1rem 2rem;
+  background:rgba(10,10,10,.95);
+  border-bottom:1px solid var(--cyan);
+  z-index:1000;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  backdrop-filter:blur(5px);
+}
+nav .logo{
+  font-family:'Orbitron',sans-serif;
+  color:var(--cyan);
+  font-weight:700;
+  letter-spacing:.2em;
+  text-decoration:none;
+}
+nav ul{
+  list-style:none;
+  display:flex;
+  gap:2rem;
+}
+nav a{
+  color:var(--silver);
+  text-decoration:none;
+  font-size:.9rem;
+  text-transform:uppercase;
+  transition:color .3s;
+}
+nav a:hover,
+nav a.active{
+  color:var(--neon-pink);
+}
+
+/* Hero */
+.hero{
+  min-height:58vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#1a001a 0%,#001a1a 100%);
+  margin-top:36px;
+  padding:4rem 2rem;
+}
+.hero.small{
+  min-height:42vh;
+  padding:3rem 2rem;
+}
+.hero-content{
+  text-align:center;
+  z-index:10;
+}
+.page-title{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(2.5rem,8vw,5rem);
+  font-weight:900;
+  color:var(--cyan);
+  text-shadow:0 0 10px var(--cyan),0 0 40px var(--purple);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.tagline{
+  font-family:'Rubik Glitch',cursive;
+  font-size:1.35rem;
+  color:var(--neon-pink);
+  margin-top:1rem;
+  animation:flicker 2s infinite;
+}
+@keyframes flicker{
+  0%,100%{opacity:.8}
+  50%{opacity:.3}
+}
+
+/* Terminal */
+section{
+  padding:3rem 2rem;
+  max-width:1200px;
+  margin:0 auto;
+}
+.terminal-window{
+  background:var(--terminal-bg);
+  border:2px solid var(--cyan);
+  border-radius:8px;
+  box-shadow:0 0 30px rgba(0,255,255,.2),inset 0 0 30px rgba(0,255,255,.05);
+  overflow:hidden;
+  margin-bottom:2.5rem;
+}
+.terminal-header{
+  background:linear-gradient(180deg,#2a2a2a,#1a1a1a);
+  padding:.8rem 1rem;
+  display:flex;
+  align-items:center;
+  border-bottom:2px solid var(--cyan);
+}
+.terminal-buttons{
+  display:flex;
+  gap:8px;
+  margin-right:1rem;
+}
+.terminal-btn{
+  width:14px;
+  height:14px;
+  border-radius:50%;
+}
+.terminal-btn.red{background:#ff5f56}
+.terminal-btn.yellow{background:#ffbd2e}
+.terminal-btn.green{background:#27ca40}
+.terminal-title{
+  font-family:'Courier Prime',monospace;
+  color:var(--silver);
+  font-size:.9rem;
+}
+.terminal-body{
+  padding:2rem;
+}
+.terminal-line{
+  margin:.8rem 0;
+  color:var(--cyan);
+  font-size:1rem;
+  line-height:1.6;
+}
+.prompt{
+  color:var(--neon-pink);
+  margin-right:.5rem;
+}
+.command{
+  color:#fff;
+}
+.terminal-output{
+  color:#ddd;
+  padding-left:1rem;
+  border-left:2px solid var(--purple);
+  margin:.5rem 0 1rem;
+  line-height:1.7;
+}
+.author-name{
+  font-size:1.8rem;
+  color:var(--neon-pink);
+  font-weight:700;
+  letter-spacing:.1em;
+  margin:1rem 0 2rem;
+  text-transform:uppercase;
+}
+
+/* Cycles */
+.cycles-info{
+  background:rgba(255,20,147,.05);
+  border:2px solid var(--neon-pink);
+  padding:2rem;
+  margin:2rem 0;
+  border-radius:5px;
+}
+.cycle-item{
+  margin:1.2rem 0;
+  padding:1rem;
+  background:rgba(0,255,255,.03);
+  border-left:3px solid var(--cyan);
+}
+.cycle-item h3{
+  color:var(--cyan);
+  font-family:'Orbitron',sans-serif;
+  margin-bottom:.5rem;
+  font-size:1.05rem;
+}
+.cycle-item p{
+  color:var(--silver);
+  line-height:1.6;
+}
+.cycle-item.active{
+  border-left-color:var(--neon-pink);
+  background:rgba(255,20,147,.08);
+}
+.cycle-item.active h3{
+  color:var(--neon-pink);
+}
+.warning-text{
+  color:var(--neon-pink);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%,100%{opacity:1}
+  50%{opacity:.6}
+}
+
+/* Buttons */
+.y2k-btn{
+  display:inline-block;
+  padding:.8rem 1.5rem;
+  background:transparent;
+  border:2px solid var(--neon-pink);
+  color:var(--neon-pink);
+  text-decoration:none;
+  font-family:'Orbitron',sans-serif;
+  font-size:.8rem;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  transition:all .3s;
+  box-shadow:0 0 10px rgba(255,20,147,.3);
+  margin-top:1rem;
+  margin-right:.8rem;
+}
+.y2k-btn:hover{
+  background:var(--neon-pink);
+  color:var(--dark);
+  box-shadow:0 0 30px rgba(255,20,147,.8);
+}
+.y2k-btn.cyan{
+  border-color:var(--cyan);
+  color:var(--cyan);
+  box-shadow:0 0 10px rgba(0,255,255,.3);
+}
+.y2k-btn.cyan:hover{
+  background:var(--cyan);
+  color:var(--dark);
+  box-shadow:0 0 30px rgba(0,255,255,.8);
+}
+
+/* Poem list */
+.poem-list{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:.9rem;
+  margin-top:1.5rem;
+}
+.poem-item{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:.55rem;
+  padding:1.1rem 1.2rem;
+  background:rgba(0,255,255,.04);
+  border:1px solid var(--cyan);
+  text-decoration:none;
+  color:var(--cyan);
+  transition:all .25s;
+  position:relative;
+  overflow:hidden;
+}
+.poem-item:hover{
+  background:rgba(255,20,147,.08);
+  border-color:var(--neon-pink);
+  color:var(--neon-pink);
+  transform:translateY(-2px);
+  box-shadow:0 0 18px rgba(255,20,147,.25);
+}
+.poem-id{
+  font-family:'Orbitron',sans-serif;
+  font-size:.8rem;
+  color:var(--purple);
+  min-width:42px;
+}
+.poem-title{
+  flex:1 1 auto;
+  font-size:1.05rem;
+  font-weight:700;
+}
+.poem-meta{
+  flex:1 0 100%;
+  font-size:.75rem;
+  color:var(--silver);
+  opacity:.75;
+  margin-top:.25rem;
+}
+.poem-item.soon{
+  cursor:default;
+  border-color:var(--silver);
+  opacity:.42;
+}
+.poem-item.soon:hover{
+  transform:none;
+  box-shadow:none;
+  background:rgba(0,255,255,.04);
+  border-color:var(--silver);
+  color:var(--cyan);
+}
+
+/* Poem page */
+.poem-text{
+  white-space:pre-wrap;
+  font-size:1.15rem;
+  line-height:2.1;
+  color:#ddd;
+  border-left:2px solid var(--neon-pink);
+  padding-left:1.2rem;
+  margin:1.5rem 0 2rem;
+}
+.placeholder{
+  color:var(--silver);
+  font-style:italic;
+}
+
+/* Footer */
+footer{
+  padding:3rem 2rem;
+  text-align:center;
+  background:linear-gradient(180deg,#1a001a 0%,var(--dark) 100%);
+  border-top:2px solid var(--cyan);
+  font-size:.9rem;
+  color:var(--silver);
+}
+footer a{
+  color:var(--neon-pink);
+  text-decoration:none;
+  margin:0 1rem;
+  transition:color .3s;
+}
+footer a:hover{
+  color:var(--cyan);
+}

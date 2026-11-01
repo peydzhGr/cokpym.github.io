@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1024">
+<title>СТИХ // COKPYM</title>
+<link rel="stylesheet" href="blog.css">
+</head>
+<body>
+
+<div class="marquee-container"><div class="marquee">
+<span>✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦</span>
+<span>✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦</span>
+</div></div>
+
+<nav>
+  <a href="index.html" class="logo">COKPYM</a>
+  <ul>
+    <li><a href="index.html#thoughts">Мысли</a></li>
+    <li><a href="index.html#about">Обо мне</a></li>
+    <li><a href="poems.html" class="active">Стихи</a></li>
+    <li><a href="index.html#hobbies">Увлечения</a></li>
+  </ul>
+</nav>
+
+<section class="hero small">
+  <div class="hero-content">
+    <h1 id="poem-title" class="page-title">ЗАГРУЗКА...</h1>
+    <p id="poem-meta" class="tagline">poem</p>
+  </div>
+</section>
+
+<section>
+  <div class="terminal-window">
+    <div class="terminal-header">
+      <div class="terminal-buttons">
+        <span class="terminal-btn red"></span>
+        <span class="terminal-btn yellow"></span>
+        <span class="terminal-btn green"></span>
+      </div>
+      <span id="terminal-file" class="terminal-title">@cokpym:~/poems/00.txt</span>
+    </div>
+    <div class="terminal-body">
+      <p class="terminal-line">
+        <span class="prompt">root@cokpym:~$</span>
+        <span class="command">cat poem.txt</span>
+      </p>
+
+      <div id="poem-text" class="poem-text"></div>
+
+      <a href="poems.html" class="y2k-btn">← Все стихи</a>
+      <a href="https://stihi.ru/avtor/peydzh" target="_blank" rel="noopener" class="y2k-btn cyan">Stihi.ru</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <a href="mailto:Peydzh.work@yandex.ru">EMAIL</a>
+    <a href="https://t.me/LeVershina" target="_blank" rel="noopener">TELEGRAM</a>
+    <a href="https://stihi.ru/avtor/peydzh" target="_blank" rel="noopener">СТИХИ.РУ</a>
+  </div>
+  <p style="margin-top:1.5rem;">✦ © 2026 // Даулбаев Дамир ✦</p>
+  <p style="margin-top:.5rem;font-size:.8rem;opacity:.6;">санкт-петербург • Cokpym</p>
+</footer>
+
+<script src="poems-data.js"></script>
+<script>
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var id = parseInt(params.get('id'), 10);
+  var poems = window.POEMS || [];
+  var poem = null;
+
+  for(var i=0;i<poems.length;i++){
+    if(poems[i].id === id){
+      poem = poems[i];
+      break;
+    }
+  }
+
+  var titleEl = document.getElementById('poem-title');
+  var metaEl = document.getElementById('poem-meta');
+  var fileEl = document.getElementById('terminal-file');
+  var textEl = document.getElementById('poem-text');
+
+  if(!poem){
+    document.title = 'СТИХ НЕ НАЙДЕН // COKPYM';
+    titleEl.textContent = 'ОШИБКА 404';
+    metaEl.textContent = 'poem not found';
+    fileEl.textContent = '@cokpym:~/poems/error.txt';
+    textEl.innerHTML = '<span class="placeholder">Стих с таким id не найден. Вернись к <a href="poems.html" style="color:var(--cyan);">списку стихов</a>.</span>';
+    return;
+  }
+
+  document.title = poem.title + ' // COKPYM';
+  titleEl.textContent = poem.title;
+  metaEl.textContent = (poem.category || '') + (poem.date ? ' • ' + poem.date : '');
+  fileEl.textContent = '@cokpym:~/poems/' + String(poem.id).padStart(2,'0') + '.txt';
+
+  if(poem.status === 'soon'){
+    textEl.innerHTML = '<span class="placeholder">Этот слот зарезервирован под будущий выпуск. Название и текст появятся здесь.</span>';
+    return;
+  }
+
+  if(!poem.text){
+    textEl.innerHTML = '<span class="placeholder">Текст ещё не перенесён в блог. Добавь его в файл <b>poems-data.js</b> в поле <b>text</b> у стиха id=' + poem.id + '.</span>';
+    return;
+  }
+
+  textEl.textContent = poem.text;
+})();
+</script>
+
+</body>
+</html>

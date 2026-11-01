@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1024">
+<title>СТИХИ // COKPYM</title>
+<link rel="stylesheet" href="blog.css">
+</head>
+<body>
+
+<div class="marquee-container"><div class="marquee">
+<span>✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦</span>
+<span>✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦</span>
+</div></div>
+
+<nav>
+  <a href="index.html" class="logo">COKPYM</a>
+  <ul>
+    <li><a href="index.html#thoughts">Мысли</a></li>
+    <li><a href="index.html#about">Обо мне</a></li>
+    <li><a href="poems.html" class="active">Стихи</a></li>
+    <li><a href="index.html#hobbies">Увлечения</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="page-title">СТИХИ</h1>
+    <p class="tagline">коллекция текстов</p>
+  </div>
+</section>
+
+<section>
+  <div class="terminal-window">
+    <div class="terminal-header">
+      <div class="terminal-buttons">
+        <span class="terminal-btn red"></span>
+        <span class="terminal-btn yellow"></span>
+        <span class="terminal-btn green"></span>
+      </div>
+      <span class="terminal-title">@cokpym:~/poems/author</span>
+    </div>
+    <div class="terminal-body">
+      <p class="terminal-line">
+        <span class="prompt">root@cokpym:~$</span>
+        <span class="command">cat author.txt</span>
+      </p>
+      <p class="terminal-output author-name">
+        Даулбаев Дамир
+      </p>
+      <p class="terminal-output">
+        Всего: <span id="poems-total">0</span> • Доступно: <span id="poems-available">0</span> • Готовится: <span id="poems-soon">0</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="cycles-info">
+    <p class="terminal-line">
+      <span class="prompt">root@cokpym:~$</span>
+      <span class="command">cat release_schedule.txt</span>
+    </p>
+
+    <div class="cycle-item active">
+      <h3>🔥 ЦИКЛ 1 — СЕЙЧАС</h3>
+      <p>Первый цикл стихов публикуется уже сейчас. Ознакомьтесь с работами ниже.</p>
+    </div>
+
+    <div class="cycle-item">
+      <h3>📅 ЦИКЛ 2 — СЕРЕДИНА ИЮЛЯ</h3>
+      <p>Вторая часть коллекции будет выпущена в середине июля. Следите за обновлениями.</p>
+    </div>
+
+    <div class="cycle-item">
+      <h3>⚡ ЦИКЛ 3 — 24 АВГУСТА</h3>
+      <p class="warning-text">Финальный цикл выйдет 24 августа — НЕ ПРОПУСТИТЕ!</p>
+    </div>
+  </div>
+
+  <div class="terminal-window">
+    <div class="terminal-header">
+      <div class="terminal-buttons">
+        <span class="terminal-btn red"></span>
+        <span class="terminal-btn yellow"></span>
+        <span class="terminal-btn green"></span>
+      </div>
+      <span class="terminal-title">@cokpym:~/poems/list</span>
+    </div>
+    <div class="terminal-body">
+      <p class="terminal-line">
+        <span class="prompt">root@cokpym:~$</span>
+        <span class="command">ls -la poems/</span>
+      </p>
+      <p class="terminal-output">
+        А пока ознакомьтесь со стихами:
+      </p>
+
+      <div id="poem-list" class="poem-list"></div>
+
+      <p class="terminal-line" style="margin-top:2rem;">
+        <span class="prompt">root@cokpym:~$</span>
+        <span class="command">echo "Больше стихов скоро..."</span>
+      </p>
+    </div>
+  </div>
+
+  <a href="index.html" class="y2k-btn cyan">← На главную</a>
+</section>
+
+<footer>
+  <div>
+    <a href="mailto:Peydzh.work@yandex.ru">EMAIL</a>
+    <a href="https://t.me/LeVershina" target="_blank" rel="noopener">TELEGRAM</a>
+    <a href="https://stihi.ru/avtor/peydzh" target="_blank" rel="noopener">СТИХИ.РУ</a>
+  </div>
+  <p style="margin-top:1.5rem;">✦ © 2026 // Даулбаев Дамир ✦</p>
+  <p style="margin-top:.5rem;font-size:.8rem;opacity:.6;">санкт-петербург • Cokpym</p>
+</footer>
+
+<script src="poems-data.js"></script>
+<script>
+(function(){
+  var poems = window.POEMS || [];
+  var list = document.getElementById('poem-list');
+  var totalEl = document.getElementById('poems-total');
+  var availEl = document.getElementById('poems-available');
+  var soonEl = document.getElementById('poems-soon');
+
+  var available = poems.filter(function(p){ return p.status !== 'soon'; }).length;
+  var soon = poems.filter(function(p){ return p.status === 'soon'; }).length;
+
+  totalEl.textContent = poems.length;
+  availEl.textContent = available;
+  soonEl.textContent = soon;
+
+  poems.forEach(function(p){
+    var isSoon = p.status === 'soon';
+    var el = document.createElement(isSoon ? 'div' : 'a');
+    el.className = 'poem-item' + (isSoon ? ' soon' : '');
+
+    if(!isSoon){
+      el.href = 'poem.html?id=' + p.id;
+    }
+
+    var idSpan = document.createElement('span');
+    idSpan.className = 'poem-id';
+    idSpan.textContent = '[' + String(p.id).padStart(2,'0') + ']';
+
+    var titleSpan = document.createElement('span');
+    titleSpan.className = 'poem-title';
+    titleSpan.textContent = p.title;
+
+    var metaSpan = document.createElement('span');
+    metaSpan.className = 'poem-meta';
+    metaSpan.textContent = (p.category || '') + (p.date ? ' • ' + p.date : '');
+
+    el.appendChild(idSpan);
+    el.appendChild(titleSpan);
+    el.appendChild(metaSpan);
+    list.appendChild(el);
+  });
+})();
+</script>
+
+</body>
+</html>
