@@ -262,6 +262,7 @@ for(i=0;i<t.length;i++){
   x=h(i);
   s.style.setProperty('--d0',(-((x%20)/10)).toFixed(2)+'s');
   s.style.setProperty('--d1',(-(((x>>>5)%24)/10)).toFixed(2)+'s');
+
   s.style.setProperty('--d2',(-(((x>>>10)%28)/10)).toFixed(2)+'s');
   s.style.setProperty('--t0',(1.6+((x>>>15)%7)/10).toFixed(2)+'s');
   s.style.setProperty('--t1',(1.9+((x>>>19)%7)/10).toFixed(2)+'s');
