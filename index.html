@@ -1,18 +1,37 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COKPYM // blog</title>
 <meta name="description" content="COKPYM — проект Даулбаева Дамира: стихи, видео, исследование психосоматики, эмоций и психологии раздражённости.">
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="COKPYM">
 <meta property="og:title" content="COKPYM">
 <meta property="og:description" content="Сайт-дело: стихи, видео, биография и цифровые следы автора.">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=1024">
-<title>COKPYM // blog</title>
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon-180.png">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Orbitron:wght@400;700;900&family=Rubik+Glitch&display=swap');
-:root{--neon-pink:#FF1493;--cyan:#00FFFF;--purple:#9D00FF;--silver:#C0C0C0;--dark:#0a0a0a;--terminal-bg:#0d0d0d;--yt:#FF0033;--tg:#229ED9;--st:#FF1493;}
+:root{--neon-pink:#FF1493;--cyan:#00FFFF;--purple:#9D00FF;--silver:#C0C0C0;--dark:#0a0a0a;--terminal-bg:#0d0d0d;--yt:#FF0033;--tg:#229ED9;--st:#FF1493;--lime:#00ff9c;--navh:92px;}
 *{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
 body{background:var(--dark);color:#fff;font-family:'Courier Prime',monospace;overflow-x:hidden;cursor:crosshair;}
 body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,.25) 50%);background-size:100% 4px;pointer-events:none;z-index:9999;}
+::selection{background:var(--neon-pink);color:#000;}
+::-webkit-scrollbar{width:10px;}
+::-webkit-scrollbar-track{background:#050505;}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--neon-pink),var(--purple));border:2px solid #050505;}
+
+/* ── Зерно + курсор ── */
+.grain{position:fixed;inset:0;z-index:9997;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");}
+.cursor-glow{position:fixed;top:0;left:0;width:520px;height:520px;margin:-260px 0 0 -260px;pointer-events:none;z-index:0;
+  background:radial-gradient(circle,rgba(255,20,147,.13),rgba(157,0,255,.07) 42%,transparent 68%);
+  transform:translate3d(-999px,-999px,0);will-change:transform;}
 
 /* Marquee */
 .marquee-container{position:fixed;top:0;width:100%;background:linear-gradient(90deg,var(--neon-pink),var(--purple),var(--cyan));padding:.5rem 0;overflow:hidden;border-bottom:2px solid #fff;z-index:1001;}
@@ -22,25 +41,45 @@ body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;backg
 
 /* Nav */
 nav{position:fixed;top:36px;width:100%;padding:1rem 2rem;background:rgba(10,10,10,.95);border-bottom:1px solid var(--cyan);z-index:1000;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(5px);}
-nav .logo{font-family:'Orbitron',sans-serif;color:var(--cyan);font-weight:700;letter-spacing:.2em;text-decoration:none;}
+nav .logo{font-family:'Orbitron',sans-serif;color:var(--cyan);font-weight:700;letter-spacing:.2em;text-decoration:none;text-shadow:0 0 14px rgba(0,255,255,.6);display:inline-flex;align-items:center;}
+nav .logo img{display:block;height:32px;width:auto;filter:drop-shadow(0 0 10px rgba(0,255,255,.4));transition:filter .3s;}
+nav .logo:hover img{filter:drop-shadow(0 0 16px rgba(0,255,255,.85));}
 nav ul{list-style:none;display:flex;gap:2rem;}
-nav a{color:var(--silver);text-decoration:none;font-size:.9rem;text-transform:uppercase;transition:color .3s;}
-nav a:hover{color:var(--neon-pink);}
+nav a{color:var(--silver);text-decoration:none;font-size:.9rem;text-transform:uppercase;transition:color .3s,text-shadow .3s;}
+nav a:hover{color:var(--neon-pink);text-shadow:0 0 12px rgba(255,20,147,.7);}
 
 /* Hero + glitch */
-.hero{height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a001a 0%,#001a1a 100%);margin-top:36px;}
-.hero-content{text-align:center;z-index:10;}
-.glitch-text{position:relative;display:inline-block;font-family:'Orbitron',sans-serif;font-size:clamp(3rem,10vw,6rem);font-weight:900;letter-spacing:.1em;}
+.hero{position:relative;overflow:hidden;min-height:calc(100vh - 36px);display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 34%,#1c0026 0%,#001a1e 46%,#070707 100%);margin-top:36px;}
+.hero::before{content:"";position:absolute;left:-60%;right:-60%;bottom:-6%;height:58%;pointer-events:none;
+  background-image:linear-gradient(rgba(0,255,255,.30) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,255,.20) 1px,transparent 1px);
+  background-size:64px 64px;transform:perspective(420px) rotateX(63deg);transform-origin:bottom center;
+  animation:grid-drift 7s linear infinite;
+  -webkit-mask-image:linear-gradient(to top,#000 6%,transparent 72%);mask-image:linear-gradient(to top,#000 6%,transparent 72%);}
+@keyframes grid-drift{from{background-position:0 0,0 0}to{background-position:0 64px,0 0}}
+.hero::after{content:"";position:absolute;left:0;right:0;top:0;height:150px;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(0,255,255,.07),transparent);
+  animation:hero-sweep 8s linear infinite;}
+@keyframes hero-sweep{0%{transform:translateY(-160px)}100%{transform:translateY(calc(100vh))}}
+.hero-content{text-align:center;z-index:10;padding:2rem 1rem;position:relative;}
+.glitch-text{position:relative;display:inline-block;font-family:'Orbitron',sans-serif;font-size:clamp(2.6rem,10vw,6rem);font-weight:900;letter-spacing:.1em;}
 .gl{position:relative;display:inline-block;color:var(--cyan);text-shadow:0 0 8px var(--cyan),0 0 22px var(--purple);animation:gl-main var(--t0,1.6s) infinite steps(1);animation-delay:var(--d0,0s);}
 .gl::before,.gl::after{content:attr(data-c);position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;}
 .gl::before{color:var(--neon-pink);z-index:-1;animation:gl-a var(--t1,1.9s) infinite steps(1);animation-delay:var(--d1,0s);}
-.gl::after{color:#00ff9c;z-index:-2;animation:gl-b var(--t2,2.3s) infinite steps(1);animation-delay:var(--d2,0s);}
+.gl::after{color:var(--lime);z-index:-2;animation:gl-b var(--t2,2.3s) infinite steps(1);animation-delay:var(--d2,0s);}
 @keyframes gl-main{0%,70%,100%{transform:translate(0) skewX(0);clip-path:inset(0 0 0 0);opacity:1;}72%{transform:translate(-3px,2px) skewX(-8deg);clip-path:inset(0 0 55% 0);}74%{transform:translate(4px,-2px) skewX(6deg);clip-path:inset(45% 0 0 0);}76%{transform:translate(-2px,0) skewX(0);clip-path:inset(20% 0 30% 0);opacity:.8;}78%{transform:translate(3px,1px) skewX(-4deg);clip-path:inset(0 0 0 0);}80%{transform:translate(0) skewX(0);clip-path:inset(60% 0 10% 0);}82%{transform:translate(-4px,-1px) skewX(3deg);clip-path:inset(0 0 0 0);opacity:1;}}
 @keyframes gl-a{0%,100%{transform:translate(0);clip-path:inset(0 0 0 0);}15%{transform:translate(-6px,2px);clip-path:inset(10% 0 70% 0);}30%{transform:translate(5px,-3px);clip-path:inset(50% 0 20% 0);}45%{transform:translate(-4px,0);clip-path:inset(0 0 60% 0);}60%{transform:translate(6px,1px);clip-path:inset(30% 0 40% 0);}75%{transform:translate(-3px,-2px);clip-path:inset(70% 0 5% 0);}}
 @keyframes gl-b{0%,100%{transform:translate(0);clip-path:inset(0 0 0 0);}20%{transform:translate(6px,-2px);clip-path:inset(40% 0 30% 0);}40%{transform:translate(-5px,3px);clip-path:inset(0 0 75% 0);}60%{transform:translate(4px,0);clip-path:inset(60% 0 10% 0);}80%{transform:translate(-6px,1px);clip-path:inset(20% 0 50% 0);}}
-.tagline{font-family:'Rubik Glitch',cursive;font-size:1.5rem;color:var(--neon-pink);margin-top:1rem;animation:flicker 2s infinite;}
-.location{margin-top:2rem;font-size:.9rem;opacity:.7;letter-spacing:.3em;text-transform:uppercase;}
-@keyframes flicker{0%,100%{opacity:.8}50%{opacity:.3}}
+.tagline{font-family:'Rubik Glitch',cursive;font-size:clamp(1.1rem,3.2vw,1.5rem);color:var(--neon-pink);margin-top:1rem;animation:flicker 2s infinite;text-shadow:0 0 18px rgba(255,20,147,.5);}
+.location{margin-top:1.6rem;font-size:.9rem;opacity:.7;letter-spacing:.3em;text-transform:uppercase;}
+@keyframes flicker{0%,100%{opacity:.85}50%{opacity:.4}}
+.hero-status{display:inline-flex;align-items:center;gap:.6rem;margin-top:1.4rem;padding:.45rem .9rem;border:1px solid rgba(0,255,255,.35);border-radius:999px;background:rgba(0,255,255,.04);
+  font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--silver);}
+.hero-status .dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime);animation:pulse 2s ease-in-out infinite;}
+.hero-status .sep{opacity:.35;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+.scroll-hint{position:absolute;left:50%;bottom:1.6rem;transform:translateX(-50%);z-index:10;font-size:.68rem;letter-spacing:.35em;text-transform:uppercase;color:var(--cyan);opacity:.55;animation:bob 2.6s ease-in-out infinite;}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,7px)}}
+
 /* Terminal */
 .terminal-window{background:var(--terminal-bg);border:2px solid var(--cyan);border-radius:8px;box-shadow:0 0 30px rgba(0,255,255,.2),inset 0 0 30px rgba(0,255,255,.05);overflow:hidden;margin-bottom:4rem;}
 .terminal-header{background:linear-gradient(180deg,#2a2a2a,#1a1a1a);padding:.8rem 1rem;display:flex;align-items:center;border-bottom:2px solid var(--cyan);}
@@ -56,17 +95,26 @@ nav a:hover{color:var(--neon-pink);}
 .terminal-output.thought{font-style:normal;}
 .terminal-output.dim{opacity:.6;font-style:italic;border-left-color:var(--cyan);}
 
-section{padding:4rem 2rem;max-width:1200px;margin:0 auto;}
+section{padding:4rem 2rem;max-width:1200px;margin:0 auto;position:relative;}
+section[id]{scroll-margin-top:var(--navh);}
+.sec-label{display:block;font-family:'Orbitron',sans-serif;font-size:.68rem;letter-spacing:.4em;text-transform:uppercase;color:var(--cyan);opacity:.6;margin-bottom:1rem;}
+.sec-label b{color:var(--neon-pink);font-weight:700;}
 
 /* About */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;}
-.about-img{width:100%;aspect-ratio:3/4;object-fit:cover;border:2px solid var(--cyan);box-shadow:0 0 20px rgba(0,255,255,.3);filter:grayscale(30%) contrast(1.2);}
+.about-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:2rem;align-items:center;}
+.about-media{position:relative;width:100%;aspect-ratio:3/4;border:2px solid var(--cyan);box-shadow:0 0 20px rgba(0,255,255,.3);overflow:hidden;
+  background:repeating-linear-gradient(45deg,rgba(0,255,255,.05) 0 7px,transparent 7px 14px),linear-gradient(160deg,#14001f,#001a1a);}
+.about-media::before{content:attr(data-label);position:absolute;inset:0;display:grid;place-items:center;
+  font-family:'Orbitron',sans-serif;font-size:.62rem;letter-spacing:.3em;color:rgba(0,255,255,.45);text-align:center;padding:1rem;}
+.about-img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(30%) contrast(1.2);}
 .counter{color:var(--neon-pink);font-weight:700;}
 .glitch-word{color:var(--neon-pink);}
 
 /* Buttons */
-.y2k-btn{display:inline-block;padding:.8rem 1.5rem;background:transparent;border:2px solid var(--neon-pink);color:var(--neon-pink);text-decoration:none;font-family:'Orbitron',sans-serif;font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;transition:all .3s;box-shadow:0 0 10px rgba(255,20,147,.3);margin-top:1rem;}
-.y2k-btn:hover{background:var(--neon-pink);color:var(--dark);box-shadow:0 0 30px rgba(255,20,147,.8);}
+.y2k-btn{display:inline-block;padding:.8rem 1.5rem;background:transparent;border:2px solid var(--neon-pink);color:var(--neon-pink);text-decoration:none;font-family:'Orbitron',sans-serif;font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;transition:all .3s;box-shadow:0 0 10px rgba(255,20,147,.3);margin-top:1rem;cursor:crosshair;-webkit-appearance:none;appearance:none;}
+.y2k-btn:hover,.y2k-btn:focus-visible{background:var(--neon-pink);color:var(--dark);box-shadow:0 0 30px rgba(255,20,147,.8);outline:none;}
+.y2k-btn.cyan{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 10px rgba(0,255,255,.25);}
+.y2k-btn.cyan:hover{background:var(--cyan);color:var(--dark);box-shadow:0 0 30px rgba(0,255,255,.8);}
 
 /* Nav tiles */
 .nav-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1.5rem;}
@@ -79,17 +127,75 @@ section{padding:4rem 2rem;max-width:1200px;margin:0 auto;}
 .nav-card.tg{border-color:var(--tg)}.nav-card.tg .nav-icon{color:var(--tg)}.nav-card.tg:hover{box-shadow:0 0 30px rgba(34,158,217,.6);}
 .nav-card.st{border-color:var(--st)}.nav-card.st .nav-icon{color:var(--st)}.nav-card.st:hover{box-shadow:0 0 30px rgba(255,20,147,.6);}
 
-/* Hobbies */
-.hobbies-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin-bottom:2rem;}
-.hobby-card{background:rgba(0,255,255,.03);border:1px solid var(--cyan);padding:1.5rem;transition:all .3s;}
-.hobby-card:hover{transform:translateY(-3px);box-shadow:0 0 15px rgba(0,255,255,.3);}
-.hobby-card h3{font-family:'Orbitron',sans-serif;color:var(--cyan);margin-bottom:.8rem;font-size:1rem;}
-.hobby-card p{color:var(--silver);font-size:.85rem;line-height:1.5;}
+/* Hobbies — научный сектор */
+.lab-sector{position:relative;margin-top:1.2rem;border:1px solid rgba(0,255,255,.55);
+  background:
+    repeating-linear-gradient(0deg,rgba(0,255,255,.035) 0 1px,transparent 1px 22px),
+    linear-gradient(180deg,rgba(0,255,255,.06),rgba(0,0,0,.35));}
+.lab-sector-head{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  padding:.75rem 1.1rem;border-bottom:1px solid rgba(0,255,255,.25);
+  font-family:'Orbitron',sans-serif;font-size:.6rem;letter-spacing:.22em;
+  color:rgba(0,255,255,.7);text-transform:uppercase;}
+.lab-sector-head b{color:var(--neon-pink);}
+.lab-sector-head .live{color:var(--neon-pink);}
+.lab-sector-head .live::before{content:"●";margin-right:.45rem;animation:pulse 2s ease-in-out infinite;}
+.lab-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem;padding:1.3rem;}
+.lab-card{position:relative;padding:1.35rem 1.25rem 1.15rem;border:1px solid rgba(0,255,255,.32);
+  background:linear-gradient(180deg,rgba(0,255,255,.055),rgba(0,0,0,.25) 60%);
+  transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;}
+.lab-card::before,.lab-card::after{content:"";position:absolute;width:13px;height:13px;border:1px solid var(--cyan);opacity:.65;}
+.lab-card::before{top:-1px;left:-1px;border-right:0;border-bottom:0;}
+.lab-card::after{bottom:-1px;right:-1px;border-left:0;border-top:0;}
+.lab-card:hover{transform:translateY(-4px);border-color:var(--cyan);box-shadow:0 0 26px rgba(0,255,255,.25);}
+.lab-card-top{display:flex;justify-content:space-between;gap:.6rem;flex-wrap:wrap;
+  font-family:'Orbitron',sans-serif;font-size:.56rem;letter-spacing:.18em;
+  color:rgba(0,255,255,.6);text-transform:uppercase;margin-bottom:.85rem;}
+.lab-code{color:var(--neon-pink);}
+.lab-card h3{font-family:'Orbitron',sans-serif;font-size:1.05rem;letter-spacing:.06em;
+  color:var(--cyan);text-transform:uppercase;margin-bottom:.6rem;}
+.lab-card p{color:var(--silver);font-size:.86rem;line-height:1.6;}
+.lab-meta{display:flex;align-items:baseline;gap:.5rem;margin-top:1.05rem;
+  font-family:'Orbitron',sans-serif;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;}
+.lab-meta-k{flex:0 0 auto;color:rgba(0,255,255,.5);}
+.lab-meta-dots{flex:1 1 auto;min-width:16px;border-bottom:1px dotted rgba(0,255,255,.3);transform:translateY(-3px);}
+.lab-meta-v{flex:0 0 auto;color:#eaffff;}
+.lab-chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:1rem;}
+.lab-chips span{font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(0,255,255,.75);border:1px solid rgba(0,255,255,.3);padding:.16rem .45rem;}
+.lab-sector-foot{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;
+  padding:1.1rem 1.2rem;border-top:1px solid rgba(0,255,156,.35);
+  background:linear-gradient(90deg,rgba(0,255,156,.12),rgba(0,255,156,.03) 55%,transparent);
+  font-family:'Orbitron',sans-serif;font-size:.56rem;letter-spacing:.2em;
+  color:rgba(0,255,156,.75);text-transform:uppercase;}
+.lab-sector-foot .lab-cta{margin-top:0;border-color:var(--lime);color:var(--lime);
+  box-shadow:0 0 12px rgba(0,255,156,.3);}
+.lab-sector-foot .lab-cta:hover{background:var(--lime);color:#040705;box-shadow:0 0 26px rgba(0,255,156,.8);}
 
-/* Gallery rows */
+/* Random quatrain */
+.verse-out{position:relative;min-height:170px;display:flex;flex-direction:column;justify-content:center;gap:.15rem;
+  padding:1.2rem 1.2rem 1.2rem 1.2rem;border-left:2px solid var(--neon-pink);background:linear-gradient(90deg,rgba(255,20,147,.05),transparent 60%);}
+.verse-line{font-size:1.05rem;line-height:1.85;color:#f0f0f0;opacity:0;transform:translateY(6px);animation:verse-in .45s ease forwards;letter-spacing:.01em;}
+@keyframes verse-in{to{opacity:1;transform:translateY(0)}}
+.verse-caret{display:inline-block;width:.6em;height:1.05em;margin-top:.4rem;background:var(--cyan);opacity:0;box-shadow:0 0 12px var(--cyan);animation:caret .9s steps(1) infinite;}
+@keyframes caret{0%,49%{opacity:0}50%,100%{opacity:.9}}
+.verse-placeholder{color:#8a8a8a;font-style:italic;line-height:1.7;opacity:0;animation:verse-in .45s ease forwards;}
+.verse-source{font-size:.78rem;color:#9a9a9a;letter-spacing:.06em;margin-top:.2rem;min-height:1.2em;}
+.verse-source a{color:var(--neon-pink);text-decoration:none;border-bottom:1px dotted rgba(255,20,147,.6);}
+.verse-source a:hover{color:var(--cyan);border-bottom-color:var(--cyan);}
+.verse-actions{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;}
+#verse-btn{animation:btn-breathe 3.2s ease-in-out infinite;}
+#verse-btn:hover{animation:none;}
+@keyframes btn-breathe{0%,100%{box-shadow:0 0 10px rgba(255,20,147,.3)}50%{box-shadow:0 0 26px rgba(255,20,147,.75)}}
+
+/* Gallery */
 .photo-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:1200px;margin:0 auto 4rem;padding:0 2rem;}
-.gallery-img{width:100%;aspect-ratio:1;object-fit:cover;border:2px solid var(--cyan);box-shadow:0 0 15px rgba(0,255,255,.3);filter:grayscale(30%) contrast(1.2);transition:all .3s;}
-.gallery-img:hover{filter:grayscale(0%) contrast(1.4) saturate(1.5);transform:scale(1.05);box-shadow:0 0 30px rgba(0,255,255,.6);}
+.shot{position:relative;aspect-ratio:1;border:2px solid var(--cyan);box-shadow:0 0 15px rgba(0,255,255,.3);overflow:hidden;transition:all .3s;
+  background:repeating-linear-gradient(45deg,rgba(0,255,255,.055) 0 7px,transparent 7px 14px),linear-gradient(150deg,#13001c,#001a1a);}
+.shot::before{content:attr(data-label);position:absolute;inset:0;display:grid;place-items:center;
+  font-family:'Orbitron',sans-serif;font-size:.6rem;letter-spacing:.3em;color:rgba(0,255,255,.4);}
+.gallery-img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(30%) contrast(1.2);transition:all .35s;}
+.shot:hover{transform:scale(1.04);box-shadow:0 0 30px rgba(0,255,255,.6);}
+.shot:hover .gallery-img{filter:grayscale(0%) contrast(1.4) saturate(1.5);}
 
 /* Sparkle */
 .sparkle{position:absolute;width:4px;height:4px;border-radius:50%;pointer-events:none;z-index:50;animation:sparkle 1s forwards;}
@@ -103,11 +209,51 @@ footer a:hover{color:var(--cyan);}
 .hologram{position:fixed;left:2%;top:44%;transform:translateY(-50%);width:clamp(90px,12vw,180px);aspect-ratio:3/4;pointer-events:none;z-index:5;--f:0;}
 .hologram .hl,.hologram .hlc{position:absolute;inset:0;background:url('me.png') center/contain no-repeat;will-change:transform,opacity,filter;transform:translate3d(calc(var(--dx,0px)*var(--lf,0)),calc(var(--dy,0px)*var(--lf,0)),0);opacity:calc(1 - var(--lf,0)*0.95);filter:blur(calc(var(--lf,0)*7px));}
 
+/* ── знак GrichTech ── */
+.site-brand{display:flex;flex-direction:column;align-items:center;gap:.55rem;margin:0 0 1.7rem;}
+.site-brand img{display:block;width:150px;max-width:60%;height:auto;opacity:.92;
+  filter:drop-shadow(0 0 16px rgba(0,255,255,.3));}
+.site-brand-cap{font-family:'Orbitron',sans-serif;font-size:.52rem;letter-spacing:.26em;
+  text-transform:uppercase;color:#6b7280;}
+@media(max-width:760px){.site-brand img{width:120px;}}
 
+@media(max-width:900px){
+  .hologram{display:none;}
+  .about-grid{grid-template-columns:1fr;gap:1.5rem;}
+  .about-media{max-width:320px;margin:0 auto;}
+  .nav-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:700px){
+  nav{padding:.85rem 1rem;top:32px;align-items:flex-start;flex-direction:column;gap:.7rem;}
+  nav ul{gap:.9rem;flex-wrap:wrap;width:100%;}
+  nav a{font-size:.68rem;letter-spacing:.04em;}
+  nav .logo{font-size:.95rem;}
+  nav .logo img{height:24px;}
+  .marquee span{font-size:.72rem;padding:0 1.2rem;}
+  section{padding:2.6rem 1rem;}
+  section[id]{scroll-margin-top:120px;}
+  .terminal-body{padding:1.2rem;}
+  .terminal-title{font-size:.72rem;}
+  .photo-gallery{grid-template-columns:repeat(2,1fr);padding:0 1rem;gap:.7rem;}
+  .terminal-window{margin-bottom:2.5rem;}
+  .lab-grid{grid-template-columns:1fr;padding:1rem;gap:1rem;}
+  .lab-sector-foot{flex-direction:column;align-items:flex-start;}
+  .hero{min-height:calc(100vh - 32px);}
+  .verse-out{min-height:190px;}
+  .y2k-btn{font-size:.72rem;padding:.7rem 1.1rem;}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+  .marquee,.gl,.gl::before,.gl::after,.hero::before,.hero::after,.tagline,#verse-btn,.scroll-hint{animation:none !important;}
+  .verse-line,.verse-placeholder{opacity:1;transform:none;}
+  .cursor-glow{display:none;}
+}
 </style>
 </head>
 <body>
 
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
 <div class="hologram" id="hologram" aria-hidden="true"></div>
 
 <div class="marquee-container"><div class="marquee">
@@ -115,50 +261,30 @@ footer a:hover{color:var(--cyan);}
 <span>✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦</span>
 </div></div>
 
-<nav><a href="index.html" class="logo">COKPYM</a><ul>
-<li><a href="#thoughts">Мысли</a></li>
+<nav><a href="index.html" class="logo"><img src="logo-horiz-cyan.png" alt="COKPYM"></a><ul>
 <li><a href="#about">Обо мне</a></li>
 <li><a href="poems.html">Стихи</a></li>
 <li><a href="#hobbies">Увлечения</a></li>
+<li><a href="bio.html">Биография</a></li>
 </ul></nav>
 
 <section class="hero"><div class="hero-content">
 <h1 class="glitch-text" data-text="COKPYM">COKPYM</h1>
 <p class="tagline">digital soul // digital love</p>
-<p class="location">Saint-Petersburg</p>
-</div></section>
+<p class="hero-status"><span class="dot"></span>online <span class="sep">/</span> <span id="status-poems">31</span> стих <span class="sep">/</span> Saint-Petersburg</p>
+</div><div class="scroll-hint">scroll ↓</div></section>
 
-<!-- Мысли (терминал, вместо XP) -->
-<section id="thoughts"><div class="terminal-window">
-<div class="terminal-header">
-<div class="terminal-buttons"><span class="terminal-btn red"></span><span class="terminal-btn yellow"></span><span class="terminal-btn green"></span></div>
-<span class="terminal-title">@cokpym:~/thoughts</span>
-</div>
-<div class="terminal-body">
-<p class="terminal-line"><span class="prompt">root@cokpym:~$</span><span class="command">cat thoughts.txt</span></p>
-<p class="terminal-output thought">Здесь я собираю всё, что приходит в голову. Фрагменты размышлений, наблюдения за миром, случайные инсайты.</p>
-<p class="terminal-output thought">Этот раздел — черновик моего сознания. Всё, что ещё не оформилось в стихи или проекты, но уже требует выхода.</p>
-<p class="terminal-output thought">› О цифровой культуре и её влиянии на человека</p>
-<p class="terminal-output thought">› О городе как пространстве для творчества</p>
-<p class="terminal-output thought">› О поиске смысла в хаосе информации</p>
-<p class="terminal-output dim">// обновляется по мере появления новых мыслей...</p>
-</div>
-</div></section>
-
-<div class="photo-gallery">
-<img src="10.jpg" alt="" class="gallery-img">
-<img src="11.jpg" alt="" class="gallery-img">
-<img src="12.jpg" alt="" class="gallery-img">
-</div>
-
-<section id="about"><div class="terminal-window">
+<!-- 01 · Обо мне -->
+<section id="about">
+<span class="sec-label">// 01 — <b>обо мне</b></span>
+<div class="terminal-window">
 <div class="terminal-header">
 <div class="terminal-buttons"><span class="terminal-btn red"></span><span class="terminal-btn yellow"></span><span class="terminal-btn green"></span></div>
 <span class="terminal-title">@cokpym:~/about</span>
 </div>
 <div class="terminal-body">
 <div class="about-grid">
-<img src="1.jpg" alt="Cokpym" class="about-img">
+<div class="about-media" data-label="IMG // 1.jpg"><img src="1.jpg" alt="Cokpym" class="about-img" onerror="this.style.display='none'"></div>
 <div>
 <p class="terminal-line"><span class="prompt">root@cokpym:~$</span><span class="command">cat bio.txt</span></p>
 <p class="terminal-output">Поэт, разработчик, художник, учёный. Создаю цифровые и текстовые артефакты. Мои работы — это отражение новой меланхолии.</p>
@@ -172,7 +298,7 @@ footer a:hover{color:var(--cyan);}
 </div>
 <p class="terminal-line" style="margin-top:2.5rem;"><span class="prompt">root@cokpym:~$</span><span class="command">open --platforms</span></p>
 <div class="nav-grid">
-<!-- ЗАМЕНИ @cokpym НИЖЕ на реальный handle своего YouTube-канала, если он другой -->
+<!-- ЗАМЕНИ @LocratProd НИЖЕ на реальный handle своего YouTube-канала, если он другой -->
 <a href="https://www.youtube.com/@LocratProd" target="_blank" rel="noopener" class="nav-card yt">
 <span class="nav-icon">►</span><span class="nav-label">YOUTUBE</span><span class="nav-url">youtube.com</span>
 </a>
@@ -187,141 +313,349 @@ footer a:hover{color:var(--cyan);}
 </div></section>
 
 <div class="photo-gallery">
-<img src="20.jpg" alt="" class="gallery-img">
-<img src="21.jpg" alt="" class="gallery-img">
-<img src="22.jpg" alt="" class="gallery-img">
+<div class="shot" data-label="IMG // 10"><img src="10.jpg" alt="" class="gallery-img" loading="lazy" onerror="this.style.display='none'"></div>
+<div class="shot" data-label="IMG // 11"><img src="11.jpg" alt="" class="gallery-img" loading="lazy" onerror="this.style.display='none'"></div>
+<div class="shot" data-label="IMG // 12"><img src="12.jpg" alt="" class="gallery-img" loading="lazy" onerror="this.style.display='none'"></div>
 </div>
 
-<section id="poems"><div class="terminal-window">
+<!-- 02 · Случайное четверостишье -->
+<section id="verse">
+<span class="sec-label">// 02 — <b>случайная строфа</b></span>
+<div class="terminal-window">
 <div class="terminal-header">
 <div class="terminal-buttons"><span class="terminal-btn red"></span><span class="terminal-btn yellow"></span><span class="terminal-btn green"></span></div>
-<span class="terminal-title">@cokpym:~/poems</span>
+<span class="terminal-title">@cokpym:~/poems/random</span>
 </div>
 <div class="terminal-body">
-<p class="terminal-line"><span class="prompt">root@cokpym:~$</span><span class="command">ls -la poems/</span></p>
-<p class="terminal-output">Коллекция из 31 опубликованных работ.</p>
-<p class="terminal-line"><span class="prompt">root@cokpym:~$</span><span class="command">open poems.html</span></p>
-<a href="poems.html" class="y2k-btn">Перейти к стихам →</a>
+<p class="terminal-line"><span class="prompt">root@cokpym:~$</span><span class="command">./quatrain.sh --random</span></p>
+<p class="terminal-output dim">// машина выбирает четыре строки из случайного стиха</p>
+<div class="verse-out" id="verse-out" aria-live="polite">
+<p class="verse-placeholder" id="verse-placeholder">Пока пусто. Нажми кнопку — и выпадет четверостишье.</p>
 </div>
-</div></section>
+<p class="verse-source" id="verse-source"></p>
+<div class="verse-actions">
+<button class="y2k-btn" id="verse-btn" type="button">Получить четверостишье →</button>
+<a href="poems.html" class="y2k-btn cyan">Все стихи →</a>
+</div>
+</div>
+</div>
+</section>
 
 <div class="photo-gallery">
-<img src="30.jpg" alt="" class="gallery-img">
-<img src="31.jpg" alt="" class="gallery-img">
-<img src="32.jpg" alt="" class="gallery-img">
+<div class="shot" data-label="IMG // 30"><img src="30.jpg" alt="" class="gallery-img" loading="lazy" onerror="this.style.display='none'"></div>
+<div class="shot" data-label="IMG // 31"><img src="31.jpg" alt="" class="gallery-img" loading="lazy" onerror="this.style.display='none'"></div>
+<div class="shot" data-label="IMG // 32"><img src="32.jpg" alt="" class="gallery-img" loading="lazy" onerror="this.style.display='none'"></div>
 </div>
 
-<section id="hobbies"><div class="terminal-window">
+<!-- 03 · Увлечения -->
+<section id="hobbies">
+<span class="sec-label">// 03 — <b>увлечения</b></span>
+<div class="terminal-window">
 <div class="terminal-header">
 <div class="terminal-buttons"><span class="terminal-btn red"></span><span class="terminal-btn yellow"></span><span class="terminal-btn green"></span></div>
-<span class="terminal-title">@cokpym:~/hobbies</span>
+<span class="terminal-title">@cokpym:~/lab/sector-h04</span>
 </div>
 <div class="terminal-body">
-<p class="terminal-line"><span class="prompt">root@cokpym:~$</span><span class="command">cat hobbies.json</span></p>
-<div class="hobbies-grid">
-<div class="hobby-card"><h3>Блогинг</h3><p>Ведение этого сайта. Делюсь мыслями, идеями и творчеством с миром.</p></div>
-<div class="hobby-card"><h3>Английский</h3><p>Изучение языка. Чтение оригинальной литературы и просмотр контента.</p></div>
-<div class="hobby-card"><h3>Приколы и анекдоты</h3><p>Коллекционирование и создание юмора. Смех — лучшее лекарство от серости.</p></div>
-<div class="hobby-card"><h3>Кино</h3><p>Анализ визуального языка. Поиск вдохновения в работах классиков.</p></div>
+<p class="terminal-line"><span class="prompt">root@cokpym:~$</span><span class="command">./sector.sh --scan</span></p>
+<div class="lab-sector">
+<div class="lab-sector-head">
+<span>сектор H-04 · <b>4 образца</b></span>
+<span class="live">наблюдение идёт</span>
 </div>
-<p class="terminal-line"><span class="prompt">root@cokpym:~$</span><span class="command">open hobbies.html --all</span></p>
-<a href="hobbies.html" class="y2k-btn">Все увлечения →</a>
+<div class="lab-grid">
+
+<article class="lab-card">
+<div class="lab-card-top"><span class="lab-code">OBJ-01</span><span>класс: публикация</span></div>
+<h3>Блогинг</h3>
+<p>Ведение этого сайта. Делюсь мыслями, идеями и творчеством с миром.</p>
+<div class="lab-meta"><span class="lab-meta-k">канал</span><span class="lab-meta-dots"></span><span class="lab-meta-v">выход</span></div>
+<div class="lab-chips"><span>сюжет</span><span>текст</span><span>фон</span></div>
+</article>
+
+<article class="lab-card">
+<div class="lab-card-top"><span class="lab-code">OBJ-02</span><span>класс: язык</span></div>
+<h3>Английский</h3>
+<p>Изучение языка. Чтение оригинальной литературы и просмотр контента без перевода.</p>
+<div class="lab-meta"><span class="lab-meta-k">канал</span><span class="lab-meta-dots"></span><span class="lab-meta-v">вход</span></div>
+<div class="lab-chips"><span>чтение</span><span>видео / фильмы на оригинале</span></div>
+</article>
+
+<article class="lab-card">
+<div class="lab-card-top"><span class="lab-code">OBJ-03</span><span>класс: юмор</span></div>
+<h3>Приколы и анекдоты</h3>
+<p>Коллекционирование и создание юмора. Смех — лучшее лекарство от серости.</p>
+<div class="lab-meta"><span class="lab-meta-k">канал</span><span class="lab-meta-dots"></span><span class="lab-meta-v">защита</span></div>
+<div class="lab-chips"><span>мемы</span><span>картинки</span><span>тиктоки</span></div>
+</article>
+
+<article class="lab-card">
+<div class="lab-card-top"><span class="lab-code">OBJ-04</span><span>класс: визуальный анализ</span></div>
+<h3>Кино</h3>
+<p>Анализ визуального языка. Поиск вдохновения в работах классиков.</p>
+<div class="lab-meta"><span class="lab-meta-k">канал</span><span class="lab-meta-dots"></span><span class="lab-meta-v">метод</span></div>
+<div class="lab-chips"><span>пересмотр</span><span>анализ</span><span>интеграция</span></div>
+</article>
+
 </div>
-</div></section>
+<div class="lab-sector-foot">
+<span>среда: веб · экран · бумага</span>
+<a href="hobbies.html" class="y2k-btn lab-cta">Открыть лабораторию →</a>
+</div>
+</div>
+</div>
+</div>
+</section>
 
 <footer>
+<div class="site-brand">
+<img src="logo-horiz-cyan.png" alt="GrichTech">
+<span class="site-brand-cap">лаборатория H-04</span>
+</div>
 <div>
 <a href="mailto:Peydzh.work@yandex.ru">EMAIL</a>
 <a href="https://t.me/LeVershina" target="_blank" rel="noopener">TELEGRAM</a>
 <a href="https://stihi.ru/avtor/peydzh" target="_blank" rel="noopener">СТИХИ.РУ</a>
 </div>
 <p style="margin-top:1.5rem;">✦ © 2026 // Даулбаев Дамир ✦</p>
-<p style="margin-top:.5rem;font-size:.8rem;opacity:.6;">Санкт-петербург • Cokpym</p>
+<p style="margin-top:.5rem;font-size:.8rem;opacity:.6;">Санкт-Петербург • Cokpym</p>
 </footer>
 
+<script src="poems-data.js"></script>
 <script>
-document.addEventListener('click',function(e){
-var s=document.createElement('div');s.className='sparkle';
-s.style.left=e.pageX+'px';s.style.top=e.pageY+'px';
-var c=['#FF1493','#00FFFF','#9D00FF'][Math.floor(Math.random()*3)];
-s.style.background=c;s.style.boxShadow='0 0 10px '+c;
-document.body.appendChild(s);setTimeout(function(){s.remove();},1000);
-});
-var ce=document.getElementById('poems-counter');
-if(ce){setInterval(function(){ce.textContent=Math.floor(Math.random()*90)+10;setTimeout(function(){ce.textContent='31';},120);},2000);}
-var le=document.getElementById('love-word');
-if(le){var w=['тебя','луну','питер','жизнь'];setInterval(function(){le.textContent=w[Math.floor(Math.random()*w.length)];},1500);}
 (function(){
-  var el=document.querySelector('.glitch-text');
-  if(!el||el.getAttribute('data-split'))return;
- var t=el.textContent,i,s,x;
-el.textContent='';
-el.setAttribute('data-split','1');
-function h(n){var v=(n*2654435761)>>>0;v^=v>>>15;v=(v*2246822519)>>>0;v^=v>>>13;return v>>>0;}
-for(i=0;i<t.length;i++){
-  s=document.createElement('span');
-  s.className='gl';
-  s.setAttribute('data-c',t.charAt(i));
-  x=h(i);
-  s.style.setProperty('--d0',(-((x%20)/10)).toFixed(2)+'s');
-  s.style.setProperty('--d1',(-(((x>>>5)%24)/10)).toFixed(2)+'s');
+  'use strict';
+  var POEMS = (window.POEMS || []).filter(function(p){ return p && p.text && p.status !== 'soon'; });
 
-  s.style.setProperty('--d2',(-(((x>>>10)%28)/10)).toFixed(2)+'s');
-  s.style.setProperty('--t0',(1.6+((x>>>15)%7)/10).toFixed(2)+'s');
-  s.style.setProperty('--t1',(1.9+((x>>>19)%7)/10).toFixed(2)+'s');
-  s.style.setProperty('--t2',(2.3+((x>>>23)%7)/10).toFixed(2)+'s');
-  s.textContent=t.charAt(i);
-  el.appendChild(s);
-}
-})();
+  /* ── счётчики из данных ── */
+  var total = POEMS.length || 31;
+  var setText = function(id, v){ var el = document.getElementById(id); if (el) el.textContent = v; };
+  setText('status-poems', total);
+  setText('poems-total-inline', total);
 
-(function(){
-  var box=document.getElementById('hologram');
-  if(!box)return;
-  function h(i){var x=(i*2654435761)>>>0;x^=x>>>15;x=(x*2246822519)>>>0;x^=x>>>13;return x>>>0;}
-  var N=44,M=14,i,s,x,sx,sy,amp,ampy,sp;
-  for(i=0;i<N;i++){
-    s=document.createElement('div');s.className='hl';x=h(i);
-    s.style.clipPath='inset('+(i*100/N).toFixed(2)+'% 0 '+(100-(i+1)*100/N).toFixed(2)+'% 0)';
-    sx=(x&1)?1:-1; sy=((x>>>8)&1)?1:-1;
-    amp=12+((x>>>2)%90); ampy=4+((x>>>12)%48); sp=1+((x>>>16)%13)/10;
-    s.style.setProperty('--dx',(sx*amp)+'px');
-    s.style.setProperty('--dy',(sy*ampy)+'px');
-    s.dataset.speed=sp;
-    box.appendChild(s);
-  }
-  for(i=0;i<M;i++){
-    s=document.createElement('div');s.className='hlc';x=h(i+9973);
-    s.style.clipPath='inset('+(i*100/M).toFixed(2)+'% 0 '+(100-(i+1)*100/M).toFixed(2)+'% 0)';
-    sx=(x&1)?1:-1; sy=((x>>>8)&1)?1:-1;
-    amp=20+((x>>>2)%110); ampy=8+((x>>>12)%60); sp=1.1+((x>>>16)%15)/10;
-    s.style.setProperty('--dx',(sx*amp)+'px');
-    s.style.setProperty('--dy',(sy*ampy)+'px');
-    s.dataset.speed=sp;
-    box.appendChild(s);
+  /* ── искры по клику ── */
+  document.addEventListener('click', function(e){
+    var s = document.createElement('div');
+    s.className = 'sparkle';
+    s.style.left = e.pageX + 'px';
+    s.style.top = e.pageY + 'px';
+    var c = ['#FF1493','#00FFFF','#9D00FF'][Math.floor(Math.random()*3)];
+    s.style.background = c;
+    s.style.boxShadow = '0 0 10px ' + c;
+    document.body.appendChild(s);
+    setTimeout(function(){ s.remove(); }, 1000);
+  });
+
+  /* ── мигающий счётчик ── */
+  var ce = document.getElementById('poems-counter');
+  if (ce) {
+    ce.textContent = String(total);
+    setInterval(function(){
+      ce.textContent = Math.floor(Math.random()*90) + 10;
+      setTimeout(function(){ ce.textContent = String(total); }, 120);
+    }, 2400);
   }
 
-  var POS=[['2%','44%'],['80%','44%'],['42%','70%']];   // лево / право / низ (поднят)
-  var kids=box.children,klen=kids.length,ticking=false;
-  function calc(){
-    ticking=false;
-    var de=document.documentElement;
-    var max=de.scrollHeight-window.innerHeight;
-    var frac=max>0?((window.pageYOffset||de.scrollTop)/max):0;
-    if(frac<0)frac=0; if(frac>1)frac=1;
-    var f=Math.abs(Math.sin(Math.PI*2*frac));
-    var idx=frac<0.25?0:(frac<0.75?1:2);
-    box.style.left=POS[idx][0];
-    box.style.top=POS[idx][1];
-    for(var k=0;k<klen;k++){
-      var lf=f*(kids[k].dataset.speed?parseFloat(kids[k].dataset.speed):1);
-      if(lf>1)lf=1;
-      kids[k].style.setProperty('--lf',lf.toFixed(3));
+  /* ── слово «Люблю ...» ── */
+  var le = document.getElementById('love-word');
+  if (le) {
+    var w = ['тебя','луну','питер','жизнь'];
+    setInterval(function(){ le.textContent = w[Math.floor(Math.random()*w.length)]; }, 1500);
+  }
+
+  /* ── глитч по буквам ── */
+  (function(){
+    var el = document.querySelector('.glitch-text');
+    if (!el || el.getAttribute('data-split')) return;
+    var t = el.textContent, i, s, x;
+    el.textContent = '';
+    el.setAttribute('data-split','1');
+    function h(n){ var v = (n*2654435761)>>>0; v ^= v>>>15; v = (v*2246822519)>>>0; v ^= v>>>13; return v>>>0; }
+    for (i = 0; i < t.length; i++) {
+      s = document.createElement('span');
+      s.className = 'gl';
+      s.setAttribute('data-c', t.charAt(i));
+      x = h(i);
+      s.style.setProperty('--d0', (-((x%20)/10)).toFixed(2)+'s');
+      s.style.setProperty('--d1', (-(((x>>>5)%24)/10)).toFixed(2)+'s');
+      s.style.setProperty('--d2', (-(((x>>>10)%28)/10)).toFixed(2)+'s');
+      s.style.setProperty('--t0', (1.6+((x>>>15)%7)/10).toFixed(2)+'s');
+      s.style.setProperty('--t1', (1.9+((x>>>19)%7)/10).toFixed(2)+'s');
+      s.style.setProperty('--t2', (2.3+((x>>>23)%7)/10).toFixed(2)+'s');
+      s.textContent = t.charAt(i);
+      el.appendChild(s);
     }
-  }
-  window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(calc);}},{passive:true});
-  window.addEventListener('resize',function(){if(!ticking){ticking=true;requestAnimationFrame(calc);}},{passive:true});
-  calc();
+  })();
+
+  /* ── свечение под курсором ── */
+  (function(){
+    var g = document.getElementById('cursor-glow');
+    if (!g || !window.matchMedia || !window.matchMedia('(hover:hover)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) { g.style.display = 'none'; return; }
+    var tx = -999, ty = -999, cx = -999, cy = -999, raf = null;
+    function tick(){
+      cx += (tx - cx) * 0.12;
+      cy += (ty - cy) * 0.12;
+      g.style.transform = 'translate3d(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px,0)';
+      raf = (Math.abs(tx-cx) > 0.5 || Math.abs(ty-cy) > 0.5) ? requestAnimationFrame(tick) : null;
+    }
+    window.addEventListener('mousemove', function(e){
+      tx = e.clientX; ty = e.clientY;
+      if (!raf) raf = requestAnimationFrame(tick);
+    }, {passive:true});
+  })();
+
+  /* ── случайное четверостишье ── */
+  (function(){
+    var btn = document.getElementById('verse-btn');
+    var out = document.getElementById('verse-out');
+    var src = document.getElementById('verse-source');
+    var ph  = document.getElementById('verse-placeholder');
+    if (!btn || !out) return;
+
+    if (!POEMS.length) {
+      btn.disabled = true;
+      btn.style.opacity = '.45';
+      if (ph) ph.textContent = 'База стихов не загрузилась (poems-data.js не найден рядом с index.html).';
+      return;
+    }
+
+    function stanzas(text){
+      var raw = String(text).replace(/\r\n?/g, '\n').split('\n');
+      var res = [], cur = [];
+      for (var i = 0; i < raw.length; i++) {
+        var line = raw[i].replace(/\s+$/, '');
+        if (line.trim() === '') { if (cur.length) { res.push(cur); cur = []; } }
+        else cur.push(line);
+      }
+      if (cur.length) res.push(cur);
+      return res;
+    }
+
+    var pool = [];
+    POEMS.forEach(function(p){
+      stanzas(p.text).forEach(function(st){
+        if (st.length >= 4) pool.push({ poem: p, lines: st });
+      });
+    });
+    if (!pool.length) {
+      btn.disabled = true;
+      if (ph) ph.textContent = 'В базе не нашлось строфы из четырёх строк.';
+      return;
+    }
+
+    var lastKey = null;
+
+    function pick(){
+      var item = null, guard = 0;
+      do {
+        item = pool[Math.floor(Math.random() * pool.length)];
+        guard++;
+      } while (guard < 14 && lastKey !== null && item.poem.id + '|' + item.lines[0] === lastKey);
+
+      lastKey = item.poem.id + '|' + item.lines[0];
+      // режем по ровным четверостишьям: сдвиг кратен 4, чтобы не рвать строфу
+      var starts = [];
+      for (var s0 = 0; s0 + 4 <= item.lines.length; s0 += 4) starts.push(s0);
+      var start = starts.length
+        ? starts[Math.floor(Math.random() * starts.length)]
+        : Math.floor(Math.random() * (item.lines.length - 3));
+      return { poem: item.poem, lines: item.lines.slice(start, start + 4) };
+    }
+
+    function render(res){
+      out.innerHTML = '';
+      res.lines.forEach(function(line, i){
+        var p = document.createElement('p');
+        p.className = 'verse-line';
+        p.style.animationDelay = (i * 85) + 'ms';
+        p.textContent = line.trim() === '' ? '\u00A0' : line;
+        out.appendChild(p);
+      });
+      var caret = document.createElement('span');
+      caret.className = 'verse-caret';
+      out.appendChild(caret);
+
+      src.innerHTML = '';
+      src.appendChild(document.createTextNode('// из стиха «'));
+      var a = document.createElement('a');
+      a.href = 'poem.html?id=' + res.poem.id;
+      a.textContent = res.poem.title;
+      src.appendChild(a);
+      src.appendChild(document.createTextNode('»'));
+      if (res.poem.date) src.appendChild(document.createTextNode(' • ' + res.poem.date));
+    }
+
+    btn.addEventListener('click', function(){
+      render(pick());
+      btn.textContent = 'Ещё четверостишье ↻';
+    });
+
+    // при открытии страницы строфа уже стоит
+    render(pick());
+    btn.textContent = 'Ещё четверостишье ↻';
+  })();
+
+  /* ── голограмма (только если me.png есть) ── */
+  (function(){
+    var box = document.getElementById('hologram');
+    if (!box) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches) { box.remove(); return; }
+    if (window.matchMedia && window.matchMedia('(max-width:900px)').matches) { box.remove(); return; }
+
+    var probe = new Image();
+    probe.onerror = function(){ box.remove(); };
+    probe.onload = build;
+    probe.src = 'me.png';
+    if (probe.complete && probe.naturalWidth === 0) { box.remove(); return; }
+
+    function build(){
+      function h(i){ var x = (i*2654435761)>>>0; x ^= x>>>15; x = (x*2246822519)>>>0; x ^= x>>>13; return x>>>0; }
+      var N = 28, M = 10, i, s, x, sx, sy, amp, ampy, sp;
+      for (i = 0; i < N; i++) {
+        s = document.createElement('div'); s.className = 'hl'; x = h(i);
+        s.style.clipPath = 'inset(' + (i*100/N).toFixed(2) + '% 0 ' + (100-(i+1)*100/N).toFixed(2) + '% 0)';
+        sx = (x & 1) ? 1 : -1; sy = ((x>>>8) & 1) ? 1 : -1;
+        amp = 12 + ((x>>>2) % 90); ampy = 4 + ((x>>>12) % 48); sp = 1 + ((x>>>16) % 13)/10;
+        s.style.setProperty('--dx', (sx*amp) + 'px');
+        s.style.setProperty('--dy', (sy*ampy) + 'px');
+        s.dataset.speed = sp;
+        box.appendChild(s);
+      }
+      for (i = 0; i < M; i++) {
+        s = document.createElement('div'); s.className = 'hlc'; x = h(i + 9973);
+        s.style.clipPath = 'inset(' + (i*100/M).toFixed(2) + '% 0 ' + (100-(i+1)*100/M).toFixed(2) + '% 0)';
+        sx = (x & 1) ? 1 : -1; sy = ((x>>>8) & 1) ? 1 : -1;
+        amp = 20 + ((x>>>2) % 110); ampy = 8 + ((x>>>12) % 60); sp = 1.1 + ((x>>>16) % 15)/10;
+        s.style.setProperty('--dx', (sx*amp) + 'px');
+        s.style.setProperty('--dy', (sy*ampy) + 'px');
+        s.dataset.speed = sp;
+        box.appendChild(s);
+      }
+
+      var POS = [['2%','44%'],['80%','44%'],['74%','72%']];
+      var kids = box.children, klen = kids.length, ticking = false;
+      function calc(){
+        ticking = false;
+        var de = document.documentElement;
+        var max = de.scrollHeight - window.innerHeight;
+        var frac = max > 0 ? ((window.pageYOffset || de.scrollTop) / max) : 0;
+        if (frac < 0) frac = 0;
+        if (frac > 1) frac = 1;
+        var f = Math.abs(Math.sin(Math.PI * 2 * frac));
+        var idx = frac < 0.25 ? 0 : (frac < 0.75 ? 1 : 2);
+        box.style.left = POS[idx][0];
+        box.style.top = POS[idx][1];
+        for (var k = 0; k < klen; k++) {
+          var lf = f * (kids[k].dataset.speed ? parseFloat(kids[k].dataset.speed) : 1);
+          if (lf > 1) lf = 1;
+          kids[k].style.setProperty('--lf', lf.toFixed(3));
+        }
+      }
+      window.addEventListener('scroll', function(){ if (!ticking) { ticking = true; requestAnimationFrame(calc); } }, {passive:true});
+      window.addEventListener('resize', function(){ if (!ticking) { ticking = true; requestAnimationFrame(calc); } }, {passive:true});
+      calc();
+    }
+  })();
 })();
 </script>
 </body>

@@ -81,6 +81,25 @@ nav .logo{
   font-weight:700;
   letter-spacing:.2em;
   text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+}
+nav .logo img{
+  display:block;
+  height:32px;
+  width:auto;
+  filter:drop-shadow(0 0 10px rgba(0,255,255,.35));
+  transition:filter .3s;
+}
+nav .logo:hover img{filter:brightness(1.15) drop-shadow(0 0 18px rgba(0,255,255,.75));}
+nav .logo.pink img{filter:drop-shadow(0 0 10px rgba(255,20,147,.4));}
+nav .logo.red img{filter:drop-shadow(0 0 10px rgba(255,43,43,.4));}
+nav .logo.green img{filter:drop-shadow(0 0 10px rgba(0,255,156,.4));}
+nav .logo.pink:hover img{filter:brightness(1.15) drop-shadow(0 0 18px rgba(255,20,147,.75));}
+nav .logo.red:hover img{filter:brightness(1.15) drop-shadow(0 0 18px rgba(255,43,43,.75));}
+nav .logo.green:hover img{filter:brightness(1.15) drop-shadow(0 0 18px rgba(0,255,156,.75));}
+@media(max-width:760px){
+  nav .logo img{height:24px;}
 }
 nav ul{
   list-style:none;
@@ -787,6 +806,36 @@ footer a{
 }
 footer a:hover{
   color:var(--cyan);
+}
+
+/* ── знак GrichTech в подвале ── */
+.site-brand{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:.55rem;
+  margin:0 0 1.7rem;
+}
+.site-brand img{
+  display:block;
+  width:150px;
+  max-width:60%;
+  height:auto;
+  opacity:.92;
+  filter:drop-shadow(0 0 16px rgba(0,255,255,.28));
+}
+.site-brand.pink img{filter:drop-shadow(0 0 16px rgba(255,20,147,.3));}
+.site-brand.red img{filter:drop-shadow(0 0 16px rgba(255,43,43,.3));}
+.site-brand-cap{
+  font-family:'Orbitron',sans-serif;
+  font-size:.52rem;
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:#6b7280;
+}
+@media(max-width:760px){
+  .site-brand{margin-bottom:1.2rem;}
+  .site-brand img{width:120px;}
 }
 
 
@@ -2297,4 +2346,52 @@ footer a:hover{
   border-color:#ff2b2b;
   background:linear-gradient(180deg, rgba(255,43,43,.1), rgba(0,0,0,.22)),#121212;
   box-shadow:0 0 22px rgba(255,43,43,.2), 0 12px 28px rgba(0,0,0,.42);
+}
+
+/* =========================
+   МОБИЛЬНАЯ АДАПТАЦИЯ
+   ========================= */
+@media(max-width:760px){
+  nav{
+    padding:.7rem .9rem;
+    flex-wrap:wrap;
+    justify-content:flex-start;
+    gap:.5rem .9rem;
+  }
+  nav ul{gap:.7rem;flex-wrap:wrap;}
+  nav a{font-size:.66rem;letter-spacing:.02em;}
+
+  .marquee span{font-size:.68rem;padding:0 1.1rem;}
+
+  .hero{padding:2.4rem 1rem;}
+  .hero.small{padding:1.8rem 1rem;min-height:32vh;}
+  .page-title{font-size:clamp(1.9rem,9vw,3rem);}
+  .tagline{font-size:1rem;}
+
+  section{padding:2rem .9rem;}
+  .terminal-window{margin-bottom:2rem;}
+  .terminal-body{padding:1.1rem;}
+  .terminal-title{font-size:.7rem;}
+  .terminal-line{font-size:.9rem;}
+  .terminal-output{font-size:.86rem;padding-left:.7rem;}
+
+  .case-room{padding:1.6rem .8rem 3rem;}
+  .case-file{padding:1.1rem;}
+  .case-title{font-size:1.15rem;}
+  .case-subtitle{font-size:.86rem;}
+  .case-top{font-size:.64rem;gap:.4rem;}
+  .field{min-height:auto;padding:.7rem .8rem;}
+  .field-value{font-size:.86rem;}
+  .stamp{font-size:.7rem;padding:.35rem .6rem;}
+
+  .poem-list{grid-template-columns:1fr;}
+  .poem-item{padding:.9rem 1rem;}
+  .author-grid{grid-template-columns:1fr;gap:1.2rem;}
+  .author-media{max-width:240px;margin:0 auto;order:-1;}
+  .loading-row{font-size:1.05rem;gap:.4rem;}
+  .cycle-heading{font-size:.95rem;margin-top:1.8rem;}
+
+  footer{padding:2rem 1rem;}
+  footer a{margin:0 .55rem;font-size:.8rem;}
+  .site-brand img{width:110px;}
 }

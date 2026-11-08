@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>СТАНЦИЯ H-04 // COKPYM</title>
+<meta name="description" content="Станция H-04: пропуск объекта, образец в растворе, осциллограф, таблица элементов и схема метода.">
+<meta property="og:title" content="СТАНЦИЯ H-04 // COKPYM">
+<meta property="og:description" content="Пропуск объекта, образец в растворе, осциллограф, таблица элементов и схема метода.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#040705">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon-180.png">
+<link rel="stylesheet" href="blog.css">
+<style>
+:root{
+  --bg:#040705;
+  --panel2:#081a11;
+  --line:#15513a;
+  --line-soft:#0e3325;
+  --g:#00ff9c;
+  --g-soft:#7fe3bd;
+  --g-dim:#2f7f5f;
+  --r:#ff2b2b;
+  --txt:#cfe9dd;
+  --txt-dim:#7d9e90;
+}
+
+/* ── перекрытия чужой палитры ── */
+body{background:var(--bg);}
+nav{border-bottom:1px solid var(--line) !important;}
+nav a:hover,nav a.active{color:var(--g) !important;text-shadow:0 0 12px rgba(0,255,156,.45);}
+nav .logo{color:var(--g) !important;text-shadow:0 0 16px rgba(0,255,156,.5);}
+footer{border-top:2px solid var(--line) !important;}
+footer a{color:var(--r) !important;}
+footer a:hover{color:var(--g) !important;}
+.y2k-btn{border-color:var(--r) !important;color:var(--r) !important;box-shadow:0 0 10px rgba(255,43,43,.25) !important;}
+.y2k-btn:hover{background:var(--r) !important;color:#040705 !important;box-shadow:0 0 28px rgba(255,43,43,.7) !important;}
+.y2k-btn.cyan{border-color:var(--g) !important;color:var(--g) !important;box-shadow:0 0 10px rgba(0,255,156,.2) !important;}
+.y2k-btn.cyan:hover{background:var(--g) !important;color:#040705 !important;box-shadow:0 0 28px rgba(0,255,156,.7) !important;}
+.marquee-container{background:#060d09 !important;border-bottom:2px solid var(--r) !important;}
+.marquee span{color:var(--g) !important;text-shadow:none !important;font-weight:700;letter-spacing:.2em;}
+::selection{background:var(--r);color:#040705;}
+
+/* ── hero ── */
+.st-hero{
+  background:
+    radial-gradient(circle at 50% 30%,rgba(0,255,156,.10),transparent 58%),
+    repeating-linear-gradient(0deg,rgba(0,255,156,.05) 0 1px,transparent 1px 28px),
+    repeating-linear-gradient(90deg,rgba(0,255,156,.05) 0 1px,transparent 1px 28px),
+    linear-gradient(180deg,#07130d,#040705) !important;
+  border-bottom:1px solid var(--line);
+}
+.st-hero .page-title{color:var(--g) !important;text-shadow:0 0 12px rgba(0,255,156,.55),0 0 40px rgba(0,255,156,.22),0 0 80px rgba(255,43,43,.12) !important;}
+.st-hero .tagline{color:var(--r) !important;text-shadow:0 0 16px rgba(255,43,43,.45);}
+.st-hero-line{display:inline-flex;align-items:center;gap:.7rem;margin-top:1.2rem;
+  font-family:'Orbitron',sans-serif;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--g-dim);}
+.st-hero-line i{display:block;width:26px;height:1px;background:var(--r);}
+.st-live{color:var(--r);}
+.st-live::before{content:"●";margin-right:.4rem;animation:blink 1.3s steps(1) infinite;}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:.15}}
+
+/* ── каркас ── */
+.st-room{max-width:1020px;margin:0 auto;padding:2.4rem 1.2rem 4rem;display:grid;gap:1.7rem;}
+.st-h{display:flex;align-items:center;gap:.75rem;font-family:'Orbitron',sans-serif;font-size:.62rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--g);margin:0 0 .9rem;}
+.st-h::before{content:"";width:20px;height:2px;background:var(--r);flex:0 0 auto;}
+.st-h span{color:var(--txt-dim);letter-spacing:.2em;}
+.st-panel{position:relative;padding:1.3rem 1.4rem;
+  background:
+    radial-gradient(circle at 0% 0%,rgba(0,255,156,.055),transparent 58%),
+    linear-gradient(180deg,var(--panel2),#050c08);
+  border:1px solid var(--line-soft);}
+.st-panel::before,.st-panel::after{content:"";position:absolute;width:13px;height:13px;border:1px solid var(--g);opacity:.55;}
+.st-panel::before{top:-1px;left:-1px;border-right:0;border-bottom:0;}
+.st-panel::after{bottom:-1px;right:-1px;border-left:0;border-top:0;}
+
+/* ── статус-строка ── */
+.st-bar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);}
+.st-cell{background:#050d09;padding:.65rem .8rem;}
+.st-cell .k{display:block;font-family:'Orbitron',sans-serif;font-size:.53rem;letter-spacing:.2em;color:var(--g-dim);text-transform:uppercase;}
+.st-cell .v{display:block;margin-top:.3rem;font-family:'Orbitron',sans-serif;font-size:.8rem;letter-spacing:.08em;color:var(--g);}
+.st-cell.red .v{color:var(--r);}
+.st-cell.red .v::before{content:"⚠ ";}
+
+/* ── строки данных ── */
+.st-rows{display:grid;}
+.st-row{display:grid;grid-template-columns:130px 1fr;gap:.8rem;padding:.48rem 0;
+  border-bottom:1px solid var(--line-soft);align-items:baseline;}
+.st-row .k{font-family:'Orbitron',sans-serif;font-size:.53rem;letter-spacing:.18em;color:var(--g-dim);text-transform:uppercase;}
+.st-row .v{color:var(--txt);font-size:.84rem;line-height:1.5;}
+.st-row.red{border-bottom-color:rgba(255,43,43,.25);}
+.st-row.red .k{color:var(--r);opacity:.8;}
+.st-row.red .v{color:#ffb8b8;}
+
+/* ══════════ ПРОПУСК ══════════ */
+.st-badge-wrap{display:grid;grid-template-columns:250px 1fr;grid-template-rows:auto 1fr;
+  gap:0 2.2rem;align-items:center;}
+.st-badge-col{grid-column:1;grid-row:1 / span 2;align-self:center;display:grid;justify-items:center;}
+.st-badge-wrap .st-rows{grid-column:2;grid-row:2;align-self:start;}
+.st-strap{width:26px;height:36px;border-left:1px solid var(--line);border-right:1px solid var(--line);
+  background:linear-gradient(180deg,transparent,#0d2a1e);}
+.st-badge{position:relative;width:100%;max-width:250px;padding:.9rem .9rem 1rem;overflow:hidden;
+  background:linear-gradient(180deg,#0a1a12,#050f0a);border:1px solid var(--line);
+  box-shadow:0 20px 45px rgba(0,0,0,.7),inset 0 0 30px rgba(0,255,156,.05);}
+.st-badge::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.07) 43%,transparent 54%);}
+.st-badge-slot{width:38px;height:8px;margin:0 auto .75rem;border-radius:4px;
+  background:#03110a;border:1px solid var(--line);}
+.st-brand{grid-column:2;grid-row:1;align-self:end;position:relative;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 0 .9rem;padding:.7rem .8rem;border:1px solid var(--line);border-radius:2px;
+  background:linear-gradient(180deg,#0d2a1e,#08170f);
+  box-shadow:inset 0 1px 0 rgba(0,255,156,.18),0 2px 10px rgba(0,0,0,.5);}
+.st-brand-logo{display:block;width:180px;max-width:100%;height:auto;
+  filter:drop-shadow(0 0 14px rgba(0,255,156,.25));}
+.st-brand::after{content:"lab";position:absolute;right:.6rem;top:50%;transform:translateY(-50%);
+  font-family:'Courier Prime',monospace;font-size:.46rem;letter-spacing:.16em;
+  color:var(--g-dim);text-transform:uppercase;}
+.st-badge-logo{display:block;width:150px;max-width:74%;height:auto;margin:0 auto .8rem;
+  filter:drop-shadow(0 0 12px rgba(0,255,156,.22));}
+.st-badge-photo{position:relative;aspect-ratio:3/4;border:1px solid var(--line);margin-bottom:.75rem;
+  overflow:hidden;background:#040e09;}
+.st-badge-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:54% 50%;
+  filter:grayscale(1) contrast(1.12) brightness(.94);}
+.st-eye{position:absolute;z-index:2;left:26%;top:31%;width:52%;height:13%;overflow:hidden;
+  display:grid;place-items:center;background:#000;border:1px solid #2f2f2f;padding:1px;
+  font-family:'Courier Prime',monospace;font-size:.56rem;line-height:1.05;letter-spacing:.02em;
+  color:#ff2b2b;text-shadow:0 0 6px rgba(255,43,43,.6);text-align:center;word-break:break-all;
+  user-select:none;}
+.st-eye::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 2px,transparent 2px 4px);}
+.st-glitch{display:inline-block;min-width:92px;padding:.08rem .42rem;overflow:hidden;
+  background:#000;border:1px solid #2f2f2f;
+  font-family:'Courier Prime',monospace;font-size:.68rem;line-height:1.35;letter-spacing:.08em;
+  color:#ff2b2b;text-shadow:0 0 6px rgba(255,43,43,.6);text-align:center;
+  white-space:nowrap;user-select:none;vertical-align:baseline;}
+.st-badge-name{display:block;font-family:'Orbitron',sans-serif;font-size:1.02rem;letter-spacing:.14em;
+  color:var(--g);text-transform:uppercase;}
+.st-badge-role{display:block;margin-top:.2rem;font-size:.58rem;letter-spacing:.16em;
+  color:var(--g-dim);text-transform:uppercase;}
+.st-badge-rows{display:grid;gap:.22rem;margin-top:.85rem;border-top:1px solid var(--line-soft);padding-top:.7rem;}
+.st-badge-rows div{display:flex;justify-content:space-between;gap:.6rem;font-size:.65rem;color:var(--txt-dim);}
+.st-badge-rows b{color:var(--txt);font-weight:400;text-align:right;}
+.st-badge-code{margin-top:.8rem;height:26px;border:1px solid var(--line-soft);padding:3px;opacity:.6;
+  background:repeating-linear-gradient(90deg,#0f2b22 0 2px,var(--g) 2px 3px,#0f2b22 3px 6px,var(--g) 6px 8px,#0f2b22 8px 9px);}
+.st-badge-num{display:block;margin-top:.3rem;text-align:center;font-family:'Courier Prime',monospace;
+  font-size:.55rem;letter-spacing:.18em;color:var(--g-dim);}
+
+/* ══════════ ОБРАЗЕЦ В РАСТВОРЕ ══════════ */
+.st-jar-wrap{display:grid;grid-template-columns:1fr 190px;gap:2rem;align-items:center;}
+.st-jar-wrap .st-rows{order:1;}
+.st-jar-wrap .st-jar{order:2;justify-self:end;}
+.st-jar{position:relative;width:100%;max-width:170px;margin:0 auto;}
+.st-jar-lid{width:64%;height:16px;margin:0 auto;border-radius:4px 4px 2px 2px;
+  background:linear-gradient(180deg,#123a2a,#0a2418);border:1px solid var(--line);}
+.st-jar-body{position:relative;height:210px;margin-top:-1px;overflow:hidden;
+  border:1px solid var(--line);border-radius:8px 8px 14px 14px;
+  background:linear-gradient(180deg,rgba(0,255,156,.06),rgba(0,255,156,.015));}
+.st-jar-liquid{position:absolute;left:0;right:0;bottom:0;height:62%;overflow:hidden;
+  background:linear-gradient(180deg,rgba(0,255,156,.22),rgba(0,255,156,.07));}
+.st-jar-liquid::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:rgba(0,255,156,.5);}
+.st-jar-spec{position:absolute;left:50%;top:56%;width:12px;height:12px;margin-left:-6px;border-radius:50%;
+  background:var(--g);box-shadow:0 0 22px rgba(0,255,156,.9);animation:pulse 4s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:.55;transform:scale(.9)}50%{opacity:1;transform:scale(1.15)}}
+.st-jar-label{position:absolute;left:9%;right:9%;bottom:12%;padding:.4rem .45rem;text-align:center;
+  border:1px solid rgba(0,255,156,.32);background:rgba(3,10,7,.78);
+  font-family:'Orbitron',sans-serif;font-size:.46rem;letter-spacing:.13em;line-height:1.65;
+  color:var(--g-soft);text-transform:uppercase;}
+.st-jar-gloss{position:absolute;left:9%;top:6%;width:9px;height:72%;border-radius:6px;
+  background:linear-gradient(180deg,rgba(255,255,255,.14),transparent);}
+.st-jar-tag{position:absolute;right:-8px;top:12px;padding:.2rem .4rem;background:var(--r);color:#040705;
+  font-family:'Orbitron',sans-serif;font-size:.45rem;letter-spacing:.16em;text-transform:uppercase;
+  transform:rotate(6deg);}
+
+/* ══════════ ОСЦИЛЛОГРАФ ══════════ */
+.st-scope{position:relative;overflow:hidden;border:1px solid var(--line);
+  background:radial-gradient(circle at 50% 50%,rgba(0,255,156,.06),transparent 62%),#040c09;
+  box-shadow:inset 0 0 70px rgba(0,255,156,.06);}
+.st-scope-head{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  padding:.7rem 1rem;border-bottom:1px solid var(--line-soft);
+  font-family:'Orbitron',sans-serif;font-size:.6rem;letter-spacing:.2em;color:var(--g-dim);text-transform:uppercase;}
+.st-rec{color:var(--r);}
+.st-rec::before{content:"●";margin-right:.45rem;animation:blink 1.4s steps(1) infinite;}
+.st-scope-body{position:relative;padding:1rem 1rem .6rem;}
+.st-scope-body::before{content:"";position:absolute;inset:1rem 1rem .6rem;pointer-events:none;
+  background-image:linear-gradient(rgba(0,255,156,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,156,.10) 1px,transparent 1px);
+  background-size:100% 26px,26px 100%;}
+.st-wave{position:relative;display:block;width:100%;height:136px;z-index:1;}
+.wave-line{fill:none;stroke:var(--g);stroke-width:2;stroke-linejoin:round;
+  filter:drop-shadow(0 0 6px rgba(0,255,156,.95));stroke-dasharray:1800;stroke-dashoffset:1800;
+  animation:draw 5s linear infinite;}
+@keyframes draw{0%{stroke-dashoffset:1800}100%{stroke-dashoffset:0}}
+.wave-thresh{stroke:var(--r);stroke-width:1;stroke-dasharray:5 4;opacity:.7;}
+.wave-sweep{position:absolute;top:0;bottom:0;width:90px;pointer-events:none;z-index:2;
+  background:linear-gradient(90deg,transparent,rgba(0,255,156,.13),transparent);animation:sweep 5s linear infinite;}
+@keyframes sweep{0%{left:-90px}100%{left:100%}}
+.st-reads{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.6rem;padding:0 1rem 1rem;}
+.st-read{border:1px solid #173c2e;background:rgba(0,255,156,.045);padding:.55rem .7rem;}
+.st-read .k{display:block;font-family:'Orbitron',sans-serif;font-size:.52rem;letter-spacing:.18em;color:#4b8a75;text-transform:uppercase;}
+.st-read .v{display:block;margin-top:.3rem;font-size:1.05rem;color:#dcfff2;text-shadow:0 0 14px rgba(0,255,156,.5);}
+.st-read.r .v{color:var(--r);text-shadow:0 0 14px rgba(255,43,43,.5);}
+.st-callout{margin-top:.9rem;border-left:3px solid var(--r);background:rgba(255,43,43,.06);
+  padding:.5rem .85rem;font-size:.8rem;line-height:1.55;color:#ffc4c4;}
+.st-callout b{color:var(--r);}
+
+/* ══════════ ТАБЛИЦА ЭЛЕМЕНТОВ ══════════ */
+.st-table{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem;}
+.st-el{position:relative;padding:.85rem .8rem 1rem;border:1px solid var(--line);
+  background:linear-gradient(180deg,#08170f,#040c08);
+  transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;}
+.st-el:hover{transform:translateY(-4px);border-color:var(--g);box-shadow:0 0 26px rgba(0,255,156,.2);}
+.st-el .num{position:absolute;top:.5rem;right:.6rem;font-family:'Courier Prime',monospace;
+  font-size:.66rem;color:var(--g-dim);}
+.st-el .sym{display:block;font-family:'Orbitron',sans-serif;font-size:1.9rem;font-weight:900;line-height:1;
+  color:var(--g);text-shadow:0 0 20px rgba(0,255,156,.4);}
+.st-el .nm{display:block;margin-top:.5rem;font-family:'Orbitron',sans-serif;font-size:.62rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--txt);}
+.st-el .role{display:block;margin-top:.35rem;font-size:.72rem;line-height:1.4;color:var(--txt-dim);}
+.st-el::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--g);opacity:.4;}
+.st-el.red{border-color:rgba(255,43,43,.65);}
+.st-el.red .sym{color:var(--r);text-shadow:0 0 20px rgba(255,43,43,.45);}
+.st-el.red::after{background:var(--r);}
+.st-el.red .num{color:rgba(255,43,43,.7);}
+.st-cap{margin-top:.9rem;font-family:'Courier Prime',monospace;font-size:.74rem;color:var(--g-dim);letter-spacing:.03em;}
+
+/* ══════════ СХЕМА МЕТОДА ══════════ */
+.st-flow{display:grid;grid-template-columns:1fr 44px 1fr 44px 1fr;align-items:stretch;gap:.4rem;}
+.st-box{position:relative;padding:1rem .9rem;border:1px solid var(--line);
+  background:linear-gradient(180deg,#07140e,#040c08);}
+.st-box .step{display:block;font-family:'Orbitron',sans-serif;font-size:.5rem;letter-spacing:.22em;
+  color:var(--r);text-transform:uppercase;}
+.st-box .name{display:block;margin-top:.45rem;font-family:'Orbitron',sans-serif;font-size:.9rem;
+  letter-spacing:.08em;color:var(--g);text-transform:uppercase;}
+.st-box .note{display:block;margin-top:.5rem;font-size:.74rem;line-height:1.5;color:var(--txt-dim);}
+.st-arrow{position:relative;display:grid;place-items:center;color:var(--r);
+  font-family:'Orbitron',sans-serif;font-size:1.1rem;line-height:1;}
+.st-arrow::before{content:"";position:absolute;top:50%;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--r),transparent);opacity:.5;}
+.st-arrow span{position:relative;background:#050c08;padding:0 .3rem;}
+.st-flow-foot{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin-top:1rem;
+  border-top:1px dashed var(--line-soft);padding-top:.9rem;}
+.st-flow-foot div{font-size:.74rem;line-height:1.5;color:var(--txt-dim);}
+.st-flow-foot b{display:block;font-family:'Orbitron',sans-serif;font-size:.5rem;letter-spacing:.18em;
+  color:var(--g-dim);text-transform:uppercase;margin-bottom:.3rem;}
+
+/* ── финал ── */
+.st-end{display:flex;align-items:center;justify-content:center;gap:1.2rem;flex-wrap:wrap;
+  padding:1.5rem 1rem;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);
+  font-family:'Orbitron',sans-serif;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--g-dim);}
+.st-end b{color:var(--r);font-weight:700;}
+.st-actions{display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center;}
+
+/* ══════════ ГЕРБАРИЙ ══════════ */
+.st-herbs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.4rem;}
+.st-herb{position:relative;display:flex;flex-direction:column;gap:.9rem;min-height:178px;
+  padding:1.5rem 1.05rem .9rem;border:1px solid var(--line);
+  background:
+    repeating-linear-gradient(90deg,rgba(0,255,156,.028) 0 1px,transparent 1px 9px),
+    linear-gradient(180deg,#08170f,#050e09);
+  transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease;}
+.st-herb:nth-child(odd){transform:rotate(-.7deg);}
+.st-herb:nth-child(even){transform:rotate(.6deg);}
+.st-herb:hover{transform:rotate(0) translateY(-4px);border-color:var(--g);box-shadow:0 0 26px rgba(0,255,156,.18);}
+.st-pin{position:absolute;top:7px;left:50%;margin-left:-5px;width:10px;height:10px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#9effd6,#00a86a 58%,#04402b);
+  box-shadow:0 2px 6px rgba(0,0,0,.85),0 0 10px rgba(0,255,156,.5);}
+.st-herb-no{position:absolute;top:.55rem;left:.7rem;font-family:'Courier Prime',monospace;
+  font-size:.56rem;letter-spacing:.14em;color:var(--g-dim);}
+.st-herb-stamp{position:absolute;top:.5rem;right:.6rem;padding:.1rem .3rem;border:1px solid var(--r);
+  color:var(--r);font-family:'Orbitron',sans-serif;font-size:.4rem;letter-spacing:.14em;
+  text-transform:uppercase;transform:rotate(-6deg);opacity:.85;}
+.st-herb blockquote{margin:0;flex:1;display:flex;align-items:center;justify-content:center;
+  text-align:center;font-family:'Courier Prime',monospace;font-style:italic;
+  font-size:.92rem;line-height:1.55;color:#e6fff5;}
+.st-herb figcaption{display:grid;gap:.15rem;border-top:1px solid var(--line-soft);padding-top:.55rem;}
+.st-herb-src{font-family:'Orbitron',sans-serif;font-size:.56rem;letter-spacing:.16em;
+  color:var(--g);text-transform:uppercase;}
+.st-herb-meta{font-family:'Courier Prime',monospace;font-size:.6rem;letter-spacing:.1em;color:var(--g-dim);}
+.st-herb a{color:inherit;text-decoration:none;}
+.st-herb a:hover .st-herb-src{color:#fff;}
+
+@media(max-width:860px){
+  nav{padding:.85rem 1rem;flex-direction:column;align-items:flex-start;gap:.65rem;}
+  nav ul{gap:.9rem;flex-wrap:wrap;width:100%;}
+  nav a{font-size:.7rem;letter-spacing:.04em;}
+  nav .logo{font-size:.95rem;}
+  .st-room{padding:1.8rem .9rem 3rem;}
+  .st-bar{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .st-badge-wrap{grid-template-columns:1fr;grid-template-rows:auto auto auto;gap:1.5rem;}
+  .st-badge-col{grid-column:1;grid-row:1;}
+  .st-brand{grid-column:1;grid-row:2;align-self:start;margin-bottom:0;}
+  .st-badge-wrap .st-rows{grid-column:1;grid-row:3;}
+  .st-jar-wrap{grid-template-columns:1fr;gap:1.5rem;}
+  .st-jar-wrap .st-jar{order:0;justify-self:center;}
+  .st-reads{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .st-table{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .st-flow{grid-template-columns:1fr;}
+  .st-arrow{height:30px;}
+  .st-arrow::before{left:50%;right:auto;top:0;bottom:0;width:1px;height:auto;
+    background:linear-gradient(180deg,transparent,var(--r),transparent);}
+  .st-flow-foot{grid-template-columns:1fr;}
+  .st-row{grid-template-columns:108px 1fr;}
+  .st-herbs{grid-template-columns:1fr;gap:1rem;}
+  .st-herb{transform:none;}
+  .st-herb:hover{transform:none;}
+}
+@media(prefers-reduced-motion:reduce){
+  .st-live::before,.st-rec::before,.wave-line,.wave-sweep,.st-jar-spec{animation:none !important;}
+  .wave-line{stroke-dashoffset:0;}
+}
+</style>
+</head>
+<body>
+
+<div class="marquee-container">
+  <div class="marquee">
+    <span>GRICHTECH // ЛАБОРАТОРИЯ H-04 // СЛУЖЕБНАЯ РАССЫЛКА // ДОКУМЕНТ ВНУТРЕННЕГО ПОЛЬЗОВАНИЯ // НЕ ДЛЯ РАСПРОСТРАНЕНИЯ // GRICHTECH // ЛАБОРАТОРИЯ H-04 // СЛУЖЕБНАЯ РАССЫЛКА // ДОКУМЕНТ ВНУТРЕННЕГО ПОЛЬЗОВАНИЯ // НЕ ДЛЯ РАСПРОСТРАНЕНИЯ //</span>
+    <span>GRICHTECH // ЛАБОРАТОРИЯ H-04 // СЛУЖЕБНАЯ РАССЫЛКА // ДОКУМЕНТ ВНУТРЕННЕГО ПОЛЬЗОВАНИЯ // НЕ ДЛЯ РАСПРОСТРАНЕНИЯ // GRICHTECH // ЛАБОРАТОРИЯ H-04 // СЛУЖЕБНАЯ РАССЫЛКА // ДОКУМЕНТ ВНУТРЕННЕГО ПОЛЬЗОВАНИЯ // НЕ ДЛЯ РАСПРОСТРАНЕНИЯ //</span>
+  </div>
+</div>
+
+<nav>
+  <a href="index.html" class="logo green"><img src="logo-horiz.png" alt="GrichTech"></a>
+  <ul>
+    <li><a href="index.html#about">Обо мне</a></li>
+    <li><a href="poems.html">Стихи</a></li>
+    <li><a href="hobbies.html" class="active">Увлечения</a></li>
+    <li><a href="bio.html">Биография</a></li>
+  </ul>
+</nav>
+
+<section class="hero small st-hero">
+  <div class="hero-content">
+    <h1 class="page-title">СТАНЦИЯ H-04</h1>
+    <p class="tagline">объект под наблюдением</p>
+    <p class="st-hero-line"><i></i>наблюдение идёт<span class="st-live">live</span></p>
+  </div>
+</section>
+
+<div class="st-room">
+
+  <div class="st-bar">
+    <div class="st-cell"><span class="k">объект</span><span class="v">COKPYM</span></div>
+    <div class="st-cell"><span class="k">направлений</span><span class="v">04</span></div>
+    <div class="st-cell"><span class="k">сеанс</span><span class="v">24 ч</span></div>
+    <div class="st-cell red"><span class="k">тревог</span><span class="v">01</span></div>
+  </div>
+
+  <!-- ПРОПУСК -->
+  <div>
+    <div class="st-h">пропуск <span>/ служебное удостоверение</span></div>
+    <div class="st-panel st-badge-wrap">
+      <div class="st-badge-col">
+        <div class="st-strap" aria-hidden="true"></div>
+        <div class="st-badge">
+          <div class="st-badge-slot" aria-hidden="true"></div>
+          <img class="st-badge-logo" src="logo-vert.png" alt="GrichTech">
+          <div class="st-badge-photo">
+            <img class="st-badge-img" src="21.jpg" alt="COKPYM">
+            <span class="st-eye" data-len="80" aria-hidden="true">██▓▒░████▓▒</span>
+          </div>
+          <span class="st-badge-name">COKPYM</span>
+          <span class="st-badge-role">объект наблюдения</span>
+          <div class="st-badge-rows">
+            <div><span>штамм</span><b>H-04</b></div>
+            <div><span>среда</span><b>веб · экран · бумага</b></div>
+            <div><span>маркер</span><b>H-04-031</b></div>
+            <div><span>смена</span><b>круглосуточно</b></div>
+          </div>
+          <div class="st-badge-code" aria-hidden="true"></div>
+          <span class="st-badge-num">COKPYM-H04-031</span>
+        </div>
+      </div>
+      <div class="st-brand">
+        <img class="st-brand-logo" src="logo-horiz.png" alt="GrichTech">
+      </div>
+      <div class="st-rows">
+        <div class="st-row"><span class="k">организация</span><span class="v">GrichTech · лаборатория H-04</span></div>
+        <div class="st-row"><span class="k">подразделение</span><span class="v">прикладная практика</span></div>
+        <div class="st-row"><span class="k">оператор</span><span class="v"><span class="st-glitch" data-len="14" title="Даулбаев Дамир">██████████████</span></span></div>
+        <div class="st-row"><span class="k">срок действия</span><span class="v">бессрочно</span></div>
+        <div class="st-row"><span class="k">фотография</span><span class="v">вклеена, заверена печатью</span></div>
+        <div class="st-row red"><span class="k">допуск</span><span class="v">уровень H-04 · полный</span></div>
+        <div class="st-row red"><span class="k">при утере</span><span class="v">сообщить оператору станции</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ОБРАЗЕЦ В РАСТВОРЕ -->
+  <div>
+    <div class="st-h">образец в растворе <span>/ ещё растёт</span></div>
+    <div class="st-panel st-jar-wrap">
+      <div class="st-jar">
+        <div class="st-jar-lid" aria-hidden="true"></div>
+        <div class="st-jar-body">
+          <div class="st-jar-liquid" aria-hidden="true"></div>
+          <span class="st-jar-spec" aria-hidden="true"></span>
+          <span class="st-jar-gloss" aria-hidden="true"></span>
+          <span class="st-jar-label">«Билет Домой»<br>ситком · образец 05</span>
+          <span class="st-jar-tag">не открывать</span>
+        </div>
+      </div>
+      <div class="st-rows">
+        <div class="st-row"><span class="k">содержимое</span><span class="v">ситком «Билет Домой»</span></div>
+        <div class="st-row"><span class="k">состояние</span><span class="v">растёт в растворе, срок не определён</span></div>
+        <div class="st-row"><span class="k">признак жизни</span><span class="v">свет внутри мигает</span></div>
+        <div class="st-row red"><span class="k">условие</span><span class="v">запечатано</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ОСЦИЛЛОГРАФ -->
+  <div>
+    <div class="st-h">осциллограф <span>/ живой сигнал</span></div>
+    <div class="st-scope">
+      <div class="st-scope-head">
+        <span>CH1 · субъект · развёртка 5 с</span>
+        <span class="st-rec">rec</span>
+      </div>
+      <div class="st-scope-body">
+        <svg class="st-wave" viewBox="0 0 600 110" preserveAspectRatio="none" aria-hidden="true">
+          <line class="wave-thresh" x1="0" y1="30" x2="600" y2="30"/>
+          <polyline class="wave-line" points="0,58 20,58 30,56 40,60 54,58 60,58 65,22 70,94 75,58 90,58 100,52 110,64 120,58 140,58 150,12 158,102 166,58 180,58 190,54 200,62 215,58 230,58 240,34 248,78 256,58 270,58 280,55 290,61 300,58 315,58 325,16 333,98 341,58 355,58 365,53 375,63 388,58 400,58 410,30 418,80 426,58 440,58 450,56 460,60 470,58 485,58 495,14 503,100 511,58 525,58 535,54 545,62 558,58 575,58 585,46 595,70 600,58" />
+        </svg>
+        <div class="wave-sweep" aria-hidden="true"></div>
+      </div>
+      <div class="st-reads">
+        <div class="st-read"><span class="k">частота</span><span class="v">4.20 Гц</span></div>
+        <div class="st-read"><span class="k">усиление</span><span class="v">×1.8</span></div>
+        <div class="st-read"><span class="k">шум</span><span class="v">0.03</span></div>
+        <div class="st-read r"><span class="k">выбросов</span><span class="v">02</span></div>
+      </div>
+      <div style="padding:0 1rem 1rem;">
+        <div class="st-callout"><b>12:05</b> — критично <span class="st-glitch" data-len="10">██████████</span> засекречено.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ТАБЛИЦА ЭЛЕМЕНТОВ -->
+  <div>
+    <div class="st-h">таблица элементов <span>/ из чего собран</span></div>
+    <div class="st-table">
+      <div class="st-el">
+        <span class="num">92</span>
+        <span class="sym">Bg</span>
+        <span class="nm">Блогинг</span>
+        <span class="role">выход наружу</span>
+      </div>
+      <div class="st-el">
+        <span class="num">81</span>
+        <span class="sym">Cn</span>
+        <span class="nm">Кино</span>
+        <span class="role">метод разбора</span>
+      </div>
+      <div class="st-el">
+        <span class="num">78</span>
+        <span class="sym">En</span>
+        <span class="nm">Английский</span>
+        <span class="role">вход информации</span>
+      </div>
+      <div class="st-el red">
+        <span class="num">64</span>
+        <span class="sym">Hm</span>
+        <span class="nm">Приколы</span>
+        <span class="role">защита от серости · нестабилен</span>
+      </div>
+    </div>
+    <p class="st-cap">Атомный номер — индекс вовлечённости, у.е. Единица утверждена станцией и никем больше.</p>
+  </div>
+
+  <!-- СХЕМА МЕТОДА -->
+  <div>
+    <div class="st-h">схема метода <span>/ воспроизводится всегда</span></div>
+    <div class="st-panel">
+      <div class="st-flow">
+        <div class="st-box">
+          <span class="step">этап 01</span>
+          <span class="name">Собрать</span>
+          <span class="note">отбор лучших фрагментов</span>
+        </div>
+        <div class="st-arrow"><span>→</span></div>
+        <div class="st-box">
+          <span class="step">этап 02</span>
+          <span class="name">Хранить</span>
+          <span class="note">выдержка: смысл отлёживается, пока лишнее не отпадёт</span>
+        </div>
+        <div class="st-arrow"><span>→</span></div>
+        <div class="st-box">
+          <span class="step">этап 03</span>
+          <span class="name">Интеграция</span>
+          <span class="note">пересобрать смысл в новую идею</span>
+        </div>
+      </div>
+      <div class="st-flow-foot">
+        <div><b>вход</b>2000+ файлов, цитаты, чужие фильмы, английский</div>
+        <div><b>потери</b>всё, что не отзывается, отбрасывается без сожаления</div>
+        <div><b>выход</b>около 50 стихов, 31 в публикации, один канал</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ГЕРБАРИЙ -->
+  <div>
+    <div class="st-h">гербарий <span>/ шесть листов из пятидесяти</span></div>
+    <div class="st-panel">
+      <div class="st-herbs">
+
+        <figure class="st-herb">
+          <span class="st-pin" aria-hidden="true"></span>
+          <span class="st-herb-no">лист 01</span>
+          <span class="st-herb-stamp">без правки</span>
+          <blockquote>«Триумф воли – рисованный лезвием крест»</blockquote>
+          <figcaption>
+            <span class="st-herb-src"><a href="poem.html?id=1">Манифест</a></span>
+            <span class="st-herb-meta">№ 01 · 15.11.2024</span>
+          </figcaption>
+        </figure>
+
+        <figure class="st-herb">
+          <span class="st-pin" aria-hidden="true"></span>
+          <span class="st-herb-no">лист 02</span>
+          <blockquote>«Камни молчат, ведь слушают деревья»</blockquote>
+          <figcaption>
+            <span class="st-herb-src"><a href="poem.html?id=2">Петербург</a></span>
+            <span class="st-herb-meta">№ 02 · 28.09.2026</span>
+          </figcaption>
+        </figure>
+
+        <figure class="st-herb">
+          <span class="st-pin" aria-hidden="true"></span>
+          <span class="st-herb-no">лист 03</span>
+          <blockquote>«Луна полна, но мы с тобой пусты»</blockquote>
+          <figcaption>
+            <span class="st-herb-src"><a href="poem.html?id=3">Пусты</a></span>
+            <span class="st-herb-meta">№ 03 · 28.09.2026</span>
+          </figcaption>
+        </figure>
+
+        <figure class="st-herb">
+          <span class="st-pin" aria-hidden="true"></span>
+          <span class="st-herb-no">лист 04</span>
+          <blockquote>«Виртуальное счастье для всех»</blockquote>
+          <figcaption>
+            <span class="st-herb-src"><a href="poem.html?id=8">Быстрый дофамин</a></span>
+            <span class="st-herb-meta">№ 08 · 15.11.2024</span>
+          </figcaption>
+        </figure>
+
+        <figure class="st-herb">
+          <span class="st-pin" aria-hidden="true"></span>
+          <span class="st-herb-no">лист 05</span>
+          <span class="st-herb-stamp">без правки</span>
+          <blockquote>«Я верю, но это Ноев Титаник»</blockquote>
+          <figcaption>
+            <span class="st-herb-src"><a href="poem.html?id=9">Верь. Молись. Люби</a></span>
+            <span class="st-herb-meta">№ 09 · 03.11.2024</span>
+          </figcaption>
+        </figure>
+
+        <figure class="st-herb">
+          <span class="st-pin" aria-hidden="true"></span>
+          <span class="st-herb-no">лист 06</span>
+          <blockquote>«Как сотый раз, я в них опять застрял»</blockquote>
+          <figcaption>
+            <span class="st-herb-src"><a href="poem.html?id=16">Стены</a></span>
+            <span class="st-herb-meta">№ 16 · 03.11.2024</span>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+    <p class="st-cap">Листы собраны из собственных стихов. Чужие цитаты и мудрости — отдельный ящик, пока не расфасован.</p>
+  </div>
+
+  <div class="st-end">
+    <span>наблюдение</span>
+    <b>не прекращено</b>
+  </div>
+
+  <div class="st-actions">
+    <a href="index.html" class="y2k-btn cyan">← На главную</a>
+    <a href="bio.html" class="y2k-btn">Биография</a>
+    <a href="poems.html" class="y2k-btn">Стихи</a>
+  </div>
+
+</div>
+
+<footer>
+  <div>
+    <a href="mailto:Peydzh.work@yandex.ru">EMAIL</a>
+    <a href="https://t.me/LeVershina" target="_blank" rel="noopener">TELEGRAM</a>
+    <a href="https://stihi.ru/avtor/peydzh" target="_blank" rel="noopener">СТИХИ.РУ</a>
+  </div>
+  <p style="margin-top:1.5rem;">✦ © 2026 // Даулбаев Дамир ✦</p>
+  <p style="margin-top:.5rem;font-size:.8rem;opacity:.6;">Санкт-Петербург • Cokpym</p>
+</footer>
+
+<script>
+(function(){
+  var els = document.querySelectorAll('.st-eye, .st-glitch');
+  if (!els.length) return;
+  var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#$%&@!?*+=-/<>[]{}█▓▒░';
+  function rnd(n){
+    var s = '';
+    for (var i = 0; i < n; i++) s += CHARS.charAt(Math.floor(Math.random() * CHARS.length));
+    return s;
+  }
+  function tick(){
+    for (var i = 0; i < els.length; i++) {
+      var n = parseInt(els[i].getAttribute('data-len'), 10) || 10;
+      els[i].textContent = rnd(n);
+    }
+  }
+  tick();
+  setInterval(tick, 140);
+})();
+</script>
+</body>
+</html>
