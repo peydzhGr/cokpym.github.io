@@ -5,18 +5,113 @@
 <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon-180.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>СТИХ // COKPYM</title>
 <link rel="stylesheet" href="blog.css?v=13">
+<title>СТИХ // ВЕСТНИК GRICHTECH</title>
+<meta name="description" content="Статья из научного вестника GrichTech, серия «гуманитарные измерения».">
+<meta name="theme-color" content="#0b0c0f">
+<style>
+:root{
+  --bg:#0b0c0f;
+  --panel:#12141a;
+  --line:#272b34;
+  --ink:#e7e3d8;
+  --dim:#8a8f9c;
+  --red:#b8433a;
+  --gold:#c8a86a;
+}
+body{background:var(--bg);}
+body::before{display:none;}
+section{padding:0;max-width:none;margin:0;}
+
+/* ── шапка ── */
+.marquee-container{background:#0e1014 !important;border-bottom:1px solid var(--gold) !important;}
+.marquee{animation-duration:55s !important;}
+.marquee span{color:var(--gold) !important;text-shadow:none !important;letter-spacing:.18em;}
+nav{border-bottom:1px solid var(--line) !important;background:rgba(11,12,15,.96) !important;}
+nav a{color:var(--dim);}
+nav a:hover,nav a.active{color:var(--ink) !important;text-shadow:0 0 10px rgba(231,227,216,.25);}
+
+.wrap{max-width:860px;margin:0 auto;padding:0 1.1rem;position:relative;z-index:1;}
+
+/* ── колонтитул выпуска ── */
+.runhead{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  margin:2.4rem 0 0;padding:.7rem .2rem;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  font-family:'Orbitron',sans-serif;font-size:.5rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--dim);}
+.runhead b{color:var(--gold);font-weight:400;}
+
+/* ── шапка статьи ── */
+.art-head{padding:2.4rem 0 1.8rem;}
+.kicker{display:block;font-family:'Orbitron',sans-serif;font-size:.5rem;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--red);margin-bottom:1rem;}
+.art-head h1{font-family:'Courier Prime',monospace;font-weight:700;
+  font-size:clamp(1.7rem,5.4vw,2.6rem);line-height:1.2;letter-spacing:.01em;color:var(--ink);}
+.art-head .rule{height:1px;background:var(--line);margin:1.4rem 0 1rem;}
+.art-meta{display:flex;gap:1.4rem;flex-wrap:wrap;
+  font-family:'Courier Prime',monospace;font-size:.74rem;color:var(--dim);letter-spacing:.02em;}
+.art-meta b{color:var(--ink);font-weight:400;}
+
+/* ── текст ── */
+.stanzas{max-width:64ch;padding:1.6rem 0 1rem;
+  background:
+    linear-gradient(90deg,rgba(200,168,106,.12),rgba(200,168,106,.12)) left top/1px 100% no-repeat;
+  padding-left:1.6rem;}
+.st{margin:0 0 1.9rem;font-family:'Courier Prime',monospace;font-size:1.04rem;
+  line-height:1.95;color:#dcd8cd;letter-spacing:.01em;}
+.st:last-child{margin-bottom:0;}
+.st br{display:block;content:"";}
+
+.placeholder{display:block;font-family:'Courier Prime',monospace;font-style:italic;
+  font-size:.92rem;line-height:1.7;color:var(--dim);}
+.placeholder a{color:var(--gold);}
+
+/* ── низ статьи ── */
+.art-foot{display:flex;gap:.7rem;flex-wrap:wrap;margin:2.6rem 0 0;padding-top:1.6rem;
+  border-top:1px solid var(--line);}
+.btn{display:inline-block;padding:.7rem 1.2rem;border:1px solid var(--gold);color:var(--gold);
+  font-family:'Orbitron',sans-serif;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+  text-decoration:none;transition:all .3s;background:transparent;}
+.btn:hover{background:var(--gold);color:#0b0c0f;box-shadow:0 0 24px rgba(200,168,106,.4);}
+.btn.ghost{border-color:var(--line);color:var(--dim);}
+.btn.ghost:hover{background:#171a21;color:var(--ink);box-shadow:none;}
+
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);
+  border:1px solid var(--line);margin:2rem 0 3.5rem;}
+.pager a{display:block;padding:1rem 1.1rem;text-decoration:none;background:var(--panel);
+  transition:background .3s ease;}
+.pager a:hover{background:#171a21;}
+.pager .k{display:block;font-family:'Orbitron',sans-serif;font-size:.46rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--dim);margin-bottom:.4rem;}
+.pager .t{display:block;font-family:'Courier Prime',monospace;font-size:.92rem;color:var(--ink);}
+.pager a.next{text-align:right;}
+.pager a.empty{opacity:.35;pointer-events:none;}
+
+footer{background:linear-gradient(180deg,#0e1014,#0b0c0f) !important;border-top:1px solid var(--line) !important;}
+footer a{color:var(--gold) !important;}
+footer a:hover{color:#fff !important;}
+
+@media(max-width:760px){
+  .runhead{font-size:.44rem;letter-spacing:.16em;}
+  .art-head{padding:1.6rem 0 1.2rem;}
+  .stanzas{padding-left:1.1rem;}
+  .st{font-size:.98rem;line-height:1.85;margin-bottom:1.5rem;}
+  .pager{grid-template-columns:1fr;}
+  .pager a.next{text-align:left;}
+}
+</style>
 </head>
 <body>
 
-<div class="marquee-container"><div class="marquee">
-<span>✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦</span>
-<span>✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦</span>
-</div></div>
+<div class="marquee-container">
+  <div class="marquee">
+    <span>НАУЧНЫЙ ВЕСТНИК GRICHTECH // СЕРИЯ: ГУМАНИТАРНЫЕ ИЗМЕРЕНИЯ // ВЫПУСК 31 // ОТДЕЛЬНАЯ СТАТЬЯ // НАУЧНЫЙ ВЕСТНИК GRICHTECH // СЕРИЯ: ГУМАНИТАРНЫЕ ИЗМЕРЕНИЯ // ВЫПУСК 31 // ОТДЕЛЬНАЯ СТАТЬЯ //</span>
+    <span>НАУЧНЫЙ ВЕСТНИК GRICHTECH // СЕРИЯ: ГУМАНИТАРНЫЕ ИЗМЕРЕНИЯ // ВЫПУСК 31 // ОТДЕЛЬНАЯ СТАТЬЯ // НАУЧНЫЙ ВЕСТНИК GRICHTECH // СЕРИЯ: ГУМАНИТАРНЫЕ ИЗМЕРЕНИЯ // ВЫПУСК 31 // ОТДЕЛЬНАЯ СТАТЬЯ //</span>
+  </div>
+</div>
 
 <nav>
-  <a href="index.html" class="logo pink"><img src="logo-horiz-pink.png" alt="GrichTech" width="112" height="32"></a>
+  <a href="index.html" class="logo gold"><img src="logo-horiz-gold.png" alt="GrichTech" width="112" height="32"></a>
   <ul>
     <li><a href="index.html#about">Обо мне</a></li>
     <li><a href="poems.html" class="active">Стихи</a></li>
@@ -25,40 +120,43 @@
   </ul>
 </nav>
 
-<section class="hero small">
-  <div class="hero-content">
-    <h1 id="poem-title" class="page-title">ЗАГРУЗКА...</h1>
-    <p id="poem-meta" class="tagline">poem</p>
-  </div>
-</section>
+<div class="wrap">
 
-<section>
-  <div class="terminal-window">
-    <div class="terminal-header">
-      <div class="terminal-buttons">
-        <span class="terminal-btn red"></span>
-        <span class="terminal-btn yellow"></span>
-        <span class="terminal-btn green"></span>
+  <div class="runhead">
+    <span><b>Научный вестник GrichTech</b> · гуманитарные измерения</span>
+    <span>выпуск 31 · <b id="art-no">статья</b></span>
+  </div>
+
+  <article>
+    <header class="art-head">
+      <span class="kicker" id="poem-kicker">статья</span>
+      <h1 id="poem-title">ЗАГРУЗКА…</h1>
+      <div class="rule"></div>
+      <div class="art-meta">
+        <span id="poem-date"></span>
+        <span id="poem-lines"></span>
+        <span id="poem-cycle"></span>
       </div>
-      <span id="terminal-file" class="terminal-title">@cokpym:~/poems/00.txt</span>
-    </div>
-    <div class="terminal-body">
-      <p class="terminal-line">
-        <span class="prompt">root@cokpym:~$</span>
-        <span class="command">cat poem.txt</span>
-      </p>
+    </header>
 
-      <div id="poem-text" class="poem-text"></div>
+    <div class="stanzas" id="poem-text"></div>
 
-      <a href="poems.html" class="y2k-btn">← Все стихи</a>
-      <a href="https://stihi.ru/avtor/peydzh" target="_blank" rel="noopener" class="y2k-btn cyan">Stihi.ru</a>
+    <div class="art-foot">
+      <a href="poems.html" class="btn ghost">← к содержанию выпуска</a>
+      <a href="https://stihi.ru/avtor/peydzh" target="_blank" rel="noopener" class="btn">архив на Stihi.ru →</a>
     </div>
-  </div>
-</section>
+
+    <div class="pager">
+      <a class="prev empty" id="prev-link" href="#"><span class="k">предыдущая статья</span><span class="t">—</span></a>
+      <a class="next empty" id="next-link" href="#"><span class="k">следующая статья</span><span class="t">—</span></a>
+    </div>
+  </article>
+
+</div>
 
 <footer>
-  <div class="site-brand pink">
-    <img src="logo-horiz-pink.png" alt="GrichTech">
+  <div class="site-brand gold">
+    <img src="logo-horiz-gold.png" alt="GrichTech">
     <span class="site-brand-cap">лаборатория H-04</span>
   </div>
   <div>
@@ -67,7 +165,7 @@
     <a href="https://stihi.ru/avtor/peydzh" target="_blank" rel="noopener">СТИХИ.РУ</a>
   </div>
   <p style="margin-top:1.5rem;">✦ © 2026 // Даулбаев Дамир ✦</p>
-  <p style="margin-top:.5rem;font-size:.8rem;opacity:.6;">санкт-петербург • Cokpym</p>
+  <p style="margin-top:.5rem;font-size:.8rem;opacity:.6;">Санкт-Петербург • Cokpym</p>
 </footer>
 
 <script src="poems-data.js"></script>
@@ -78,45 +176,104 @@
   var poems = window.POEMS || [];
   var poem = null;
 
-  for(var i=0;i<poems.length;i++){
-    if(poems[i].id === id){
-      poem = poems[i];
-      break;
-    }
+  for (var i = 0; i < poems.length; i++) {
+    if (poems[i].id === id) { poem = poems[i]; break; }
   }
 
-  var titleEl = document.getElementById('poem-title');
-  var metaEl = document.getElementById('poem-meta');
-  var fileEl = document.getElementById('terminal-file');
-  var textEl = document.getElementById('poem-text');
+  var titleEl  = document.getElementById('poem-title');
+  var kickerEl = document.getElementById('poem-kicker');
+  var dateEl   = document.getElementById('poem-date');
+  var linesEl  = document.getElementById('poem-lines');
+  var cycleEl  = document.getElementById('poem-cycle');
+  var textEl   = document.getElementById('poem-text');
+  var artNo    = document.getElementById('art-no');
 
-  if(!poem){
-    document.title = 'СТИХ НЕ НАЙДЕН // COKPYM';
-    titleEl.textContent = 'ОШИБКА 404';
-    metaEl.textContent = 'poem not found';
-    fileEl.textContent = '@cokpym:~/poems/error.txt';
-    textEl.innerHTML = '<span class="placeholder">Стих с таким id не найден. Вернись к <a href="poems.html" style="color:var(--cyan);">списку стихов</a>.</span>';
+  if (!poem) {
+    document.title = 'СТАТЬЯ НЕ НАЙДЕНА // ВЕСТНИК GRICHTECH';
+    kickerEl.textContent = 'выпуск 31 · ошибка';
+    titleEl.textContent = 'Страница не найдена';
+    textEl.innerHTML = '<span class="placeholder">В этом выпуске нет статьи с таким номером. Вернись к <a href="poems.html">содержанию</a>.</span>';
     return;
   }
 
-  document.title = poem.title + ' // COKPYM';
+  var num = String(poem.id).padStart(2, '0');
+  document.title = poem.title + ' // ВЕСТНИК GRICHTECH';
+  artNo.textContent = 'статья ' + num;
+  kickerEl.textContent = 'статья № ' + num + (poem.category ? ' · ' + poem.category : '');
   titleEl.textContent = poem.title;
-  metaEl.textContent = (poem.cycle ? poem.cycle + ' • ' : '') + (poem.category || '') + (poem.date ? ' • ' + poem.date : '');
-  fileEl.textContent = '@cokpym:~/poems/' + String(poem.id).padStart(2,'0') + '.txt';
+  if (poem.date) dateEl.textContent = poem.date;
+  if (poem.cycle) cycleEl.textContent = 'цикл: ' + poem.cycle;
 
-  if(poem.status === 'soon'){
-    textEl.innerHTML = '<span class="placeholder">Этот слот зарезервирован под будущий выпуск. Название и текст появятся здесь.</span>';
+  /* ── разбивка на четверостишья ── */
+  function stanzasOf(text){
+    var raw = String(text).replace(/\r\n?/g, '\n');
+    var blocks = raw.split(/\n\s*\n/);      // авторские разрывы сохраняем
+    var chunks = [];
+    blocks.forEach(function(block){
+      var lines = block.split('\n')
+        .map(function(s){ return s.replace(/\s+$/, ''); })
+        .filter(function(s){ return s.trim() !== ''; });
+      if (!lines.length) return;
+      for (var i = 0; i < lines.length; i += 4) {
+        chunks.push(lines.slice(i, i + 4));
+      }
+    });
+    return chunks;
+  }
+
+  function renderChunks(chunks){
+    textEl.innerHTML = '';
+    chunks.forEach(function(lines){
+      var p = document.createElement('p');
+      p.className = 'st';
+      lines.forEach(function(line, idx){
+        if (idx) p.appendChild(document.createElement('br'));
+        p.appendChild(document.createTextNode(line));
+      });
+      textEl.appendChild(p);
+    });
+  }
+
+  if (poem.status === 'soon') {
+    textEl.innerHTML = '<span class="placeholder">Работа принята в портфель редакции, но пока не набрана. Текст появится здесь.</span>';
     return;
   }
 
-  if(!poem.text){
-    textEl.innerHTML = '<span class="placeholder">Текст ещё не перенесён в блог. Добавь его в файл <b>poems-data.js</b> в поле <b>text</b> у стиха id=' + poem.id + '.</span>';
+  if (!poem.text) {
+    textEl.innerHTML = '<span class="placeholder">Текст ещё не перенесён в вестник. Добавь его в <b>poems-data.js</b> в поле <b>text</b> у работы id=' + poem.id + '.</span>';
     return;
   }
 
-  textEl.textContent = poem.text;
+  var chunks = stanzasOf(poem.text);
+  renderChunks(chunks);
+
+  var totalLines = 0;
+  chunks.forEach(function(c){ totalLines += c.length; });
+  linesEl.textContent = totalLines + ' ' + plural(totalLines);
+
+  function plural(n){
+    var m10 = n % 10, m100 = n % 100;
+    if (m10 === 1 && m100 !== 11) return 'строка';
+    if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) return 'строки';
+    return 'строк';
+  }
+
+  /* ── соседние статьи ── */
+  var idx = poems.indexOf(poem);
+
+  function fillPager(el, other, dir){
+    if (!other) return;
+    el.classList.remove('empty');
+    el.href = 'poem.html?id=' + other.id;
+    el.querySelector('.k').textContent = dir === 'prev' ? 'предыдущая статья' : 'следующая статья';
+    el.querySelector('.t').textContent =
+      (dir === 'prev' ? '← ' : '') + String(other.id).padStart(2, '0') + ' · ' + other.title +
+      (dir === 'next' ? ' →' : '');
+  }
+
+  fillPager(document.getElementById('prev-link'), poems[idx - 1], 'prev');
+  fillPager(document.getElementById('next-link'), poems[idx + 1], 'next');
 })();
 </script>
-
 </body>
 </html>

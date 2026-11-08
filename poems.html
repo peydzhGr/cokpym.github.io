@@ -1,25 +1,164 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta name="description" content="Стихи COKPYM. Коллекция текстов, цикл Путь клятвы и авторская позиция.">
-<meta property="og:title" content="СТИХИ // COKPYM">
-<meta property="og:description" content="Коллекция текстов и отдельный цикл Путь клятвы.">
 <meta charset="UTF-8">
 <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon-180.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>СТИХИ // COKPYM</title>
 <link rel="stylesheet" href="blog.css?v=13">
+<title>ВЕСТНИК GRICHTECH // СТИХИ</title>
+<meta name="description" content="Научный вестник GrichTech, серия «гуманитарные измерения». Выпуск 31: содержание номера и приложение «Путь клятвы».">
+<meta property="og:title" content="ВЕСТНИК GRICHTECH // СТИХИ">
+<meta property="og:description" content="Серия «гуманитарные измерения». Выпуск 31 — содержание номера.">
+<style>
+:root{
+  --bg:#0b0c0f;
+  --panel:#12141a;
+  --panel2:#16181f;
+  --line:#272b34;
+  --ink:#e7e3d8;
+  --dim:#8a8f9c;
+  --red:#b8433a;
+  --gold:#c8a86a;
+}
+body{background:var(--bg);}
+body::before{display:none;}
+section{padding:0;max-width:none;margin:0;}
+
+/* ── шапка ── */
+.marquee-container{background:#0e1014 !important;border-bottom:1px solid var(--gold) !important;}
+.marquee{animation-duration:55s !important;}
+.marquee span{color:var(--gold) !important;text-shadow:none !important;letter-spacing:.18em;}
+nav{border-bottom:1px solid var(--line) !important;background:rgba(11,12,15,.96) !important;}
+nav a{color:var(--dim);}
+nav a:hover,nav a.active{color:var(--ink) !important;text-shadow:0 0 10px rgba(231,227,216,.25);}
+
+.wrap{max-width:1120px;margin:0 auto;padding:0 1.1rem;position:relative;z-index:1;}
+.sec-h{display:flex;align-items:center;gap:.9rem;font-family:'Orbitron',sans-serif;font-size:.58rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin:0 0 1rem;}
+.sec-h::before{content:"";width:22px;height:1px;background:var(--gold);flex:0 0 auto;}
+.sec-h em{font-style:normal;color:#5b606b;letter-spacing:.16em;}
+
+/* ── обложка ── */
+.cover-wrap{padding:3.4rem 1rem 2.6rem;position:relative;z-index:1;}
+.cover{position:relative;max-width:760px;margin:0 auto;padding:2.2rem 2rem 2.4rem;
+  background:linear-gradient(180deg,#14161d,#0d0f14);
+  border:1px solid var(--line);
+  box-shadow:0 26px 70px rgba(0,0,0,.75),inset 0 0 0 1px rgba(200,168,106,.12);}
+.cover::before{content:"";position:absolute;inset:10px;border:1px solid rgba(200,168,106,.22);pointer-events:none;}
+.cover-top{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  font-family:'Orbitron',sans-serif;font-size:.5rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--dim);padding-bottom:1.1rem;border-bottom:1px solid var(--line);margin-bottom:1.6rem;}
+.cover-top b{color:var(--gold);font-weight:400;}
+.masthead{font-family:'Orbitron',sans-serif;font-size:clamp(1.5rem,5.6vw,2.6rem);font-weight:900;
+  letter-spacing:.16em;color:var(--ink);text-transform:uppercase;line-height:1.1;}
+.masthead-sub{display:block;margin-top:.5rem;font-family:'Orbitron',sans-serif;
+  font-size:clamp(.7rem,2.4vw,1rem);letter-spacing:.42em;color:var(--gold);text-transform:uppercase;}
+.series{margin-top:1.3rem;font-family:'Courier Prime',monospace;font-size:.8rem;color:var(--dim);
+  letter-spacing:.06em;line-height:1.7;}
+.series b{color:var(--ink);font-weight:400;}
+.issue{margin-top:1.6rem;padding-top:1.1rem;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  font-family:'Courier Prime',monospace;font-size:.78rem;color:var(--dim);}
+.issue b{color:var(--ink);font-weight:400;}
+.stamp{position:absolute;right:1.6rem;bottom:1.4rem;transform:rotate(-9deg);
+  border:2px solid var(--red);color:var(--red);padding:.32rem .7rem;
+  font-family:'Orbitron',sans-serif;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;
+  opacity:.8;background:rgba(184,67,58,.06);}
+
+/* ── содержание ── */
+.toc-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 2.6rem;}
+.toc{border-top:1px solid var(--line);}
+.art{display:grid;grid-template-columns:40px 1fr auto;gap:.9rem;align-items:start;
+  padding:.9rem .2rem;border-bottom:1px solid var(--line);
+  text-decoration:none;color:var(--ink);transition:background .25s ease,padding-left .25s ease;}
+.art:hover{background:rgba(200,168,106,.05);padding-left:.6rem;}
+.art-n{font-family:'Courier Prime',monospace;font-size:.74rem;color:var(--dim);letter-spacing:.06em;padding-top:.2rem;}
+.art-body{display:block;min-width:0;}
+.art-title{display:block;font-family:'Courier Prime',monospace;font-size:1.02rem;line-height:1.35;
+  color:var(--ink);letter-spacing:.01em;}
+.art:hover .art-title{color:var(--gold);}
+.art-abs{display:block;margin-top:.34rem;font-family:'Courier Prime',monospace;font-style:italic;
+  font-size:.78rem;line-height:1.45;color:#9aa0ac;}
+.art-meta{display:block;margin-top:.4rem;font-family:'Orbitron',sans-serif;font-size:.45rem;
+  letter-spacing:.2em;text-transform:uppercase;color:#5f6470;}
+.art-date{font-family:'Courier Prime',monospace;font-size:.68rem;color:var(--dim);
+  white-space:nowrap;padding-top:.25rem;}
+
+/* ── приложение ── */
+.appx{margin-top:2.4rem;}
+.appx-tag{display:inline-block;margin-bottom:1rem;padding:.35rem .7rem;
+  border:1px solid rgba(184,67,58,.45);background:rgba(184,67,58,.07);
+  font-family:'Orbitron',sans-serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;
+  color:#c97168;}
+
+/* ── портфель редакции ── */
+.port{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);margin-top:1.2rem;}
+.port div{background:var(--panel);padding:1rem 1.1rem;}
+.port span{display:block;font-family:'Orbitron',sans-serif;font-size:.48rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--dim);}
+.port b{display:block;margin-top:.45rem;font-family:'Courier Prime',monospace;font-size:1.5rem;
+  color:var(--ink);font-weight:400;}
+.port div.red b{color:var(--red);}
+
+/* ── автор ── */
+.author{display:grid;grid-template-columns:160px 1fr;gap:1.5rem;align-items:center;
+  border:1px solid var(--line);padding:1.3rem;background:linear-gradient(180deg,#12141a,#0d0f14);
+  margin-top:1.2rem;}
+.author-photo{position:relative;aspect-ratio:1;border:1px solid var(--line);background:#07080b;
+  overflow:hidden;display:grid;place-items:center;}
+.author-photo video{width:100%;height:100%;object-fit:cover;display:block;}
+.author-photo::after{content:"фото автора";position:absolute;bottom:4px;left:0;right:0;text-align:center;
+  font-family:'Orbitron',sans-serif;font-size:.4rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(200,168,106,.32);}
+.author-label{font-family:'Orbitron',sans-serif;font-size:.48rem;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--dim);}
+.author h2{font-family:'Orbitron',sans-serif;font-size:1.22rem;letter-spacing:.1em;color:var(--ink);
+  text-transform:uppercase;margin:.35rem 0 .6rem;}
+.author-quote{font-family:'Courier Prime',monospace;font-style:italic;font-size:1rem;
+  color:var(--gold);margin-bottom:.9rem;}
+.author-aff{font-family:'Courier Prime',monospace;font-size:.76rem;color:var(--dim);line-height:1.6;}
+
+/* ── низ ── */
+.actions{display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center;margin:2.6rem 0 3.5rem;}
+.btn{display:inline-block;padding:.72rem 1.25rem;border:1px solid var(--gold);color:var(--gold);
+  font-family:'Orbitron',sans-serif;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;
+  text-decoration:none;transition:all .3s;background:transparent;}
+.btn:hover{background:var(--gold);color:#0b0c0f;box-shadow:0 0 24px rgba(200,168,106,.4);}
+.btn.ghost{border-color:var(--line);color:var(--dim);}
+.btn.ghost:hover{background:#171a21;color:var(--ink);box-shadow:none;}
+
+footer{background:linear-gradient(180deg,#0e1014,#0b0c0f) !important;border-top:1px solid var(--line) !important;}
+footer a{color:var(--gold) !important;}
+footer a:hover{color:#fff !important;}
+
+@media(max-width:760px){
+  .cover-wrap{padding:2.2rem .8rem 1.8rem;}
+  .cover{padding:1.4rem 1.1rem 1.6rem;}
+  .stamp{position:static;display:inline-block;margin-top:1.2rem;transform:rotate(-4deg);}
+  .toc-cols{grid-template-columns:1fr;gap:0;}
+  .art{grid-template-columns:34px 1fr;row-gap:.2rem;padding:.75rem .1rem;}
+  .art-date{grid-column:2;color:#6b707c;padding-top:0;}
+  .art-title{font-size:.98rem;}
+  .art-abs{font-size:.75rem;}
+  .port{grid-template-columns:1fr;}
+  .author{grid-template-columns:1fr;gap:1rem;padding:1rem;}
+  .author-photo{max-width:160px;margin:0 auto;}
+}
+</style>
 </head>
 <body>
 
-<div class="marquee-container"><div class="marquee">
-<span>✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦</span>
-<span>✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦ КАМБЭК В ЖИЗНЬ...... СКОРО ✦</span>
-</div></div>
+<div class="marquee-container">
+  <div class="marquee">
+    <span>НАУЧНЫЙ ВЕСТНИК GRICHTECH // СЕРИЯ: ГУМАНИТАРНЫЕ ИЗМЕРЕНИЯ // ВЫПУСК 31 // ПРИНЯТО 31 // В ПОРТФЕЛЕ 19 // НАУЧНЫЙ ВЕСТНИК GRICHTECH // СЕРИЯ: ГУМАНИТАРНЫЕ ИЗМЕРЕНИЯ // ВЫПУСК 31 // ПРИНЯТО 31 // В ПОРТФЕЛЕ 19 //</span>
+    <span>НАУЧНЫЙ ВЕСТНИК GRICHTECH // СЕРИЯ: ГУМАНИТАРНЫЕ ИЗМЕРЕНИЯ // ВЫПУСК 31 // ПРИНЯТО 31 // В ПОРТФЕЛЕ 19 // НАУЧНЫЙ ВЕСТНИК GRICHTECH // СЕРИЯ: ГУМАНИТАРНЫЕ ИЗМЕРЕНИЯ // ВЫПУСК 31 // ПРИНЯТО 31 // В ПОРТФЕЛЕ 19 //</span>
+  </div>
+</div>
 
 <nav>
-  <a href="index.html" class="logo pink"><img src="logo-horiz-pink.png" alt="GrichTech" width="112" height="32"></a>
+  <a href="index.html" class="logo gold"><img src="logo-horiz-gold.png" alt="GrichTech" width="112" height="32"></a>
   <ul>
     <li><a href="index.html#about">Обо мне</a></li>
     <li><a href="poems.html" class="active">Стихи</a></li>
@@ -28,111 +167,103 @@
   </ul>
 </nav>
 
-<section class="hero">
-  <div class="hero-content">
-    <h1 class="page-title">СТИХИ</h1>
-    <p class="tagline">коллекция текстов</p>
+<div class="cover-wrap">
+  <div class="cover">
+    <div class="cover-top">
+      <span><b>GrichTech</b> · лаборатория H-04</span>
+      <span>индекс издания 31-04</span>
+    </div>
+
+    <h1 class="masthead">Научный вестник
+      <span class="masthead-sub">GrichTech</span>
+    </h1>
+
+    <p class="series">
+      Серия: <b>гуманитарные измерения</b><br>
+      Раздел: поэтические модели поведения<br>
+      Периодичность: по мере написания
+    </p>
+
+    <div class="issue">
+      <span>Том I · <b>Выпуск 31</b></span>
+      <span><b id="cover-count">31</b> работа принята к публикации</span>
+      <span>2026</span>
+    </div>
+
+    <div class="stamp">принято к публикации</div>
   </div>
-</section>
-
-<section>
-  <div class="terminal-window">
-    <div class="terminal-header">
-      <div class="terminal-buttons">
-        <span class="terminal-btn red"></span>
-        <span class="terminal-btn yellow"></span>
-        <span class="terminal-btn green"></span>
-      </div>
-      <span class="terminal-title">@cokpym:~/poems/author</span>
-    </div>
-    <div class="terminal-body author-grid">
-      <div class="author-info">
-        <p class="terminal-line">
-          <span class="prompt">root@cokpym:~$</span>
-          <span class="command">cat author.txt</span>
-        </p>
-        <p class="terminal-output author-name">
-          Даулбаев Дамир
-        </p>
-        <p class="author-quote">Моя свобода любит цепи</p>
-        <p class="terminal-output">
-          Всего: <span id="poems-total">0</span> • Доступно: <span id="poems-available">0</span> • Готовится: <span id="poems-soon">0</span>
-        </p>
-      </div>
-
-      <div class="author-media">
-        <video
-          class="author-video"
-          src="eyes.mp4"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="auto"
-        ></video>
-      </div>
-    </div>
-  </div>
-
-  <div class="terminal-window system-block">
-    <div class="terminal-header">
-      <div class="terminal-buttons">
-        <span class="terminal-btn red"></span>
-        <span class="terminal-btn yellow"></span>
-        <span class="terminal-btn green"></span>
-      </div>
-      <span class="terminal-title">@cokpym:~/investigation</span>
-    </div>
-    <div class="terminal-body">
-      <div class="system-load">
-
-        <div class="loading-row">
-  <span class="loading-label" data-text="Следствие проводит лингвистический анализ материалов сайта">Следствие проводит лингвистический анализ материалов сайта</span>
-  <span class="load-dots" data-text="...">...</span>
 </div>
 
-        <div class="loading-track"><div class="loading-bar"></div></div>
+<div class="wrap">
+
+  <!-- СОДЕРЖАНИЕ -->
+  <section>
+    <div class="sec-h">содержание <em>/ выпуск 31</em></div>
+    <div class="toc-cols">
+      <div class="toc" id="toc-main-a"></div>
+      <div class="toc" id="toc-main-b"></div>
+    </div>
+  </section>
+
+  <!-- ПРИЛОЖЕНИЕ -->
+  <section class="appx">
+    <div class="sec-h">приложение <em>/ отдельный цикл</em></div>
+    <span class="appx-tag">Путь клятвы · не пересекается с основным выпуском</span>
+    <div class="toc-cols">
+      <div class="toc" id="toc-oath-a"></div>
+      <div class="toc" id="toc-oath-b"></div>
+    </div>
+  </section>
+
+  <!-- ПОРТФЕЛЬ -->
+  <section style="margin-top:2.6rem;">
+    <div class="sec-h">редакционный портфель</div>
+    <div class="port">
+      <div>
+        <span>всего работ</span>
+        <b id="port-total">50</b>
+      </div>
+      <div>
+        <span>принято к публикации</span>
+        <b id="port-ready">31</b>
+      </div>
+      <div class="red">
+        <span>осталось в портфеле</span>
+        <b id="port-left">19</b>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="terminal-window">
-    <div class="terminal-header">
-      <div class="terminal-buttons">
-        <span class="terminal-btn red"></span>
-        <span class="terminal-btn yellow"></span>
-        <span class="terminal-btn green"></span>
+  <!-- АВТОР -->
+  <section style="margin-top:2.6rem;">
+    <div class="sec-h">автор выпуска</div>
+    <div class="author">
+      <div class="author-photo">
+        <video src="eyes.mp4" autoplay muted loop playsinline preload="auto" onerror="this.style.display='none'"></video>
       </div>
-      <span class="terminal-title">@cokpym:~/poems/list</span>
+      <div>
+        <span class="author-label">единственный автор и рецензент</span>
+        <h2>Даулбаев Дамир</h2>
+        <p class="author-quote">«Моя свобода любит цепи»</p>
+        <p class="author-aff">
+          GrichTech, лаборатория H-04, сектор гуманитарных измерений.<br>
+          Работает с 2018 года. Публикует выборочно.
+        </p>
+      </div>
     </div>
-    <div class="terminal-body">
-      <p class="terminal-line">
-        <span class="prompt">root@cokpym:~$</span>
-        <span class="command">ls -la poems/</span>
-      </p>
-      <p class="terminal-output">
-        А пока ознакомьтесь со стихами:
-      </p>
+  </section>
 
-     <div id="poem-list-main" class="poem-list"></div>
-
-<h3 class="cycle-heading">Путь клятвы</h3>
-<p class="cycle-note">Отдельный цикл с историей. Не пересекается с основной коллекцией.</p>
-<div id="poem-list-oath" class="poem-list"></div>
-
-      <p class="terminal-line" style="margin-top:2rem;">
-        <span class="prompt">root@cokpym:~$</span>
-        <span class="command">echo "Больше стихов скоро..."</span>
-      </p>
-    </div>
+  <div class="actions">
+    <a href="index.html" class="btn ghost">← На главную</a>
+    <a href="hobbies.html" class="btn ghost">Увлечения</a>
+    <a href="https://stihi.ru/avtor/peydzh" target="_blank" rel="noopener" class="btn">Архив на Stihi.ru →</a>
   </div>
 
-  <a href="index.html" class="y2k-btn cyan">← На главную</a>
-</section>
+</div>
 
 <footer>
-  <div class="site-brand pink">
-    <img src="logo-horiz-pink.png" alt="GrichTech">
+  <div class="site-brand gold">
+    <img src="logo-horiz-gold.png" alt="GrichTech">
     <span class="site-brand-cap">лаборатория H-04</span>
   </div>
   <div>
@@ -141,72 +272,100 @@
     <a href="https://stihi.ru/avtor/peydzh" target="_blank" rel="noopener">СТИХИ.РУ</a>
   </div>
   <p style="margin-top:1.5rem;">✦ © 2026 // Даулбаев Дамир ✦</p>
-  <p style="margin-top:.5rem;font-size:.8rem;opacity:.6;">санкт-петербург • Cokpym</p>
+  <p style="margin-top:.5rem;font-size:.8rem;opacity:.6;">Санкт-Петербург • Cokpym</p>
 </footer>
 
 <script src="poems-data.js"></script>
 <script>
 (function(){
-  var poems = window.POEMS || [];
-  var mainList = document.getElementById('poem-list-main');
-  var oathList = document.getElementById('poem-list-oath');
-  var totalEl = document.getElementById('poems-total');
-  var availEl = document.getElementById('poems-available');
-  var soonEl = document.getElementById('poems-soon');
+  var poems = (window.POEMS || []).filter(function(p){ return p && p.status !== 'soon'; });
+  if (!poems.length) return;
 
-  var mainPoems = poems.filter(function(p){
-    return p.cycle !== 'Путь клятвы';
-  });
+  var TOTAL = 50;
+  var ready = poems.length;
+  var left = Math.max(0, TOTAL - ready);
 
-  var oathPoems = poems.filter(function(p){
-    return p.cycle === 'Путь клятвы';
-  });
-
-  var available = poems.filter(function(p){
-    return p.status !== 'soon';
-  }).length;
-
-  var soon = poems.filter(function(p){
-    return p.status === 'soon';
-  }).length;
-
-  totalEl.textContent = poems.length;
-  availEl.textContent = available;
-  soonEl.textContent = soon;
-
-  function renderPoems(list, container){
-    list.forEach(function(p){
-      var isSoon = p.status === 'soon';
-      var el = document.createElement(isSoon ? 'div' : 'a');
-      el.className = 'poem-item' + (isSoon ? ' soon' : '');
-
-      if(!isSoon){
-        el.href = 'poem.html?id=' + p.id;
-      }
-
-      var idSpan = document.createElement('span');
-      idSpan.className = 'poem-id';
-      idSpan.textContent = '[' + String(p.id).padStart(2,'0') + ']';
-
-      var titleSpan = document.createElement('span');
-      titleSpan.className = 'poem-title';
-      titleSpan.textContent = p.title;
-
-      var metaSpan = document.createElement('span');
-      metaSpan.className = 'poem-meta';
-      metaSpan.textContent = (p.cycle ? p.cycle + ' • ' : '') + (p.category || '') + (p.date ? ' • ' + p.date : '');
-
-      el.appendChild(idSpan);
-      el.appendChild(titleSpan);
-      el.appendChild(metaSpan);
-      container.appendChild(el);
-    });
+  function lineCount(p){
+    return String(p.text || '').split(/\r?\n/).filter(function(s){ return s.trim(); }).length;
+  }
+  function linesWord(n){
+    var m10 = n % 10, m100 = n % 100;
+    if (m10 === 1 && m100 !== 11) return 'строка';
+    if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) return 'строки';
+    return 'строк';
+  }
+  function abstract(p){
+    var first = String(p.text || '').split(/\r?\n/)
+      .map(function(s){ return s.trim(); })
+      .filter(Boolean)[0] || '';
+    first = first.replace(/^[«»"'\-–—\s]+/, '').replace(/[.,;:!?]+$/, '');
+    if (first.length > 86) {
+      first = first.slice(0, 83).replace(/\s+\S*$/, '') + '…';
+    }
+    return first ? '«' + first + '»' : '';
   }
 
-  renderPoems(mainPoems, mainList);
-  renderPoems(oathPoems, oathList);
+  function article(p){
+    var a = document.createElement('a');
+    a.className = 'art';
+    a.href = 'poem.html?id=' + p.id;
+    a.setAttribute('aria-label', 'Работа: ' + p.title);
+
+    var n = document.createElement('span');
+    n.className = 'art-n';
+    n.textContent = String(p.id).padStart(2, '0');
+
+    var body = document.createElement('span');
+    body.className = 'art-body';
+
+    var t = document.createElement('span');
+    t.className = 'art-title';
+    t.textContent = p.title;
+    body.appendChild(t);
+
+    var abs = abstract(p);
+    if (abs) {
+      var ab = document.createElement('span');
+      ab.className = 'art-abs';
+      ab.textContent = abs;
+      body.appendChild(ab);
+    }
+
+    var meta = document.createElement('span');
+    meta.className = 'art-meta';
+    var lc = lineCount(p);
+    meta.textContent = (p.category || 'без рубрики') + (lc ? ' · ' + lc + ' ' + linesWord(lc) : '');
+    body.appendChild(meta);
+
+    var date = document.createElement('span');
+    date.className = 'art-date';
+    date.textContent = p.date || '';
+
+    a.appendChild(n); a.appendChild(body); a.appendChild(date);
+    return a;
+  }
+
+  var mainList = poems.filter(function(p){ return p.cycle !== 'Путь клятвы'; });
+  var oathList = poems.filter(function(p){ return p.cycle === 'Путь клятвы'; });
+
+  function fill(list, idA, idB){
+    var a = document.getElementById(idA);
+    var b = document.getElementById(idB);
+    if (!a || !b) return;
+    if (!list.length) return;
+    var half = Math.ceil(list.length / 2);
+    list.slice(0, half).forEach(function(p){ a.appendChild(article(p)); });
+    list.slice(half).forEach(function(p){ b.appendChild(article(p)); });
+  }
+
+  fill(mainList, 'toc-main-a', 'toc-main-b');
+  fill(oathList, 'toc-oath-a', 'toc-oath-b');
+
+  document.getElementById('cover-count').textContent = ready;
+  document.getElementById('port-total').textContent = TOTAL;
+  document.getElementById('port-ready').textContent = ready;
+  document.getElementById('port-left').textContent = left;
 })();
 </script>
-
 </body>
 </html>
